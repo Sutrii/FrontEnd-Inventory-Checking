@@ -30,19 +30,19 @@ const NavigationBar = () => {
           </Navbar.Brand>
           <Nav className="flex align-items-center ">
             <NavLink
-              href="#home"
+              to="/home"
               className="mx-3 text-white poppins-regular text-xs"
             >
               Home
             </NavLink>
             <NavLink
-              href="#features"
+              to="/about"
               className="mx-3 text-white poppins-regular text-xs"
             >
               About Us
             </NavLink>
             <NavLink
-              href="#pricing"
+              to="/sign-in"
               className="mx-3 text-white poppins-regular text-xs"
             >
               Sign In
