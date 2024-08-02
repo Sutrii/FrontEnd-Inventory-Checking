@@ -1,7 +1,12 @@
-const Login = ({}) => {
+import React from "react";
+import Navbar from "../Components/Navbar";
+
+const Login = () => {
   return (
-    <div id="Parent" className="">
-      <span>Ini Login</span>
+    <div className="bg-slate-100">
+      <Navbar />
     </div>
   );
 };
+
+export default Login;
