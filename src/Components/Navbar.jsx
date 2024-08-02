@@ -4,6 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../assets/img/logo-pelindo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { NavLink } from "react-router-dom";
 
 const NavigationBar = () => {
   return (
@@ -19,7 +20,7 @@ const NavigationBar = () => {
         variant="dark"
       >
         <Container className="d-flex justify-content-between align-items-center">
-          <Navbar.Brand href="#home" className="d-flex align-items-center">
+          <Navbar.Brand href="#home" className="d-flex align-items-start">
             <img
               src={logo}
               alt="PELINDO logo"
@@ -27,16 +28,25 @@ const NavigationBar = () => {
               className="d-inline-block align-top"
             />
           </Navbar.Brand>
-          <Nav className="mx-auto">
-            <Nav.Link href="#home" className="text-white mx-3">
+          <Nav className="flex align-items-center ">
+            <NavLink
+              href="#home"
+              className="mx-3 text-white poppins-regular text-xs"
+            >
               Home
-            </Nav.Link>
-            <Nav.Link href="#features" className="text-white mx-3">
+            </NavLink>
+            <NavLink
+              href="#features"
+              className="mx-3 text-white poppins-regular text-xs"
+            >
               About Us
-            </Nav.Link>
-            <Nav.Link href="#pricing" className="text-white mx-3">
+            </NavLink>
+            <NavLink
+              href="#pricing"
+              className="mx-3 text-white poppins-regular text-xs"
+            >
               Sign In
-            </Nav.Link>
+            </NavLink>
           </Nav>
         </Container>
       </Navbar>
