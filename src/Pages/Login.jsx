@@ -26,63 +26,71 @@ const Login = () => {
       <div className="relative z-10">
         <NavigationBar />
       </div>
-      <div className="relative z-10 flex items-center justify-center h-full tracking-wide">
-        <div className="flex-1 text-center">
-          <h1 className="poppins-semibold text-4xl">Inventory Dashboard</h1>
-          <div className="pt-4 poppins-regular text-2xl space-y-1">
-            <p>Divisi Teknologi Informasi</p>
-            <p>PT Pelindo Multi Terminal</p>
-          </div>
+      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center h-full px-4">
+        <div className="text-center mb-6 md:mb-0 md:w-1/2 md:ml-12 md:mt-[-5%]">
+          <h1 className="poppins-semibold text-2xl md:text-3xl uppercase font-bold mb-1 tracking-widest">
+            Inventory Dashboard
+          </h1>
+          <h1 className="poppins-semibold text-2xl md:text-3xl uppercase font-bold mb-1 tracking-widest">
+            Divisi Teknologi Informasi
+          </h1>
+          <h1 className="poppins-semibold text-2xl md:text-3xl uppercase font-bold tracking-widest">
+            PT Pelindo Multi Terminal
+          </h1>
         </div>
-        <div className="flex-1 flex items-center justify-center">
-          <form className="bg-white px-4 py-5 rounded-lg shadow-lg w-[80%] max-w-md">
-            <div className="text-center mb-4">
+        <div className="md:w-1/2 flex items-center justify-center mt-[-5%]">
+          <form className="bg-white px-4 py-6 rounded-3xl shadow-lg w-full max-w-sm">
+            <div className="text-center mb-6">
               <img
                 src={logo}
                 alt="PELINDO logo"
-                className="h-10 w-auto mx-auto"
+                className="h-8 w-auto mx-auto"
+                style={{ marginTop: '0.5rem' }} // Menurunkan posisi logo
               />
+              <p className="text-[#919191] font-semibold mt-4">Sign in to your Inventory Dashboard</p>
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="block mb-2 text-black">
-                Email:
+              <label htmlFor="email" className="block mb-1 text-[#919191] font-semibold">
+                Email
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                className="w-full p-2 border rounded-lg text-black"
+                placeholder="Enter your email"
+                className="w-full p-2 border rounded-lg text-[#919191]"
               />
             </div>
             <div className="mb-4 relative">
-              <label htmlFor="password" className="block mb-2 text-black">
-                Password:
+              <label htmlFor="password" className="block mb-1 text-[#919191] font-semibold">
+                Password
               </label>
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
-                className="w-full p-2 border rounded-lg text-black pr-10"
+                placeholder="Enter your password"
+                className="w-full p-2 border rounded-lg text-[#919191] pr-10"
               />
               <button
                 type="button"
-                className="absolute right-0 px-3 py-2"
+                className="absolute right-1 top-12 transform -translate-y-1/2 px-3 py-2"
                 onClick={togglePasswordVisibility}
               >
                 <FontAwesomeIcon
                   icon={showPassword ? faEye : faEyeSlash}
-                  className="text-black"
+                  className="text-[#919191]"
                 />
               </button>
             </div>
-            <div className="mb-4">
-              <label className="flex items-center text-black">
-                <input
-                  type="checkbox"
-                  id="remember-me"
-                  name="remember-me"
-                  className="mr-2"
-                />
+            <div className="mb-4 flex items-center">
+              <input
+                type="checkbox"
+                id="remember-me"
+                name="remember-me"
+                className="mr-2"
+              />
+              <label htmlFor="remember-me" className="text-[#919191] font-semibold">
                 Remember me
               </label>
             </div>
@@ -90,12 +98,15 @@ const Login = () => {
               <NavLink to="/dashboard">
                 <button
                   type="submit"
-                  className="bg-[#222E3C] text-white px-4 py-2 rounded-lg"
+                  className="bg-[#3B7DDD] text-white px-4 py-2 rounded-lg w-full"
                 >
                   Login
                 </button>
               </NavLink>
             </div>
+            <p className="text-red-500 text-center mt-2">
+              *Hanya admin yang dapat akses
+            </p>
           </form>
         </div>
       </div>
