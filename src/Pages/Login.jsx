@@ -3,7 +3,6 @@ import NavigationBar from "../Components/Navbar";
 import backgroundImage from "../assets/img/peti kemas.jpg";
 import logo from "../assets/img/logo-pelindo.png";
 import { NavLink } from "react-router-dom";
-import Dashboard from "./Dashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -88,7 +87,7 @@ const Login = () => {
               </label>
             </div>
             <div className="text-center">
-              <NavLink to={Dashboard}>
+              <NavLink to="/dashboard">
                 <button
                   type="submit"
                   className="bg-[#222E3C] text-white px-4 py-2 rounded-lg"
