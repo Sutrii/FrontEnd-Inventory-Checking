@@ -42,7 +42,7 @@ const NavigationBar = () => {
               About Us
             </NavLink>
             <NavLink
-              to="/sign-in"
+              to="/auth"
               className="mx-3 text-white poppins-regular text-xs"
             >
               Sign In
