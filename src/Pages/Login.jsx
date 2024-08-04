@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -20,7 +20,7 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/login', { email, password });
+      const response = await axios.post("/login", { email, password });
       setEmail("");
       setPassword("");
       navigate("/");
@@ -57,18 +57,26 @@ const Login = () => {
           </h1>
         </div>
         <div className="md:w-1/2 flex items-center justify-center mt-[-5%]">
-          <form onSubmit={handleLogin} className="bg-white px-4 py-6 rounded-3xl shadow-lg w-full max-w-sm">
+          <form
+            onSubmit={handleLogin}
+            className="bg-white px-4 py-6 rounded-3xl shadow-lg w-full max-w-sm"
+          >
             <div className="text-center mb-6">
               <img
                 src={logo}
                 alt="PELINDO logo"
                 className="h-8 w-auto mx-auto"
-                style={{ marginTop: '0.5rem' }} // Menurunkan posisi logo
+                style={{ marginTop: "0.5rem" }} // Menurunkan posisi logo
               />
-              <p className="text-[#919191] font-semibold mt-4">Sign in to your Inventory Dashboard</p>
+              <p className="text-[#919191] font-semibold mt-4">
+                Sign in to your Inventory Dashboard
+              </p>
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="block mb-1 text-[#919191] font-semibold">
+              <label
+                htmlFor="email"
+                className="block mb-1 text-[#919191] font-semibold"
+              >
                 Email
               </label>
               <input
@@ -79,11 +87,14 @@ const Login = () => {
                 name="email"
                 placeholder="Enter your email"
                 className="w-full p-2 border rounded-lg text-[#919191]"
-                style={{ color: 'black' }}
+                style={{ color: "black" }}
               />
             </div>
             <div className="mb-4 relative">
-              <label htmlFor="password" className="block mb-1 text-[#919191] font-semibold">
+              <label
+                htmlFor="password"
+                className="block mb-1 text-[#919191] font-semibold"
+              >
                 Password
               </label>
               <input
@@ -94,11 +105,11 @@ const Login = () => {
                 name="password"
                 placeholder="Enter your password"
                 className="w-full p-2 border rounded-lg text-[#919191] pr-10"
-                style={{ color: 'black' }}
+                style={{ color: "black" }}
               />
               <button
                 type="button"
-                className="absolute right-1 top-10 transform -translate-y-1/2 px-3 py-2"
+                className="absolute right-1 top-10 transform -translate-y-1/4 px-3 py-2"
                 onClick={togglePasswordVisibility}
               >
                 <FontAwesomeIcon
@@ -114,18 +125,23 @@ const Login = () => {
                 name="remember-me"
                 className="mr-2"
               />
-              <label htmlFor="remember-me" className="text-[#919191] font-semibold">
+              <label
+                htmlFor="remember-me"
+                className="text-[#919191] font-semibold"
+              >
                 Remember me
               </label>
             </div>
-            <div className="text-center">
-              <button
-                type="submit"
-                className="bg-[#3B7DDD] text-white px-4 py-2 rounded-lg w-full"
-              >
-                Login
-              </button>
-            </div>
+            <NavLink to="/dashboard">
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="bg-[#3B7DDD] text-white px-4 py-2 rounded-lg w-full"
+                >
+                  Login
+                </button>
+              </div>
+            </NavLink>
             <p className="text-red-500 text-center mt-2">
               *Hanya admin yang dapat akses
             </p>
