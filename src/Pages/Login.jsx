@@ -68,15 +68,10 @@ const Login = () => {
                 className="h-8 w-auto mx-auto"
                 style={{ marginTop: "0.5rem" }} // Menurunkan posisi logo
               />
-              <p className="text-[#919191] font-semibold mt-4">
-                Sign in to your Inventory Dashboard
-              </p>
+              <p className="text-[#919191] poppins-semibold mt-4">Sign in to your Inventory Dashboard</p>
             </div>
             <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block mb-1 text-[#919191] font-semibold"
-              >
+              <label htmlFor="email" className="block mb-1 text-[#919191] poppins-semibold">
                 Email
               </label>
               <input
