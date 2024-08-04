@@ -2,14 +2,32 @@ import React, { useState } from "react";
 import NavigationBar from "../Components/Navbar";
 import backgroundImage from "../assets/img/peti kemas.jpg";
 import logo from "../assets/img/logo-pelindo.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import axios from "../api/axios";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('/login', { email, password });
+      setEmail("");
+      setPassword("");
+      navigate("/");
+      console.log("Login successful:", response.data);
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (
@@ -39,7 +57,7 @@ const Login = () => {
           </h1>
         </div>
         <div className="md:w-1/2 flex items-center justify-center mt-[-5%]">
-          <form className="bg-white px-4 py-6 rounded-3xl shadow-lg w-full max-w-sm">
+          <form onSubmit={handleLogin} className="bg-white px-4 py-6 rounded-3xl shadow-lg w-full max-w-sm">
             <div className="text-center mb-6">
               <img
                 src={logo}
@@ -55,10 +73,13 @@ const Login = () => {
               </label>
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 id="email"
                 name="email"
                 placeholder="Enter your email"
                 className="w-full p-2 border rounded-lg text-[#919191]"
+                style={{ color: 'black' }}
               />
             </div>
             <div className="mb-4 relative">
@@ -67,14 +88,17 @@ const Login = () => {
               </label>
               <input
                 type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 id="password"
                 name="password"
                 placeholder="Enter your password"
                 className="w-full p-2 border rounded-lg text-[#919191] pr-10"
+                style={{ color: 'black' }}
               />
               <button
                 type="button"
-                className="absolute right-1 top-12 transform -translate-y-1/2 px-3 py-2"
+                className="absolute right-1 top-10 transform -translate-y-1/2 px-3 py-2"
                 onClick={togglePasswordVisibility}
               >
                 <FontAwesomeIcon
@@ -95,14 +119,12 @@ const Login = () => {
               </label>
             </div>
             <div className="text-center">
-              <NavLink to="/dashboard">
-                <button
-                  type="submit"
-                  className="bg-[#3B7DDD] text-white px-4 py-2 rounded-lg w-full"
-                >
-                  Login
-                </button>
-              </NavLink>
+              <button
+                type="submit"
+                className="bg-[#3B7DDD] text-white px-4 py-2 rounded-lg w-full"
+              >
+                Login
+              </button>
             </div>
             <p className="text-red-500 text-center mt-2">
               *Hanya admin yang dapat akses
