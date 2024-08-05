@@ -1,11 +1,11 @@
 import React from "react";
-import NavbarDashboard from "../Components/NavbarDashboard";
-import SidebarDashboard from "../Components/SidebarDashboard";
-import BarangMasuk from "../Components/Dashboard/BoxBarangMasuk";
-import BarangKeluar from "../Components/Dashboard/BoxBarangKeluar";
-import BarangPinjaman from "../Components/Dashboard/BoxBarangPinjaman";
-import BarangRusak from "../Components/Dashboard/BoxBarangRusak";
-import TotalBarang from "../Components/Dashboard/BoxTotalBarang";
+import NavbarDashboard from "../../Components/NavbarDashboard";
+import SidebarDashboard from "../../Components/SidebarDashboard";
+import BarangMasuk from "../../Components/Dashboard/BoxBarangMasuk";
+import BarangKeluar from "../../Components/Dashboard/BoxBarangKeluar";
+import BarangPinjaman from "../../Components/Dashboard/BoxBarangPinjaman";
+import BarangRusak from "../../Components/Dashboard/BoxBarangRusak";
+import TotalBarang from "../../Components/Dashboard/BoxTotalBarang";
 
 const Dashboard = () => {
   return (

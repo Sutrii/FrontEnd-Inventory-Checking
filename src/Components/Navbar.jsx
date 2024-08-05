@@ -14,18 +14,11 @@ const NavigationBar = () => {
 
   return (
     <Navbar
-      style={{
-        backgroundColor: "#222E3C",
-        borderRadius: "50px",
-        marginTop: "20px",
-        marginLeft: "30px",
-        marginRight: "30px",
-        position: "relative", 
-      }}
+      className="relative mt-4 mx-6 bg-[#222E3C] rounded-2xl"
       variant="dark"
     >
-      <Container className="d-flex justify-content-between align-items-center">
-        <Navbar.Brand href="#home" className="d-flex align-items-start">
+      <Container className="d-flex justify-content-between align-items-center h-full">
+        <Navbar.Brand href="/home" className="d-flex align-items-start">
           <img
             src={logo}
             alt="PELINDO logo"
@@ -33,32 +26,36 @@ const NavigationBar = () => {
             className="d-inline-block align-top"
           />
         </Navbar.Brand>
-        <Nav className="flex align-items-center" style={{ position: "relative" }}>
+        <Nav
+          className="flex align-items-center h-full"
+          style={{ position: "relative" }}
+        >
           {["/home", "/about", "/auth"].map((path) => (
             <NavLink
               key={path}
               to={path}
-              className="mx-3 poppins-regular text-xs"
+              className="mx-3 poppins-regular text-xs h-full"
               style={{
                 color: isActive(path) ? "white" : "#919191",
                 position: "relative",
                 textDecoration: "none",
+                zIndex: 1,
               }}
             >
-              {path === "/home" ? "Home" : path === "/about" ? "About Us" : "Sign In"}
+              {path === "/home"
+                ? "Home"
+                : path === "/about"
+                ? "About Us"
+                : "Sign In"}
               {isActive(path) && (
                 <span
+                  className="flex absolute h-8 w-full top-0"
                   style={{
-                    position: "absolute",
-                    top: 15,
-                    height: "100%",
-                    width: "50px",
                     borderBottom: "3px solid #3B7DDD",
-                    background: "linear-gradient(0deg, #25364D 0%, #25364D 200%, transparent 100%)",
                     transition: "0.5s",
                     pointerEvents: "none",
                     filter: "drop-shadow(0 15px 45px #25364D)",
-                    left: "-5px", //
+                    zIndex: -1,
                   }}
                 />
               )}

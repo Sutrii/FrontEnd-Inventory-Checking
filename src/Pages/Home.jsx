@@ -30,11 +30,13 @@ const Home = () => {
             Teknologi Informasi
           </h2>
           <p className="poppins-regular text-white text-center text-sm md:text-base mb-6 px-4">
-            Inventory dashboard PT Pelindo Multi Terminal digunakan untuk pengelolaan persediaan dengan terstruktur secara efektif
+            Inventory dashboard PT Pelindo Multi Terminal digunakan untuk
+            pengelolaan persediaan dengan terstruktur secara efektif
             <br />
-            pada ruang lingkup SPMT dengan dikelola langsung oleh Divisi Teknologi.
+            pada ruang lingkup SPMT dengan dikelola langsung oleh Divisi
+            Teknologi.
           </p>
-          <NavLink to="/login">
+          <NavLink to="/auth">
             <button className="poppins-semibold bg-[#EBB64D] text-black px-6 py-3 rounded-lg">
               Masuk ke Inventory Dashboard
             </button>
