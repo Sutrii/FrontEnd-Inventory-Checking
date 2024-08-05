@@ -20,13 +20,28 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("/login", { email, password });
-      setEmail("");
-      setPassword("");
-      navigate("/");
-      console.log("Login successful:", response.data);
-    } catch (error) {
-      console.error("Login error:", error);
+      // Ganti dengan endpoint yang sesuai
+      const response = await axios.get(
+        "/login",
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      console.log(response.data); // Log response data jika berhasil
+
+      setEmail(""); // Reset email
+      setPassword(""); // Reset password
+
+      // Arahkan pengguna ke dashboard jika login berhasil
+      navigate("/dashboard");
+    } catch (e) {
+      // Log error jika terjadi kesalahan
+      console.error("Error:", e);
     }
   };
 
@@ -68,10 +83,15 @@ const Login = () => {
                 className="h-8 w-auto mx-auto"
                 style={{ marginTop: "0.5rem" }} // Menurunkan posisi logo
               />
-              <p className="text-[#919191] poppins-semibold mt-4">Sign in to your Inventory Dashboard</p>
+              <p className="text-[#919191] poppins-semibold mt-4">
+                Sign in to your Inventory Dashboard
+              </p>
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="block mb-1 text-[#919191] poppins-semibold">
+              <label
+                htmlFor="email"
+                className="block mb-1 text-[#919191] poppins-semibold"
+              >
                 Email
               </label>
               <input
@@ -127,16 +147,14 @@ const Login = () => {
                 Remember me
               </label>
             </div>
-            <NavLink to="/dashboard">
-              <div className="text-center">
-                <button
-                  type="submit"
-                  className="bg-[#3B7DDD] text-white px-4 py-2 rounded-lg w-full"
-                >
-                  Login
-                </button>
-              </div>
-            </NavLink>
+            <div className="text-center">
+              <button
+                type="submit"
+                className="bg-[#3B7DDD] text-white px-4 py-2 rounded-lg w-full"
+              >
+                Login
+              </button>
+            </div>
             <p className="text-red-500 text-center mt-2">
               *Hanya admin yang dapat akses
             </p>
