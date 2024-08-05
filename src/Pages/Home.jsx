@@ -20,7 +20,7 @@ const Home = () => {
       </div>
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
         <div className="text-center">
-          <h1 className="poppins-semibold text-white text-4xl md:text-6xl uppercase font-bold mb-4">
+          <h1 className="poppins-semibold text-white text-4xl md:text-6xl uppercase font-bold mb-2">
             Manage Goods <span className="text-[#EBB64D]">Perfectly.</span>
           </h1>
           <h2 className="poppins-semibold text-white text-2xl md:text-3xl uppercase font-bold mb-2">
@@ -30,13 +30,11 @@ const Home = () => {
             Teknologi Informasi
           </h2>
           <p className="poppins-regular text-white text-center text-sm md:text-base mb-6 px-4">
-            Inventory dashboard PT Pelindo Multi Terminal digunakan untuk
-            pengelolaan persediaan dengan terstruktur secara efektif
+            Inventory dashboard PT Pelindo Multi Terminal digunakan untuk pengelolaan persediaan dengan terstruktur secara efektif
             <br />
-            pada ruang lingkup SPMT dengan dikelola langsung oleh Divisi
-            Teknologi.
+            pada ruang lingkup SPMT dengan dikelola langsung oleh Divisi Teknologi.
           </p>
-          <NavLink to="/auth">
+          <NavLink to="/login">
             <button className="poppins-semibold bg-[#EBB64D] text-black px-6 py-3 rounded-lg">
               Masuk ke Inventory Dashboard
             </button>
