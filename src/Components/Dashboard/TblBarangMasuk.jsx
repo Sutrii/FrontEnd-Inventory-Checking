@@ -1,192 +1,202 @@
-import React, { useState, useEffect } from "react";
-import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import React, { useState } from "react";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import "primereact/resources/themes/saga-blue/theme.css"; // Import the theme
+import "primereact/resources/primereact.min.css"; // Import core styles
+import "primeicons/primeicons.css"; // Import icons
 
-// Dummy data for the table
-const dummyData = [
-  {
-    id: 1,
-    namaBarang: "Barang A",
-    tipe: "Tipe 1",
-    kualitas: "Baik",
-    tanggal: "2024-08-01",
-    sn: "SN123",
-    jumlah: 10,
-    satuan: "Pcs",
-    keterangan: "Keterangan A",
-  },
-  {
-    id: 2,
-    namaBarang: "Barang B",
-    tipe: "Tipe 2",
-    kualitas: "Sedang",
-    tanggal: "2024-08-02",
-    sn: "SN124",
-    jumlah: 5,
-    satuan: "Pcs",
-    keterangan: "Keterangan B",
-  },
-  // Add more dummy data as needed
-];
+function TblBarangMasuk() {
+  const data = [
+    {
+      no: 1,
+      nama_barang: "Laptop Asus RAM 8gb warna biru stiker kucing",
+      tipe_barang: "Laptop",
+      kualitas: "Lecet Pemakaian",
+      tanggal: "20 Maret 2024",
+      sn: "123456",
+      jumlah: 10,
+      satuan: "Unit",
+      keterangan: "Baterai Kembung",
+      aksi_admin: "Edit/Delete",
+    },
+    {
+      no: 2,
+      nama_barang: "Samsung TV",
+      tipe_barang: "TV",
+      kualitas: "Layar Pecah",
+      tanggal: "25 Maret 2024",
+      sn: "123456",
+      jumlah: 2,
+      satuan: "Unit",
+      keterangan: "Layar 24 inch",
+      aksi_admin: "Edit/Delete",
+    },
+  ];
 
-const TblBarangMasuk = () => {
-  const [data, setData] = useState(dummyData);
-  const [sortConfig, setSortConfig] = useState({
-    key: "namaBarang",
-    direction: "ascending",
-  });
-  const [search, setSearch] = useState("");
+  const [records, setRecords] = useState(data);
+  const [entries, setEntries] = useState(10); // Default entries per page
 
-  useEffect(() => {
-    // Simulate fetching data
-    setData(dummyData);
-  }, []);
+  function handleFilter(event) {
+    const searchTerm = event.target.value.toLowerCase();
+    const filteredData = data.filter((row) =>
+      row.nama_barang.toLowerCase().includes(searchTerm)
+    );
+    setRecords(filteredData);
+  }
 
-  const handleSort = (key) => {
-    const direction =
-      sortConfig.direction === "ascending" ? "descending" : "ascending";
-    setSortConfig({ key, direction });
-  };
-
-  const sortedData = [...data].sort((a, b) => {
-    if (a[sortConfig.key] < b[sortConfig.key])
-      return sortConfig.direction === "ascending" ? -1 : 1;
-    if (a[sortConfig.key] > b[sortConfig.key])
-      return sortConfig.direction === "ascending" ? 1 : -1;
-    return 0;
-  });
-
-  const filteredData = sortedData.filter(
-    (item) =>
-      item.namaBarang.toLowerCase().includes(search.toLowerCase()) ||
-      item.tipe.toLowerCase().includes(search.toLowerCase()) ||
-      item.kualitas.toLowerCase().includes(search.toLowerCase()) ||
-      item.sn.toLowerCase().includes(search.toLowerCase())
-  );
+  function handleEntriesChange(event) {
+    setEntries(parseInt(event.target.value));
+  }
 
   return (
-    <div className="w-full h-full flex flex-col p-4">
-      <div
-        className="w-full h-full table-responsive bg-white p-4 rounded-lg shadow-md"
-        style={{ overflowY: "auto" }}
-      >
-        <label htmlFor="entries" className="mr-2 text-gray-600">
-          Show:
-        </label>
-        <select
-          id="entries"
-          value={entries}
-          onChange={(e) => setEntries(Number(e.target.value))}
-          className="p-2 border border-gray-300 rounded-xl"
-        >
-          <option value={10}>10</option>
-          <option value={25}>25</option>
-          <option value={50}>50</option>
-          <option value={100}>100</option>
-        </select>
-        <label htmlFor="entries" className="mr-2 text-gray-600">
-          Entries
-        </label>
+    <div className="container mt-3 h-full">
+      <style jsx>{`
+        /* Align the paginator text to the left */
+        .p-datatable .p-paginator-bottom .p-datatable-current-page-report {
+          text-align: left !important;
+        }
 
-        <div className="flex justify-end">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-[15%] p-2 border border-gray-300 rounded-xl mb-4"
-          />
+        .p-datatable .p-paginator-bottom .p-datatable-current-page-report {
+          text-align: right !important;
+        }
+
+        .p-datatable .p-paginator-bottom {
+          display: flex;
+          justify-content: space-between;
+        }
+      `}</style>
+      <div className="bg-white rounded-xl px-4 py-2 p-4 shadow-md h-full poppins-font">
+        <div className="flex justify-between mb-3">
+          <div className="flex items-center">
+            <label htmlFor="entries" className="me-2">
+              Show
+            </label>
+            <select
+              id="entries"
+              className="form-select"
+              style={{ width: "80px" }}
+              onChange={handleEntriesChange}
+              value={entries}
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={15}>15</option>
+              <option value={20}>20</option>
+            </select>
+            <label htmlFor="entries" className="ms-2">
+              entries
+            </label>
+          </div>
+          <div className="text-end">
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={handleFilter}
+              className="form-control"
+              style={{ width: "200px" }}
+            />
+          </div>
         </div>
-
-        <table className="min-w-full bg-white border border-gray-200 rounded-lg">
-          <thead className="bg-gray-100 text-gray-600">
-            <tr>
-              <th
-                className="p-2 border-b cursor-pointer"
-                onClick={() => handleSort("id")}
+        <DataTable
+          value={records}
+          paginator
+          rows={entries}
+          rowsPerPageOptions={[5, 10, 15, 20]}
+          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          className="p-datatable-striped"
+          rowClassName={(data, rowIndex) =>
+            rowIndex % 2 === 0
+              ? "bg-white border-b border-gray-200"
+              : "bg-gray-100 border-b border-gray-200"
+          }
+          sortMode="multiple"
+        >
+          <Column
+            field="no"
+            header="No"
+            sortable
+            style={{ width: "5%", textAlign: "left" }}
+          />
+          <Column
+            field="nama_barang"
+            header="Nama Barang"
+            sortable
+            style={{ width: "15%", textAlign: "left" }}
+          />
+          <Column
+            field="tipe_barang"
+            header="Tipe"
+            sortable
+            style={{ width: "10%", textAlign: "left" }}
+          />
+          <Column
+            field="kualitas"
+            header="Kualitas"
+            sortable
+            style={{ width: "15%", textAlign: "left" }}
+          />
+          <Column
+            field="tanggal"
+            header="Tanggal"
+            sortable
+            style={{ width: "12%", textAlign: "left" }}
+          />
+          <Column
+            field="sn"
+            header="S/N"
+            sortable
+            style={{ width: "10%", textAlign: "left" }}
+          />
+          <Column
+            field="jumlah"
+            header="Jumlah"
+            sortable
+            style={{ width: "10%", textAlign: "left" }}
+          />
+          <Column
+            field="satuan"
+            header="Satuan"
+            sortable
+            style={{ width: "10%", textAlign: "left" }}
+          />
+          <Column
+            field="keterangan"
+            header="Keterangan"
+            sortable
+            style={{ width: "20%", textAlign: "left" }}
+          />
+          <Column
+            header="Aksi Admin"
+            style={{ width: "10%", textAlign: "center" }}
+            body={() => (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "6px",
+                  justifyContent: "center",
+                }}
               >
-                No
-              </th>
-              <th
-                className="p-2 border-b cursor-pointer"
-                onClick={() => handleSort("namaBarang")}
-              >
-                Nama Barang
-              </th>
-              <th
-                className="p-2 border-b cursor-pointer"
-                onClick={() => handleSort("tipe")}
-              >
-                Tipe
-              </th>
-              <th
-                className="p-2 border-b cursor-pointer"
-                onClick={() => handleSort("kualitas")}
-              >
-                Kualitas
-              </th>
-              <th
-                className="p-2 border-b cursor-pointer"
-                onClick={() => handleSort("tanggal")}
-              >
-                Tanggal
-              </th>
-              <th
-                className="p-2 border-b cursor-pointer"
-                onClick={() => handleSort("sn")}
-              >
-                S/N
-              </th>
-              <th
-                className="p-2 border-b cursor-pointer"
-                onClick={() => handleSort("jumlah")}
-              >
-                Jumlah
-              </th>
-              <th
-                className="p-2 border-b cursor-pointer"
-                onClick={() => handleSort("satuan")}
-              >
-                Satuan
-              </th>
-              <th
-                className="p-2 border-b cursor-pointer"
-                onClick={() => handleSort("keterangan")}
-              >
-                Keterangan
-              </th>
-              <th className="p-2 border-b">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.map((item) => (
-              <tr key={item.id}>
-                <td className="p-2 border-b">{item.id}</td>
-                <td className="p-2 border-b">{item.namaBarang}</td>
-                <td className="p-2 border-b">{item.tipe}</td>
-                <td className="p-2 border-b">{item.kualitas}</td>
-                <td className="p-2 border-b">{item.tanggal}</td>
-                <td className="p-2 border-b">{item.sn}</td>
-                <td className="p-2 border-b">{item.jumlah}</td>
-                <td className="p-2 border-b">{item.satuan}</td>
-                <td className="p-2 border-b">{item.keterangan}</td>
-                <td className="p-2 border-b flex space-x-2 justify-center">
-                  <button className="text-blue-500 hover:text-blue-700">
-                    <FaEye />
-                  </button>
-                  <button className="text-yellow-500 hover:text-yellow-700">
-                    <FaEdit />
-                  </button>
-                  <button className="text-red-500 hover:text-red-700">
-                    <FaTrash />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                <div className="bg-[#D0F0EA] px-2 py-2 rounded-3">
+                  <FaEdit
+                    title="Edit"
+                    className="text-black cursor-pointer text-sm sm:text-base"
+                  />
+                </div>
+                <div className="bg-[#F5DCDF] px-2 py-2 rounded-3">
+                  <FaTrash
+                    title="Hapus"
+                    className="text-black cursor-pointer text-sm sm:text-base"
+                  />
+                </div>
+              </div>
+            )}
+          />
+        </DataTable>
       </div>
     </div>
   );
-};
+}
 
 export default TblBarangMasuk;
