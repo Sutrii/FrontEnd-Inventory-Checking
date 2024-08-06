@@ -11,7 +11,7 @@ function Routers() {
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path="/home" element={<Home />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/auth" element={<Login />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/tabel-barang-masuk" element={<TabelBarangMasuk />} />
     </Routes>
   );
