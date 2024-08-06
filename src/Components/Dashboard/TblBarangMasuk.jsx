@@ -178,16 +178,16 @@ function TblBarangMasuk() {
                   justifyContent: "center",
                 }}
               >
-                <div className="bg-[#D0F0EA] px-2 py-2 rounded-3">
+                <div className="bg-[#387F39] px-2 py-2 rounded-3">
                   <FaEdit
                     title="Edit"
-                    className="text-black cursor-pointer text-sm sm:text-base"
+                    className="text-white cursor-pointer text-sm sm:text-base"
                   />
                 </div>
-                <div className="bg-[#F5DCDF] px-2 py-2 rounded-3">
+                <div className="bg-[#C80036] px-2 py-2 rounded-3">
                   <FaTrash
                     title="Hapus"
-                    className="text-black cursor-pointer text-sm sm:text-base"
+                    className="text-white cursor-pointer text-sm sm:text-base"
                   />
                 </div>
               </div>
