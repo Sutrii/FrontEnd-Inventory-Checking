@@ -20,28 +20,16 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      // Ganti dengan endpoint yang sesuai
-      const response = await axios.get(
-        "/login",
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-
-      console.log(response.data); // Log response data jika berhasil
-
-      setEmail(""); // Reset email
-      setPassword(""); // Reset password
-
-      // Arahkan pengguna ke dashboard jika login berhasil
+      const response = await axios.post("/api/login", {
+        email,
+        password,
+      });
+      console.log("Login successful", response);
+      setEmail("");
+      setPassword("");
       navigate("/dashboard");
     } catch (e) {
-      // Log error jika terjadi kesalahan
-      console.error("Error:", e);
+      console.error("Error:", e.response ? e.response.data : e.message);
     }
   };
 
@@ -95,6 +83,7 @@ const Login = () => {
                 Email
               </label>
               <input
+                formMethod="post"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -103,6 +92,7 @@ const Login = () => {
                 placeholder="Enter your email"
                 className="w-full p-2 border rounded-lg text-[#919191]"
                 style={{ color: "black" }}
+                required
               />
             </div>
             <div className="mb-4 relative">
@@ -113,6 +103,7 @@ const Login = () => {
                 Password
               </label>
               <input
+                formMethod="post"
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -121,6 +112,7 @@ const Login = () => {
                 placeholder="Enter your password"
                 className="w-full p-2 border rounded-lg text-[#919191] pr-10"
                 style={{ color: "black" }}
+                required
               />
               <button
                 type="button"
