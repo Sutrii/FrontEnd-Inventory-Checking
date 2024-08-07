@@ -3,8 +3,9 @@ import NavbarDashboard from "../../Components/NavbarDashboard";
 import SidebarDashboard from "../../Components/SidebarDashboard";
 import TblBarangMasuk from "../../Components/Dashboard/TblBarangMasuk";
 import logoPelindo from "../../assets/img/logo-pelindo.png";
+import TblBarangKeluar from "../../Components/Dashboard/TblBarangKeluar";
 
-const TabelBarangMasuk = () => {
+const TabelBarangKeluar = () => {
   const [search, setSearch] = useState("");
 
   const handleExportPDF = () => {
@@ -28,7 +29,7 @@ const TabelBarangMasuk = () => {
             <div className="flex w-full justify-between items-center bg-white rounded-xl shadow-md p-4">
               <img src={logoPelindo} alt="Logo Pelindo" className="h-6" />
               <h1 className="text-xl poppins-semibold uppercase text-center lg:text-left tracking-widest">
-                Tabel Barang Masuk
+                Tabel Barang Keluar
               </h1>
               <button
                 onClick={handleExportPDF}
@@ -38,7 +39,7 @@ const TabelBarangMasuk = () => {
               </button>
             </div>
           </div>
-          <TblBarangMasuk />
+          <TblBarangKeluar />
         </div>
       </div>
       <div className="w-[15%] h-screen fixed top-0 left-0 z-10 bg-white">
@@ -48,4 +49,4 @@ const TabelBarangMasuk = () => {
   );
 };
 
-export default TabelBarangMasuk;
+export default TabelBarangKeluar;

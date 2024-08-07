@@ -4,6 +4,7 @@ import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard Pages/Dashboard";
 import Home from "./Pages/Home";
 import TabelBarangMasuk from "./Pages/Dashboard Pages/TabelBarangMasuk";
+import TabelBarangKeluar from "./Pages/Dashboard Pages/TabelBarangKeluar";
 
 function Routers() {
   return (
@@ -13,6 +14,7 @@ function Routers() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/login" element={<Login />} />
       <Route path="/tabel-barang-masuk" element={<TabelBarangMasuk />} />
+      <Route path="/tabel-barang-keluar" element={<TabelBarangKeluar />} />
     </Routes>
   );
 }

@@ -98,25 +98,27 @@ const SidebarDashboard = () => {
             </span>
           </div>
         </NavLink>
-        <div
-          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
-            activeTab === "barangKeluar" ? "text-white" : "text-[#919191]"
-          }`}
-          onClick={() => handleTabClick("barangKeluar")}
-        >
-          <BsTruck
-            className={`text-base mr-2 ${
+        <NavLink to="/tabel-barang-keluar">
+          <div
+            className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
               activeTab === "barangKeluar" ? "text-white" : "text-[#919191]"
             }`}
-          />
-          <span
-            className={`text-xs poppins-regular ${
-              activeTab === "barangKeluar" ? "text-white" : "text-[#919191]"
-            }`}
+            onClick={() => handleTabClick("barangKeluar")}
           >
-            Tbl Barang Keluar
-          </span>
-        </div>
+            <BsTruck
+              className={`text-base mr-2 ${
+                activeTab === "barangKeluar" ? "text-white" : "text-[#919191]"
+              }`}
+            />
+            <span
+              className={`text-xs poppins-regular ${
+                activeTab === "barangKeluar" ? "text-white" : "text-[#919191]"
+              }`}
+            >
+              Tbl Barang Keluar
+            </span>
+          </div>
+        </NavLink>
 
         <div
           className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
