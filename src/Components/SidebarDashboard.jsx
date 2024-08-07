@@ -120,45 +120,49 @@ const SidebarDashboard = () => {
           </div>
         </NavLink>
 
-        <div
-          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
-            activeTab === "barangPinjaman" ? "text-white" : "text-[#919191]"
-          }`}
-          onClick={() => handleTabClick("barangPinjaman")}
-        >
-          <BsTruck
-            className={`text-base mr-2 ${
+        <NavLink to="/tabel-barang-pinjaman">
+          <div
+            className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
               activeTab === "barangPinjaman" ? "text-white" : "text-[#919191]"
             }`}
-          />
-          <span
-            className={`text-xs poppins-regular ${
-              activeTab === "barangPinjaman" ? "text-white" : "text-[#919191]"
-            }`}
+            onClick={() => handleTabClick("barangPinjaman")}
           >
-            Tbl Barang Pinjaman
-          </span>
-        </div>
+            <BsTruck
+              className={`text-base mr-2 ${
+                activeTab === "barangPinjaman" ? "text-white" : "text-[#919191]"
+              }`}
+            />
+            <span
+              className={`text-xs poppins-regular ${
+                activeTab === "barangPinjaman" ? "text-white" : "text-[#919191]"
+              }`}
+            >
+              Tbl Barang Pinjaman
+            </span>
+          </div>
+        </NavLink>
 
-        <div
-          className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
-            activeTab === "barangRusak" ? "text-white" : "text-[#919191]"
-          }`}
-          onClick={() => handleTabClick("barangRusak")}
-        >
-          <BsTruck
-            className={`text-base mr-2 ${
+        <NavLink to="/tabel-barang-rusak">
+          <div
+            className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
               activeTab === "barangRusak" ? "text-white" : "text-[#919191]"
             }`}
-          />
-          <span
-            className={`text-xs poppins-regular ${
-              activeTab === "barangRusak" ? "text-white" : "text-[#919191]"
-            }`}
+            onClick={() => handleTabClick("barangRusak")}
           >
-            Tbl Barang Rusak
-          </span>
-        </div>
+            <BsTruck
+              className={`text-base mr-2 ${
+                activeTab === "barangRusak" ? "text-white" : "text-[#919191]"
+              }`}
+            />
+            <span
+              className={`text-xs poppins-regular ${
+                activeTab === "barangRusak" ? "text-white" : "text-[#919191]"
+              }`}
+            >
+              Tbl Barang Rusak
+            </span>
+          </div>
+        </NavLink>
 
         {/* Inventories Section */}
         <div className="text-left text-white mb-3 px-2">

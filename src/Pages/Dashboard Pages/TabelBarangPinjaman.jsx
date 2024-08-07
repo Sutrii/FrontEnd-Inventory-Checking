@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import NavbarDashboard from "../../Components/NavbarDashboard";
 import SidebarDashboard from "../../Components/SidebarDashboard";
 import logoPelindo from "../../assets/img/logo-pelindo.png";
-import TblBarangKeluar from "../../Components/Dashboard/TblBarangKeluar";
+import TblBarangPinjaman from "../../Components/Dashboard/TblBarangPinjaman";
 
-const TabelBarangKeluar = () => {
+const TabelBarangPinjaman = () => {
   const [search, setSearch] = useState("");
 
   const handleExportPDF = () => {
@@ -24,7 +24,7 @@ const TabelBarangKeluar = () => {
               <div className="flex w-full justify-between items-center bg-white rounded-xl shadow-md p-4">
                 <img src={logoPelindo} alt="Logo Pelindo" className="h-6" />
                 <h1 className="text-xl poppins-semibold uppercase text-center lg:text-left tracking-widest">
-                  Tabel Barang Keluar
+                  Tabel Barang Pinjaman
                 </h1>
                 <button
                   onClick={handleExportPDF}
@@ -33,7 +33,7 @@ const TabelBarangKeluar = () => {
                   Export PDF
                 </button>
               </div>
-              <TblBarangKeluar />
+              <TblBarangPinjaman />
             </div>
           </div>
         </div>
@@ -48,4 +48,4 @@ const TabelBarangKeluar = () => {
   );
 };
 
-export default TabelBarangKeluar;
+export default TabelBarangPinjaman;

@@ -50,23 +50,8 @@ function TblBarangKeluar() {
   }
 
   return (
-    <div className="container px-4 py-2 mt-3 h-full">
-      <style jsx>{`
-        /* Align the paginator text to the left */
-        .p-datatable .p-paginator-bottom .p-datatable-current-page-report {
-          text-align: left !important;
-        }
-
-        .p-datatable .p-paginator-bottom .p-datatable-current-page-report {
-          text-align: right !important;
-        }
-
-        .p-datatable .p-paginator-bottom {
-          display: flex;
-          justify-content: space-between;
-        }
-      `}</style>
-      <div className="bg-white rounded-xl px-4 py-2 p-4 shadow-md h-full poppins-font">
+    <div className="container px-0 py-2 mt-3 w-full h-full">
+      <div className="bg-white rounded-xl p-4 shadow-md h-full poppins-font">
         <div className="flex justify-between mb-3">
           <div className="flex items-center">
             <label htmlFor="entries" className="me-2">
@@ -105,7 +90,7 @@ function TblBarangKeluar() {
           rowsPerPageOptions={[5, 10, 15, 20]}
           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport"
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-          className="p-datatable-striped"
+          className="p-datatable-striped space-y-4"
           rowClassName={(data, rowIndex) =>
             rowIndex % 2 === 0
               ? "bg-white border-b border-gray-200"

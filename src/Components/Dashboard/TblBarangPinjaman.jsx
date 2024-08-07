@@ -6,7 +6,7 @@ import "primereact/resources/themes/saga-blue/theme.css"; // Import the theme
 import "primereact/resources/primereact.min.css"; // Import core styles
 import "primeicons/primeicons.css"; // Import icons
 
-function TblBarangMasuk() {
+function TblBarangPinjaman() {
   const data = [
     {
       no: 1,
@@ -184,4 +184,4 @@ function TblBarangMasuk() {
   );
 }
 
-export default TblBarangMasuk;
+export default TblBarangPinjaman;
