@@ -16,9 +16,6 @@ const TabelBarangMasuk = () => {
       id="DashboardParent"
       className="w-screen h-full flex flex-col lg:flex-row"
     >
-      <div className="w-full lg:w-[15%] h-auto lg:h-screen fixed lg:static top-0 left-0 z-10 bg-gray-100 lg:bg-transparent">
-        <SidebarDashboard />
-      </div>
       <div className="w-full lg:w-[85%] h-auto lg:h-screen flex flex-col">
         <div
           id="DashboardHeader"
@@ -43,6 +40,9 @@ const TabelBarangMasuk = () => {
           </div>
           <TblBarangMasuk />
         </div>
+      </div>
+      <div className="w-[15%] h-screen fixed top-0 left-0 z-10">
+        <SidebarDashboard />
       </div>
     </div>
   );

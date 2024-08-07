@@ -3,7 +3,7 @@ import { VscListFlat } from "react-icons/vsc";
 
 const BarangRusak = () => {
   return (
-    <div className="w-full sm:w-1/2 lg:w-1/5 p-4 bg-white shadow-md rounded-3xl">
+    <div className="w-full p-4 bg-white shadow-md rounded-3xl">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold">Barang Rusak</h2>
         <div className="bg-[#EBB64D] p-2 rounded-2xl">

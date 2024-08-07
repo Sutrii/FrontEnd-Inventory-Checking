@@ -36,7 +36,7 @@ const Home = () => {
             pada ruang lingkup SPMT dengan dikelola langsung oleh Divisi
             Teknologi.
           </p>
-          <NavLink to="/auth">
+          <NavLink to="/login">
             <button className="poppins-semibold bg-[#EBB64D] text-black px-6 py-3 rounded-lg">
               Masuk ke Inventory Dashboard
             </button>
