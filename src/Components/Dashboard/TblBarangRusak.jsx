@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import "primereact/resources/themes/saga-blue/theme.css"; // Import the theme
-import "primereact/resources/primereact.min.css"; // Import core styles
-import "primeicons/primeicons.css"; // Import icons
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
 function TblBarangRusak() {
   const data = [
@@ -35,7 +35,7 @@ function TblBarangRusak() {
   ];
 
   const [records, setRecords] = useState(data);
-  const [entries, setEntries] = useState(10); // Default entries per page
+  const [entries, setEntries] = useState(10);
 
   function handleFilter(event) {
     const searchTerm = event.target.value.toLowerCase();
@@ -50,8 +50,8 @@ function TblBarangRusak() {
   }
 
   return (
-    <div className="container px-0 py-2 mt-3 w-full h-full">
-      <div className="bg-white rounded-xl p-4 shadow-md h-full poppins-font">
+    <div className="container px-0 py-2 mt-3 w-full">
+      <div className="bg-white rounded-xl p-4 shadow-md poppins-font">
         <div className="flex justify-between mb-3">
           <div className="flex items-center">
             <label htmlFor="entries" className="me-2">

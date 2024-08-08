@@ -17,8 +17,8 @@ const Dashboard = () => {
         <div className="absolute right-0 w-[85%]">
           <div className="h-screen">
             <div id="DashboardContent" className="flex flex-row">
-              <div className="flex flex-row bg-gray-100 w-full h-screen pt-24 px-4">
-                <div className="flex w-full h-full space-x-6">
+              <div className="flex flex-row bg-gray-100 w-full h-screen pt-24">
+                <div className="flex w-full h-full space-x-6 px-4">
                   <div id="LeftBoxParent" className="w-[50%]">
                     <div id="FirstData">
                       <div className="flex w-full space-x-6">
