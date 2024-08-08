@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const InputQuality = () => {
+const InputWorkUnit = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -8,7 +8,7 @@ const InputQuality = () => {
   return (
     <div className="w-full h-full p-4 bg-white shadow-md rounded-3xl space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-base poppins-semibold">Item Condition</h2>
+        <h2 className="text-base poppins-semibold">Work Unit</h2>
       </div>
       <div className="flex justify-center poppins-regular relative inline-block text-left">
         <div>
@@ -20,7 +20,7 @@ const InputQuality = () => {
             aria-haspopup="true"
             onClick={toggleDropdown}
           >
-            Choose Item Condition
+            Choose Work Unit
             <svg
               className="-mr-1 ml-2 h-5 w-5"
               xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@ const InputQuality = () => {
         </div>
         {isOpen && (
           <div
-            className="origin-top-right absolute mt-10 w-52 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+            className="origin-top-right absolute mt-10 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="options-menu"
@@ -49,21 +49,21 @@ const InputQuality = () => {
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
                 role="menuitem"
               >
-                Like New
+                Belawan
               </a>
               <a
                 href="#"
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
                 role="menuitem"
               >
-                Good
+                Dumai
               </a>
               <a
                 href="#"
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
                 role="menuitem"
               >
-                Bad
+                Sibolga
               </a>
             </div>
           </div>
@@ -73,4 +73,4 @@ const InputQuality = () => {
   );
 };
 
-export default InputQuality;
+export default InputWorkUnit;

@@ -1,14 +1,10 @@
 import React from "react";
-import { FiSquare } from "react-icons/fi";
 
 const InputUnits = () => {
   return (
-    <div className="w-full p-4 bg-white shadow-md rounded-3xl">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">Item Units</h2>
-        <div className="bg-[#EBB64D] p-2 rounded-2xl">
-          <FiSquare className="text-black" />
-        </div>
+    <div className="w-full h-full p-4 bg-white shadow-md rounded-3xl  space-y-4">
+      <div className="flex justify-between items-center">
+        <h2 className="text-base poppins-semibold">Item Units</h2>
       </div>
       <div id="InputForm">
         <input
@@ -19,7 +15,7 @@ const InputUnits = () => {
           id="text"
           name="text"
           placeholder="Input Item Units"
-          className="w-full p-2 border rounded-lg text-[#919191]"
+          className="poppins-regular text-xs w-full h-8 p-2 border rounded-lg text-[#919191]"
           style={{ color: "black" }}
           required
         />

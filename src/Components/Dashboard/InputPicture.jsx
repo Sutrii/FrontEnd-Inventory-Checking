@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { FiSquare } from "react-icons/fi";
+import { AiFillPicture } from "react-icons/ai";
 
 const InputPicture = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [fileName, setFileName] = useState("Input Item Picture");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -12,38 +12,28 @@ const InputPicture = () => {
         setSelectedImage(reader.result);
       };
       reader.readAsDataURL(file);
+      setFileName(file.name);
     }
   };
 
   return (
-    <div className="w-full p-4 bg-white shadow-md rounded-3xl">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="poppins-semibold text-lg">Item Picture</h2>
-        <div className="bg-[#EBB64D] p-2 rounded-2xl">
-          <FiSquare className="text-black" />
-        </div>
+    <div className="w-full h-full p-4 bg-white shadow-md rounded-3xl space-y-4">
+      <div className="flex justify-between items-center">
+        <h2 className="text-base poppins-semibold">Item Picture</h2>
       </div>
       <div className="flex flex-col items-center space-y-4">
-        <div className="relative">
+        <div className="relative w-full">
           <input
             type="file"
             accept="image/*"
             onChange={handleImageChange}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           />
-          <div className="border border-gray-300 rounded-md px-4 py-2 bg-white cursor-pointer">
-            Input Picture
+          <div className="flex items-center poppins-regular text-sm text-gray-400 w-full h-full border border-gray-300 rounded-md px-2 py-1 bg-white cursor-pointer">
+            <AiFillPicture className="mr-2" />
+            {fileName}
           </div>
         </div>
-        {selectedImage && (
-          <div className="mt-4">
-            <img
-              src={selectedImage}
-              alt="Selected"
-              className="w-32 h-32 object-cover border border-gray-300 rounded-md"
-            />
-          </div>
-        )}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { faEdit, faCog } from "@fortawesome/free-solid-svg-icons";
 
 const NavbarDashboard = () => {
   return (
-    <div id="NavbarParent" className="w-full h-16 bg-white p-3">
+    <div id="NavbarParent" className="w-full h-full bg-white p-3">
       <div
         id="InsideParent"
         className="flex w-full h-full justify-between items-center"
