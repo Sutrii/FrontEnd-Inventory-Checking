@@ -13,12 +13,7 @@ import InputInformation from "../../Components/Dashboard/InputInformation";
 import InputWorkUnit from "../../Components/Dashboard/InputWorkUnit";
 import InputLocation from "../../Components/Dashboard/InputLocation";
 
-const BarangMasuk = () => {
-  const handleSave = (data, context) => {
-    if (context === "barangMasuk") {
-      console.log("Saving data to Barang Masuk:", data);
-    }
-  };
+const BarangRusak = () => {
   return (
     <div className="w-screen flex flex-col bg-white">
       <div className="fixed top-0 right-0 z-10 w-[85%]">
@@ -34,7 +29,7 @@ const BarangMasuk = () => {
                     <div id="FirstData">
                       <div className="flex w-full space-x-6 h-[20%]">
                         <div className="w-[50%]">
-                          <NameInput label="Item Name" onSubmit={handleSave} />
+                          <NameInput />
                         </div>
                         <div className="w-[50%]">
                           <InputSerialNumber />
@@ -107,4 +102,4 @@ const BarangMasuk = () => {
   );
 };
 
-export default BarangMasuk;
+export default BarangRusak;

@@ -8,6 +8,9 @@ import TabelBarangKeluar from "./Pages/Dashboard Pages/TabelBarangKeluar";
 import TabelBarangPinjaman from "./Pages/Dashboard Pages/TabelBarangPinjaman";
 import TabelBarangRusak from "./Pages/Dashboard Pages/TabelBarangRusak";
 import BarangMasuk from "./Pages/Dashboard Pages/BarangMasuk";
+import BarangKeluar from "./Pages/Dashboard Pages/BarangKeluar";
+import BarangPinjaman from "./Pages/Dashboard Pages/BarangPinjaman";
+import BarangRusak from "./Pages/Dashboard Pages/BarangRusak";
 
 function Routers() {
   return (
@@ -21,6 +24,9 @@ function Routers() {
       <Route path="/tabel-barang-pinjaman" element={<TabelBarangPinjaman />} />
       <Route path="/tabel-barang-rusak" element={<TabelBarangRusak />} />
       <Route path="/input-barang-masuk" element={<BarangMasuk />} />
+      <Route path="/input-barang-keluar" element={<BarangKeluar />} />
+      <Route path="/input-barang-pinjaman" element={<BarangPinjaman />} />{" "}
+      <Route path="/input-barang-rusak" element={<BarangRusak />} />
     </Routes>
   );
 }

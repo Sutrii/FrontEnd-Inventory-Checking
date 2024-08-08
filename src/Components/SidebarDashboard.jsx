@@ -23,7 +23,6 @@ const SidebarDashboard = () => {
       className="w-full h-screen bg-[#222E3C] border border-black p-3"
     >
       <div id="InsideParent" className="flex flex-col w-full h-full">
-        {/* Logo Section */}
         <div className="flex flex-col items-center mb-6">
           <img
             src={logoPelindo}
@@ -31,8 +30,6 @@ const SidebarDashboard = () => {
             className="h-8 w-auto mb-2 mt-2"
           />
         </div>
-
-        {/* Reports Section */}
         <div className="text-left text-white mb-3 px-2">
           <span
             className="text-xs poppins-regular pb-1 w-full inline-block"
@@ -43,7 +40,6 @@ const SidebarDashboard = () => {
             Reports
           </span>
         </div>
-
         <NavLink to="/dashboard">
           <div
             className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
@@ -65,7 +61,6 @@ const SidebarDashboard = () => {
             </span>
           </div>
         </NavLink>
-        {/* Summary Section */}
         <div className="text-left text-white mb-3 px-2">
           <span
             className="text-xs poppins-regular pb-1 w-full inline-block"
@@ -76,7 +71,6 @@ const SidebarDashboard = () => {
             Summary
           </span>
         </div>
-
         <NavLink to="/tabel-barang-masuk">
           <div
             className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
@@ -119,7 +113,6 @@ const SidebarDashboard = () => {
             </span>
           </div>
         </NavLink>
-
         <NavLink to="/tabel-barang-pinjaman">
           <div
             className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
@@ -141,7 +134,6 @@ const SidebarDashboard = () => {
             </span>
           </div>
         </NavLink>
-
         <NavLink to="/tabel-barang-rusak">
           <div
             className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
@@ -175,7 +167,6 @@ const SidebarDashboard = () => {
             Inventories
           </span>
         </div>
-
         <NavLink to="/input-barang-masuk">
           <div
             className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
@@ -197,71 +188,79 @@ const SidebarDashboard = () => {
             </span>
           </div>
         </NavLink>
-
-        <div
-          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
-            activeTab === "barangKeluarInv" ? "text-white" : "text-[#919191]"
-          }`}
-          onClick={() => handleTabClick("barangKeluarInv")}
-        >
-          <TbCheckbox
-            className={`text-base mr-2 ${
+        <NavLink to="/input-barang-keluar">
+          <div
+            className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
               activeTab === "barangKeluarInv" ? "text-white" : "text-[#919191]"
             }`}
-          />
-          <span
-            className={`text-xs poppins-regular ${
-              activeTab === "barangKeluarInv" ? "text-white" : "text-[#919191]"
-            }`}
+            onClick={() => handleTabClick("barangKeluarInv")}
           >
-            Barang Keluar
-          </span>
-        </div>
-
-        <div
-          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
-            activeTab === "barangPinjamanInv" ? "text-white" : "text-[#919191]"
-          }`}
-          onClick={() => handleTabClick("barangPinjamanInv")}
-        >
-          <CiGrid41
-            className={`text-base mr-2 ${
+            <TbCheckbox
+              className={`text-base mr-2 ${
+                activeTab === "barangKeluarInv"
+                  ? "text-white"
+                  : "text-[#919191]"
+              }`}
+            />
+            <span
+              className={`text-xs poppins-regular ${
+                activeTab === "barangKeluarInv"
+                  ? "text-white"
+                  : "text-[#919191]"
+              }`}
+            >
+              Barang Keluar
+            </span>
+          </div>
+        </NavLink>
+        <NavLink to="/input-barang-pinjaman">
+          <div
+            className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
               activeTab === "barangPinjamanInv"
                 ? "text-white"
                 : "text-[#919191]"
             }`}
-          />
-          <span
-            className={`text-xs poppins-regular ${
-              activeTab === "barangPinjamanInv"
-                ? "text-white"
-                : "text-[#919191]"
-            }`}
+            onClick={() => handleTabClick("barangPinjamanInv")}
           >
-            Barang Pinjaman
-          </span>
-        </div>
-
-        <div
-          className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
-            activeTab === "barangRusakInv" ? "text-white" : "text-[#919191]"
-          }`}
-          onClick={() => handleTabClick("barangRusakInv")}
-        >
-          <VscListFlat
-            className={`text-base mr-2 ${
+            <CiGrid41
+              className={`text-base mr-2 ${
+                activeTab === "barangPinjamanInv"
+                  ? "text-white"
+                  : "text-[#919191]"
+              }`}
+            />
+            <span
+              className={`text-xs poppins-regular ${
+                activeTab === "barangPinjamanInv"
+                  ? "text-white"
+                  : "text-[#919191]"
+              }`}
+            >
+              Barang Pinjaman
+            </span>
+          </div>
+        </NavLink>
+        <NavLink to="/input-barang-rusak">
+          <div
+            className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
               activeTab === "barangRusakInv" ? "text-white" : "text-[#919191]"
             }`}
-          />
-          <span
-            className={`text-xs poppins-regular ${
-              activeTab === "barangRusakInv" ? "text-white" : "text-[#919191]"
-            }`}
+            onClick={() => handleTabClick("barangRusakInv")}
           >
-            Barang Rusak
-          </span>
-        </div>
-
+            <VscListFlat
+              className={`text-base mr-2 ${
+                activeTab === "barangRusakInv" ? "text-white" : "text-[#919191]"
+              }`}
+            />
+            <span
+              className={`text-xs poppins-regular ${
+                activeTab === "barangRusakInv" ? "text-white" : "text-[#919191]"
+              }`}
+            >
+              Barang Rusak
+            </span>
+          </div>
+        </NavLink>
         {/* About Us Section */}
         <div className="text-left text-white mb-3 px-2">
           <span
