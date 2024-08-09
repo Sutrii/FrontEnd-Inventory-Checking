@@ -26,10 +26,10 @@ const InputName = ({ label, placeholder, value, onSubmit }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full h-full p-4 bg-white shadow-md rounded-3xl space-y-4"
+      className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3"
     >
       <div className="flex justify-between items-center">
-        <h2 className="text-base poppins-semibold">{label || "Item Name"}</h2>
+        <h2 className="text-sm poppins-semibold">{label || "Item Name"}</h2>
       </div>
       <div id="InputForm">
         <input
@@ -39,7 +39,7 @@ const InputName = ({ label, placeholder, value, onSubmit }) => {
           id="text"
           name="text"
           placeholder={placeholder || "Input Item Name"}
-          className="poppins-regular text-xs w-full h-8 p-2 border rounded-lg text-[#919191]"
+          className="poppins-regular text-xs w-full h-8 p-1 border rounded-lg text-[#919191]"
           style={{ color: "black" }}
           required
         />

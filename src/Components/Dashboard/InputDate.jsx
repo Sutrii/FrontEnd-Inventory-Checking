@@ -6,16 +6,17 @@ const InputDate = () => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   return (
-    <div className="w-full p-4 bg-white shadow-md rounded-3xl space-y-4">
+    <div className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3">
       <div className="flex justify-between items-center">
-        <h2 className="text-base poppins-semibold">Item Date</h2>
+        <h2 className="text-sm poppins-semibold">Item Date</h2>
       </div>
-      <div className="inline-block w-full flex justify-center">
+      <div className="flex flex-col items-center space-y-4">
         <DatePicker
           selected={selectedDate}
           onChange={(date) => setSelectedDate(date)}
-          className="border border-gray-300 rounded-md px-2 w-full py-1 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 poppins-regular text-sm text-center"
+          className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 poppins-regular text-sm text-center"
           placeholderText="Input Date"
+          style={{ width: "100%", height: "2.5rem" }} // Adjust width and height of the DatePicker input
         />
       </div>
     </div>

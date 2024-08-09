@@ -2,9 +2,9 @@ import React from "react";
 
 const InputSerialNumber = () => {
   return (
-    <div className="w-full h-full p-4 bg-white shadow-md rounded-3xl space-y-4">
+    <div className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3">
       <div className="flex justify-between items-center">
-        <h2 className="text-base poppins-semibold">Item Serial Number</h2>
+        <h2 className="text-sm poppins-semibold">Item Serial Number</h2>
       </div>
       <div id="InputForm">
         <input
@@ -15,7 +15,7 @@ const InputSerialNumber = () => {
           id="text"
           name="text"
           placeholder="Input Item Name"
-          className="poppins-regular text-xs w-full h-8 p-2 border rounded-lg text-[#919191]"
+          className="poppins-regular text-xs w-full h-8 p-1 border rounded-lg text-[#919191]"
           style={{ color: "black" }}
           required
         />

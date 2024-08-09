@@ -30,68 +30,72 @@ const BarangMasuk = () => {
             <div id="DashboardContent" className="flex flex-row">
               <div className="flex flex-col bg-gray-100 w-full h-screen pt-24">
                 <div className="flex flex-row w-full h-full space-x-6 px-4">
-                  <div id="LeftBoxParent" className="w-[80%] space-y-6">
+                  <div id="LeftBoxParent" className="w-[60%] space-y-6">
                     <div id="FirstData">
-                      <div className="flex w-full space-x-6 h-[20%]">
+                      <div className="flex w-full space-x-6 h-[12%]">
                         <div className="w-[50%]">
-                          <NameInput label="Item Name" onSubmit={handleSave} />
+                          <NameInput
+                            label="Item Name"
+                            onSubmit={handleSave}
+                            className="text-sm"
+                          />
                         </div>
                         <div className="w-[50%]">
-                          <InputSerialNumber />
+                          <InputSerialNumber className="text-sm" />
                         </div>
                       </div>
                     </div>
                     <div id="SecondData">
-                      <div className="flex w-full space-x-6 h-[20%]">
+                      <div className="flex w-full space-x-6 h-[12%]">
                         <div className="w-[50%]">
-                          <InputType />
+                          <InputType className="text-sm" />
                         </div>
                         <div className="w-[50%]">
-                          <InputQuantity />
+                          <InputQuantity className="text-sm" />
                         </div>
                       </div>
                     </div>
                     <div id="ThirdData">
-                      <div className="flex w-full space-x-6 h-[20%]">
+                      <div className="flex w-full space-x-6 h-[12%]">
                         <div className="w-[50%]">
-                          <InputQuality />
+                          <InputQuality className="text-sm" />
                         </div>
                         <div className="w-[50%]">
-                          <InputUnits />
+                          <InputUnits className="text-sm" />
                         </div>
                       </div>
                     </div>
                     <div id="FourthData">
-                      <div className="flex w-full space-x-6 h-[20%]">
+                      <div className="flex w-full space-x-6 h-[12%]">
                         <div className="w-[50%]">
-                          <InputDate />
+                          <InputDate className="text-sm" />
                         </div>
                         <div className="w-[50%]">
-                          <InputPicture />
+                          <InputPicture className="text-sm" />
                         </div>
                       </div>
                     </div>
                   </div>
                   <div id="RightBoxParent" className="w-[40%] space-y-6">
                     <div id="FristData" className="w-full flex flex-col">
-                      <div className="w-[100%] h-[20%]">
-                        <InputInformation />
+                      <div className="w-[100%] h-[12%]">
+                        <InputInformation className="text-sm" />
                       </div>
                     </div>
                     <div id="SecondData" className="w-full flex flex-col">
-                      <div className="w-[100%] h-[20%]">
-                        <InputWorkUnit />
+                      <div className="w-[100%] h-[12%]">
+                        <InputWorkUnit className="text-sm" />
                       </div>
                     </div>
                     <div id="ThirdData" className="w-full flex flex-col">
-                      <div className="w-[100%] h-[20%]">
-                        <InputLocation />
+                      <div className="w-[100%] h-[12%]">
+                        <InputLocation className="text-sm" />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="absolute bottom-5 flex justify-center w-full">
-                  <button className="bg-blue-500 text-white py-2 rounded-md w-[25%] poppins-regular text-xs">
+                <div className="absolute bottom-16 flex justify-end px-4 w-full">
+                  <button className="bg-blue-500 text-white py-2 px-4 rounded-md w-[25%] poppins-regular text-xs">
                     Submit Data
                   </button>
                 </div>

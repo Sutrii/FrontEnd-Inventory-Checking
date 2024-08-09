@@ -5,16 +5,17 @@ const InputWorkUnit = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
   return (
-    <div className="w-full h-full p-4 bg-white shadow-md rounded-3xl space-y-4">
+    <div className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3">
       <div className="flex justify-between items-center">
-        <h2 className="text-base poppins-semibold">Work Unit</h2>
+        <h2 className="text-sm poppins-semibold">Work Unit</h2>
       </div>
-      <div className="flex justify-center poppins-regular relative inline-block text-left">
-        <div>
+      <div className="flex justify-center poppins-regular relative inline-block text-left w-full">
+        <div className="w-full">
           <button
             type="button"
-            className="inline-flex justify-center items-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-xs poppins-regular text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex justify-between items-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-xs poppins-regular text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             id="options-menu"
             aria-expanded="true"
             aria-haspopup="true"
@@ -38,12 +39,12 @@ const InputWorkUnit = () => {
         </div>
         {isOpen && (
           <div
-            className="origin-top-right absolute mt-10 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+            className="origin-top-right absolute left-0 right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
-            <div className="py-1" role="none">
+            <div className="py-1 w-full" role="none">
               <a
                 href="#"
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
