@@ -2,8 +2,15 @@ import React, { useState } from "react";
 
 const InputWorkUnit = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("Choose Work Unit");
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
   };
 
   return (
@@ -17,11 +24,11 @@ const InputWorkUnit = () => {
             type="button"
             className="inline-flex justify-between items-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-xs poppins-regular text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             id="options-menu"
-            aria-expanded="true"
+            aria-expanded={isOpen}
             aria-haspopup="true"
             onClick={toggleDropdown}
           >
-            Choose Work Unit
+            {selectedOption}
             <svg
               className="-mr-1 ml-2 h-5 w-5"
               xmlns="http://www.w3.org/2000/svg"
@@ -49,6 +56,7 @@ const InputWorkUnit = () => {
                 href="#"
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
                 role="menuitem"
+                onClick={() => handleOptionClick("Belawan")}
               >
                 Belawan
               </a>
@@ -56,6 +64,7 @@ const InputWorkUnit = () => {
                 href="#"
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
                 role="menuitem"
+                onClick={() => handleOptionClick("Dumai")}
               >
                 Dumai
               </a>
@@ -63,6 +72,7 @@ const InputWorkUnit = () => {
                 href="#"
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
                 role="menuitem"
+                onClick={() => handleOptionClick("Sibolga")}
               >
                 Sibolga
               </a>

@@ -30,7 +30,7 @@ const NavigationBar = () => {
           className="flex align-items-center h-full"
           style={{ position: "relative" }}
         >
-          {["/home", "/about", "/login"].map((path) => (
+          {["/home", "/aboutus", "/login"].map((path) => (
             <NavLink
               key={path}
               to={path}
@@ -44,7 +44,7 @@ const NavigationBar = () => {
             >
               {path === "/home"
                 ? "Home"
-                : path === "/about"
+                : path === "/aboutus"
                 ? "About Us"
                 : "Sign In"}
               {isActive(path) && (

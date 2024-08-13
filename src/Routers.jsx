@@ -11,12 +11,14 @@ import BarangMasuk from "./Pages/Dashboard Pages/BarangMasuk";
 import BarangKeluar from "./Pages/Dashboard Pages/BarangKeluar";
 import BarangPinjaman from "./Pages/Dashboard Pages/BarangPinjaman";
 import BarangRusak from "./Pages/Dashboard Pages/BarangRusak";
+import AboutUs from "./Pages/AboutUs";
 
 function Routers() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/login" element={<Login />} />
       <Route path="/tabel-barang-masuk" element={<TabelBarangMasuk />} />

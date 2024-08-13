@@ -6,6 +6,7 @@ import BarangKeluar from "../../Components/Dashboard/BoxBarangKeluar";
 import BarangPinjaman from "../../Components/Dashboard/BoxBarangPinjaman";
 import BarangRusak from "../../Components/Dashboard/BoxBarangRusak";
 import TotalBarang from "../../Components/Dashboard/BoxTotalBarang";
+import PolarChart from "../../Components/Dashboard/Chart";
 
 const Dashboard = () => {
   return (
@@ -46,10 +47,15 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                  <div id="RightBoxParent" className="w-[50%] h-[60%]">
-                    <div id="ThirdData" className="w-full h-full flex flex-col">
-                      <div className="w-[100%] h-[20%]">
-                        <TotalBarang />
+                  <div id="RightBoxParent" className="w-[50%] h-[35%]">
+                    <div
+                      id="ChartSection"
+                      className="w-full h-full flex flex-col"
+                    >
+                      <div className="w-[100%] h-[100%]">
+                        <div className="w-full h-[573px]">
+                          <PolarChart />
+                        </div>
                       </div>
                     </div>
                   </div>

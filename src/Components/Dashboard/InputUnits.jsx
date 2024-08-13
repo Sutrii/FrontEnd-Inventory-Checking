@@ -13,7 +13,7 @@ const InputUnits = () => {
           //   value={email}
           //   onChange={(e) => setEmail(e.target.value)}
           id="text"
-          name="text"
+          name="satuan"
           placeholder="Input Item Units"
           className="poppins-regular text-xs w-full h-8 p-1 border rounded-lg text-[#919191]"
           style={{ color: "black" }}

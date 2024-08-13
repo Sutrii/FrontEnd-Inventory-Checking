@@ -12,7 +12,7 @@ const TotalBarang = () => {
           </div>
         </div>
         <h1 className="text-gray-600 text-3xl mb-3">21</h1>
-        <p className="text-gray-600">Dari Keseluruhan Jenis Barang</p>
+        <p className="text-m font-semibold"> Dari Keseluruhan Jenis Barang</p>
       </div>
     </div>
   );

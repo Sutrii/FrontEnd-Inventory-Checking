@@ -2,9 +2,19 @@ import React, { useState } from "react";
 
 const InputQuality = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedQuality, setSelectedQuality] = useState(
+    "Choose Item Condition"
+  );
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleSelect = (quality) => {
+    setSelectedQuality(quality);
+    setIsOpen(false); // Tutup dropdown setelah memilih
+  };
+
   return (
     <div className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3">
       <div className="flex justify-between items-center">
@@ -13,6 +23,7 @@ const InputQuality = () => {
       <div className="flex justify-center poppins-regular relative inline-block text-left w-full">
         <div className="w-full">
           <button
+            name="tipe_barang"
             type="button"
             className="inline-flex justify-between items-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-xs poppins-regular text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             id="options-menu"
@@ -20,7 +31,7 @@ const InputQuality = () => {
             aria-haspopup="true"
             onClick={toggleDropdown}
           >
-            Choose Item Condition
+            {selectedQuality}
             <svg
               className="-mr-1 ml-2 h-5 w-5"
               xmlns="http://www.w3.org/2000/svg"
@@ -44,27 +55,27 @@ const InputQuality = () => {
             aria-labelledby="options-menu"
           >
             <div className="py-1 w-full" role="none">
-              <a
-                href="#"
-                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+              <button
+                onClick={() => handleSelect("Like New")}
+                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left"
                 role="menuitem"
               >
                 Like New
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+              </button>
+              <button
+                onClick={() => handleSelect("Good")}
+                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left"
                 role="menuitem"
               >
                 Good
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+              </button>
+              <button
+                onClick={() => handleSelect("Bad")}
+                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left"
                 role="menuitem"
               >
                 Bad
-              </a>
+              </button>
             </div>
           </div>
         )}

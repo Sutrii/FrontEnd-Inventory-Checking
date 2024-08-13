@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, NavLink } from "react-router-dom";
 import logoPelindo from "../assets/img/logo-pelindo.png";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { BsTruck } from "react-icons/bs";
@@ -8,14 +9,31 @@ import { CiGrid41 } from "react-icons/ci";
 import { VscListFlat } from "react-icons/vsc";
 import { FaInstagram } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
-import { NavLink } from "react-router-dom";
 
 const SidebarDashboard = () => {
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState("");
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+  useEffect(() => {
+    // Update activeTab based on the current route
+    const path = location.pathname;
+    if (path.includes("dashboard")) setActiveTab("dashboard");
+    else if (path.includes("tabel-barang-masuk")) setActiveTab("barangMasuk");
+    else if (path.includes("tabel-barang-keluar")) setActiveTab("barangKeluar");
+    else if (path.includes("tabel-barang-pinjaman"))
+      setActiveTab("barangPinjaman");
+    else if (path.includes("tabel-barang-rusak")) setActiveTab("barangRusak");
+    else if (path.includes("input-barang-masuk"))
+      setActiveTab("barangMasukInv");
+    else if (path.includes("input-barang-keluar"))
+      setActiveTab("barangKeluarInv");
+    else if (path.includes("input-barang-pinjaman"))
+      setActiveTab("barangPinjamanInv");
+    else if (path.includes("input-barang-rusak"))
+      setActiveTab("barangRusakInv");
+    else if (path.includes("social-media")) setActiveTab("socialMedia");
+    else if (path.includes("logout")) setActiveTab("logout");
+  }, [location]);
 
   return (
     <div
@@ -30,12 +48,11 @@ const SidebarDashboard = () => {
             className="h-8 w-auto mb-2 mt-2"
           />
         </div>
+        {/* Reports Section */}
         <div className="text-left text-white mb-3 px-2">
           <span
             className="text-xs poppins-regular pb-1 w-full inline-block"
-            style={{
-              borderBottom: "0.5px solid #BEBEBE",
-            }}
+            style={{ borderBottom: "0.5px solid #BEBEBE" }}
           >
             Reports
           </span>
@@ -45,7 +62,6 @@ const SidebarDashboard = () => {
             className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
               activeTab === "dashboard" ? "text-white" : "text-[#919191]"
             }`}
-            onClick={() => handleTabClick("dashboard")}
           >
             <GiSettingsKnobs
               className={`text-base mr-2 ${
@@ -61,12 +77,11 @@ const SidebarDashboard = () => {
             </span>
           </div>
         </NavLink>
+        {/* Summary Section */}
         <div className="text-left text-white mb-3 px-2">
           <span
             className="text-xs poppins-regular pb-1 w-full inline-block"
-            style={{
-              borderBottom: "0.5px solid #BEBEBE",
-            }}
+            style={{ borderBottom: "0.5px solid #BEBEBE" }}
           >
             Summary
           </span>
@@ -76,7 +91,6 @@ const SidebarDashboard = () => {
             className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
               activeTab === "barangMasuk" ? "text-white" : "text-[#919191]"
             }`}
-            onClick={() => handleTabClick("barangMasuk")}
           >
             <BsTruck
               className={`text-base mr-2 ${
@@ -97,7 +111,6 @@ const SidebarDashboard = () => {
             className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
               activeTab === "barangKeluar" ? "text-white" : "text-[#919191]"
             }`}
-            onClick={() => handleTabClick("barangKeluar")}
           >
             <BsTruck
               className={`text-base mr-2 ${
@@ -118,7 +131,6 @@ const SidebarDashboard = () => {
             className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
               activeTab === "barangPinjaman" ? "text-white" : "text-[#919191]"
             }`}
-            onClick={() => handleTabClick("barangPinjaman")}
           >
             <BsTruck
               className={`text-base mr-2 ${
@@ -139,7 +151,6 @@ const SidebarDashboard = () => {
             className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
               activeTab === "barangRusak" ? "text-white" : "text-[#919191]"
             }`}
-            onClick={() => handleTabClick("barangRusak")}
           >
             <BsTruck
               className={`text-base mr-2 ${
@@ -155,14 +166,11 @@ const SidebarDashboard = () => {
             </span>
           </div>
         </NavLink>
-
         {/* Inventories Section */}
         <div className="text-left text-white mb-3 px-2">
           <span
             className="text-xs poppins-regular pb-1 w-full inline-block"
-            style={{
-              borderBottom: "0.5px solid #BEBEBE",
-            }}
+            style={{ borderBottom: "0.5px solid #BEBEBE" }}
           >
             Inventories
           </span>
@@ -172,7 +180,6 @@ const SidebarDashboard = () => {
             className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
               activeTab === "barangMasukInv" ? "text-white" : "text-[#919191]"
             }`}
-            onClick={() => handleTabClick("barangMasukInv")}
           >
             <FiSquare
               className={`text-base mr-2 ${
@@ -193,7 +200,6 @@ const SidebarDashboard = () => {
             className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
               activeTab === "barangKeluarInv" ? "text-white" : "text-[#919191]"
             }`}
-            onClick={() => handleTabClick("barangKeluarInv")}
           >
             <TbCheckbox
               className={`text-base mr-2 ${
@@ -220,7 +226,6 @@ const SidebarDashboard = () => {
                 ? "text-white"
                 : "text-[#919191]"
             }`}
-            onClick={() => handleTabClick("barangPinjamanInv")}
           >
             <CiGrid41
               className={`text-base mr-2 ${
@@ -245,7 +250,6 @@ const SidebarDashboard = () => {
             className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
               activeTab === "barangRusakInv" ? "text-white" : "text-[#919191]"
             }`}
-            onClick={() => handleTabClick("barangRusakInv")}
           >
             <VscListFlat
               className={`text-base mr-2 ${
@@ -265,19 +269,18 @@ const SidebarDashboard = () => {
         <div className="text-left text-white mb-3 px-2">
           <span
             className="text-xs poppins-regular pb-1 w-full inline-block"
-            style={{
-              borderBottom: "0.5px solid #BEBEBE",
-            }}
+            style={{ borderBottom: "0.5px solid #BEBEBE" }}
           >
             About Us
           </span>
         </div>
-
-        <div
+        <a
+          href="https://www.instagram.com/pelindomultiterminal?igsh=MXhmN2VsOHRpMWJuNQ=="
+          target="_blank"
+          rel="noopener noreferrer"
           className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
             activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
           }`}
-          onClick={() => handleTabClick("socialMedia")}
         >
           <FaInstagram
             className={`text-base mr-2 ${
@@ -291,14 +294,12 @@ const SidebarDashboard = () => {
           >
             Social Media
           </span>
-        </div>
-
+        </a>
         {/* Log Out Section */}
         <div
           className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
             activeTab === "logout" ? "text-white" : "text-[#919191]"
           }`}
-          onClick={() => handleTabClick("logout")}
         >
           <MdOutlineLogin
             className={`text-base mr-2 ${
