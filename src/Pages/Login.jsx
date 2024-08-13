@@ -2,23 +2,25 @@ import React, { useState } from "react";
 import NavigationBar from "../Components/Navbar";
 import backgroundImage from "../assets/img/peti kemas.jpg";
 import logo from "../assets/img/logo-pelindo.png";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import axios from "../api/axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  // const { login, errors } = useAuthContext();
 
+  const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    // login({ email, password });
     try {
       const response = await axios.post("/api/login", {
         email,
@@ -94,6 +96,13 @@ const Login = () => {
                 style={{ color: "black" }}
                 required
               />
+              {/* {errors.email && (
+                <div className="flex">
+                  <span className="text-red-400 text-sm m-2 p-2">
+                    {errors.email[0]}
+                  </span>
+                </div>
+              )} */}
             </div>
             <div className="mb-4 relative">
               <label
