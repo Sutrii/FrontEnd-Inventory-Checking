@@ -12,6 +12,7 @@ import InputInformation from "../../Components/Dashboard/InputInformation";
 import InputWorkUnit from "../../Components/Dashboard/InputWorkUnit";
 import InputLocation from "../../Components/Dashboard/InputLocation";
 import InputName from "../../Components/Dashboard/InputName";
+import { format, parse } from "date-fns";
 
 const BarangMasuk = () => {
   const [data, setData] = useState({
@@ -76,7 +77,46 @@ const BarangMasuk = () => {
   };
 
   const handleSave = async () => {
-    console.log(data);
+    try {
+      const formData = new FormData();
+      formData.append("nama_barang", data.nama_barang);
+      formData.append("tipe_barang", data.tipe_barang);
+      formData.append("kualitas", data.kualitas);
+      formData.append("tanggal", convertToISOFormat(data.tanggal)); // Format ke YYYY-MM-DD
+      formData.append("sn", data.sn);
+      formData.append("jumlah", data.jumlah);
+      formData.append("satuan", data.satuan);
+      formData.append("keterangan", data.keterangan);
+      formData.append("lokasi", data.lokasi);
+      formData.append("work_unit", data.work_unit);
+
+      if (data.picture) {
+        formData.append("picture", data.picture);
+      }
+
+      const response = await fetch("http://localhost:8000/api/barang-masuk", {
+        method: "POST",
+        body: formData, // Jangan set header Content-Type
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Data saved:", result);
+      } else {
+        console.error("Error saving data:", await response.text()); // Untuk melihat pesan error
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  // Fungsi untuk mengkonversi tanggal ke format YYYY-MM-DD
+  const convertToISOFormat = (date) => {
+    if (date) {
+      const d = new Date(date);
+      return d.toISOString().split("T")[0]; // YYYY-MM-DD
+    }
+    return "";
   };
 
   return (
