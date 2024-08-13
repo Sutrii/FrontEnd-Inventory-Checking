@@ -6,6 +6,7 @@ import axios from "axios"; // Import axios for HTTP requests
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import UpdateBarangPinjaman from "./UpdateBarangPinjaman";
 
 function TblBarangPinjaman() {
   const data = [
@@ -39,6 +40,8 @@ function TblBarangPinjaman() {
 
   const [records, setRecords] = useState(data);
   const [entries, setEntries] = useState(10);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [editData, setEditData] = useState(null);
 
   function handleFilter(event) {
     const searchTerm = event.target.value.toLowerCase();
@@ -52,24 +55,44 @@ function TblBarangPinjaman() {
     setEntries(parseInt(event.target.value));
   }
 
-  // Fungsi untuk menghapus data
+  // Fungsi untuk menghapus data dengan konfirmasi
   async function handleDelete(id) {
-    try {
-      await axios.delete(`/api/barang-masuk/${id}`);
-      setRecords(records.filter((record) => record.id !== id));
-      alert("Data berhasil dihapus");
-    } catch (error) {
-      console.error("There was an error deleting the record!", error);
+    const confirmDelete = window.confirm(
+      "Apakah Anda yakin ingin menghapus data ini?"
+    );
+    if (confirmDelete) {
+      try {
+        await axios.delete(`/api/barang-pinjaman/${id}`);
+        setRecords(records.filter((record) => record.id !== id));
+        alert("Data berhasil dihapus");
+      } catch (error) {
+        console.error("Terjadi kesalahan saat menghapus data!", error);
+      }
     }
   }
 
-  // Fungsi untuk mengonfirmasi penghapusan
-  function confirmDelete(id) {
-    const isConfirmed = window.confirm(
-      "Apakah Anda yakin ingin menghapus data ini?"
-    );
-    if (isConfirmed) {
-      handleDelete(id);
+  function openUpdateModal(data) {
+    setEditData(data);
+    setIsUpdateModalOpen(true);
+  }
+
+  function closeUpdateModal() {
+    setIsUpdateModalOpen(false);
+  }
+
+  async function handleUpdate() {
+    if (editData) {
+      try {
+        await axios.put(`/api/barang-pinjaman/${editData.id}`, editData);
+        const updatedRecords = records.map((record) =>
+          record.id === editData.id ? editData : record
+        );
+        setRecords(updatedRecords);
+        alert("Data berhasil diperbarui");
+        setIsUpdateModalOpen(false);
+      } catch (error) {
+        console.error("Terjadi kesalahan saat memperbarui data!", error);
+      }
     }
   }
 
@@ -187,7 +210,10 @@ function TblBarangPinjaman() {
                   justifyContent: "center",
                 }}
               >
-                <div className="bg-[#387F39] px-2 py-2 rounded-3">
+                <div
+                  className="bg-[#387F39] px-2 py-2 rounded-3"
+                  onClick={() => openUpdateModal(rowData)}
+                >
                   <FaEdit
                     title="Edit"
                     className="text-white cursor-pointer text-sm sm:text-base"
@@ -207,6 +233,13 @@ function TblBarangPinjaman() {
           />
         </DataTable>
       </div>
+      <UpdateBarangPinjaman
+        isUpdateModalOpen={isUpdateModalOpen}
+        closeUpdateModal={closeUpdateModal}
+        handleUpdate={handleUpdate}
+        editData={editData}
+        setEditData={setEditData}
+      />
     </div>
   );
 }

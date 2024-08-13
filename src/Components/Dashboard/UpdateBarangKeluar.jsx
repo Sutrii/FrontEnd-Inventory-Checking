@@ -11,7 +11,7 @@ import InputWorkUnit from "./InputWorkUnit";
 import InputLocation from "./InputLocation";
 import InputName from "./InputName";
 
-const UpdateBarangMasuk = ({
+const UpdateBarangKeluar = ({
   isUpdateModalOpen,
   closeUpdateModal,
   handleUpdate,
@@ -44,7 +44,7 @@ const UpdateBarangMasuk = ({
         <div className="sticky top-0 bg-white border-b border-gray-200 z-20">
           <div className="flex items-center justify-between p-4">
             <h3 className="poppins-semibold text-xl">
-              Update Tabel Barang Masuk
+              Update Tabel Barang Keluar
             </h3>
             <button
               className="text-gray-600 hover:text-gray-900"
@@ -210,4 +210,4 @@ const UpdateBarangMasuk = ({
   );
 };
 
-export default UpdateBarangMasuk;
+export default UpdateBarangKeluar;
