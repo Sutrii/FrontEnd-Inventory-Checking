@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import axios from "axios"; // Import axios for HTTP requests
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import UpdateBarangPinjaman from "./UpdateBarangPinjaman";
 
 function TblBarangPinjaman() {
   const data = [
     {
+      id: 1,
       no: 1,
       nama_barang: "Laptop Asus RAM 8gb warna biru stiker kucing",
       tipe_barang: "Laptop",
@@ -21,6 +24,7 @@ function TblBarangPinjaman() {
       aksi_admin: "Edit/Delete",
     },
     {
+      id: 2,
       no: 2,
       nama_barang: "Samsung TV",
       tipe_barang: "TV",
@@ -36,6 +40,8 @@ function TblBarangPinjaman() {
 
   const [records, setRecords] = useState(data);
   const [entries, setEntries] = useState(10);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [editData, setEditData] = useState(null);
 
   function handleFilter(event) {
     const searchTerm = event.target.value.toLowerCase();
@@ -47,6 +53,47 @@ function TblBarangPinjaman() {
 
   function handleEntriesChange(event) {
     setEntries(parseInt(event.target.value));
+  }
+
+  // Fungsi untuk menghapus data dengan konfirmasi
+  async function handleDelete(id) {
+    const confirmDelete = window.confirm(
+      "Apakah Anda yakin ingin menghapus data ini?"
+    );
+    if (confirmDelete) {
+      try {
+        await axios.delete(`/api/barang-pinjaman/${id}`);
+        setRecords(records.filter((record) => record.id !== id));
+        alert("Data berhasil dihapus");
+      } catch (error) {
+        console.error("Terjadi kesalahan saat menghapus data!", error);
+      }
+    }
+  }
+
+  function openUpdateModal(data) {
+    setEditData(data);
+    setIsUpdateModalOpen(true);
+  }
+
+  function closeUpdateModal() {
+    setIsUpdateModalOpen(false);
+  }
+
+  async function handleUpdate() {
+    if (editData) {
+      try {
+        await axios.put(`/api/barang-pinjaman/${editData.id}`, editData);
+        const updatedRecords = records.map((record) =>
+          record.id === editData.id ? editData : record
+        );
+        setRecords(updatedRecords);
+        alert("Data berhasil diperbarui");
+        setIsUpdateModalOpen(false);
+      } catch (error) {
+        console.error("Terjadi kesalahan saat memperbarui data!", error);
+      }
+    }
   }
 
   return (
@@ -155,7 +202,7 @@ function TblBarangPinjaman() {
           <Column
             header="Aksi Admin"
             style={{ width: "10%", textAlign: "center" }}
-            body={() => (
+            body={(rowData) => (
               <div
                 style={{
                   display: "flex",
@@ -163,13 +210,19 @@ function TblBarangPinjaman() {
                   justifyContent: "center",
                 }}
               >
-                <div className="bg-[#387F39] px-2 py-2 rounded-3">
+                <div
+                  className="bg-[#387F39] px-2 py-2 rounded-3"
+                  onClick={() => openUpdateModal(rowData)}
+                >
                   <FaEdit
                     title="Edit"
                     className="text-white cursor-pointer text-sm sm:text-base"
                   />
                 </div>
-                <div className="bg-[#C80036] px-2 py-2 rounded-3">
+                <div
+                  className="bg-[#C80036] px-2 py-2 rounded-3"
+                  onClick={() => confirmDelete(rowData.id)}
+                >
                   <FaTrash
                     title="Hapus"
                     className="text-white cursor-pointer text-sm sm:text-base"
@@ -180,6 +233,13 @@ function TblBarangPinjaman() {
           />
         </DataTable>
       </div>
+      <UpdateBarangPinjaman
+        isUpdateModalOpen={isUpdateModalOpen}
+        closeUpdateModal={closeUpdateModal}
+        handleUpdate={handleUpdate}
+        editData={editData}
+        setEditData={setEditData}
+      />
     </div>
   );
 }
