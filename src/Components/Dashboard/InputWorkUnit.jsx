@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 
-const InputWorkUnit = () => {
+const InputWorkUnit = ({ value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Choose Work Unit");
+  const [selectedWorkUnit, setSelectedWorkUnit] = useState(
+    value || "Choose Work Unit"
+  );
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
+  const handleWorkUnitClick = (work_unit) => {
+    setSelectedWorkUnit(work_unit);
     setIsOpen(false);
+    if (onChange) {
+      onChange(work_unit);
+    }
   };
 
   return (
@@ -28,7 +33,7 @@ const InputWorkUnit = () => {
             aria-haspopup="true"
             onClick={toggleDropdown}
           >
-            {selectedOption}
+            {selectedWorkUnit}
             <svg
               className="-mr-1 ml-2 h-5 w-5"
               xmlns="http://www.w3.org/2000/svg"
@@ -53,26 +58,23 @@ const InputWorkUnit = () => {
           >
             <div className="py-1 w-full" role="none">
               <a
-                href="#"
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
                 role="menuitem"
-                onClick={() => handleOptionClick("Belawan")}
+                onClick={() => handleWorkUnitClick("Belawan")}
               >
                 Belawan
               </a>
               <a
-                href="#"
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
                 role="menuitem"
-                onClick={() => handleOptionClick("Dumai")}
+                onClick={() => handleWorkUnitClick("Dumai")}
               >
                 Dumai
               </a>
               <a
-                href="#"
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
                 role="menuitem"
-                onClick={() => handleOptionClick("Sibolga")}
+                onClick={() => handleWorkUnitClick("Sibolga")}
               >
                 Sibolga
               </a>

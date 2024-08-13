@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const InputInformation = () => {
+const InputInformation = ({ value, onChange }) => {
   const [information, setInformation] = useState("");
 
   return (
@@ -10,16 +10,14 @@ const InputInformation = () => {
       </div>
       <div id="InputForm">
         <textarea
-          formMethod="post"
           id="information"
-          name="information"
+          name="keterangan"
           placeholder="Input Item Information"
           className="poppins-regular text-xs w-full h-[152px] p-1 border rounded-lg text-[#919191]"
           style={{ color: "black" }}
-          value={information}
-          onChange={(e) => setInformation(e.target.value)}
+          value={value}
+          onChange={onChange}
           rows="4"
-          required
         />
       </div>
     </div>

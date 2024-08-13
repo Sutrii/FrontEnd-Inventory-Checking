@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputSerialNumber = () => {
+const InputSerialNumber = ({ value, onChange }) => {
   return (
     <div className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3">
       <div className="flex justify-between items-center">
@@ -8,13 +8,11 @@ const InputSerialNumber = () => {
       </div>
       <div id="InputForm">
         <input
-          formMethod="post"
-          type="text"
-          //   value={email}
-          //   onChange={(e) => setEmail(e.target.value)}
-          id="text"
           name="sn"
-          placeholder="Input Item Name"
+          type="text"
+          value={value}
+          onChange={onChange}
+          placeholder="Input Item Serial Number"
           className="poppins-regular text-xs w-full h-8 p-1 border rounded-lg text-[#919191]"
           style={{ color: "black" }}
           required

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { AiFillPicture } from "react-icons/ai";
 
-const InputPicture = () => {
+const InputPicture = ({ onChange }) => {
   const [fileName, setFileName] = useState("Input Item Picture");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setFileName(file.name);
+      onChange(file); // Pass the selected file to the parent component
     }
   };
 

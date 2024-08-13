@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-const InputQuality = () => {
+const InputQuality = ({ value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedQuality, setSelectedQuality] = useState(
-    "Choose Item Condition"
+    value || "Choose Item Condition"
   );
 
   const toggleDropdown = () => {
@@ -12,7 +12,10 @@ const InputQuality = () => {
 
   const handleSelect = (quality) => {
     setSelectedQuality(quality);
-    setIsOpen(false); // Tutup dropdown setelah memilih
+    setIsOpen(false);
+    if (onChange) {
+      onChange(quality); // Notify parent component of the selection
+    }
   };
 
   return (

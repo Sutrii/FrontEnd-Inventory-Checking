@@ -1,19 +1,19 @@
 import React from "react";
 
-const InputLocation = () => {
+const InputLocation = ({ value, onChange }) => {
   return (
-    <div className="w-full h-[96px] p-3 bg-white shadow-md rounded-2xl space-y-3">
+    <div className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3">
       <div className="flex justify-between items-center">
-        <h2 className="text-sm poppins-semibold">Location</h2>
+        <h2 className="text-sm poppins-semibold">Item Location</h2>
       </div>
-      <div id="InputForm" className="flex flex-col items-center space-y-4">
+      <div id="InputForm">
         <input
-          formMethod="post"
+          name="lokasi"
           type="text"
-          id="text"
-          name="text"
-          placeholder="Input Location"
-          className="poppins-regular text-sm w-full h-8 p-2 border border-gray-300 rounded-md text-[#919191]"
+          value={value}
+          onChange={onChange}
+          placeholder="Input Item Location"
+          className="poppins-regular text-xs w-full h-8 p-1 border rounded-lg text-[#919191]"
           style={{ color: "black" }}
           required
         />

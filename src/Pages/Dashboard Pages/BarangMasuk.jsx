@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import NavbarDashboard from "../../Components/NavbarDashboard";
 import SidebarDashboard from "../../Components/SidebarDashboard";
-import NameInput from "../../Components/Dashboard/InputName";
 import InputType from "../../Components/Dashboard/InputType";
 import InputSerialNumber from "../../Components/Dashboard/InputSerialNumber";
 import InputQuantity from "../../Components/Dashboard/InputQuantity";
@@ -12,79 +11,72 @@ import InputPicture from "../../Components/Dashboard/InputPicture";
 import InputInformation from "../../Components/Dashboard/InputInformation";
 import InputWorkUnit from "../../Components/Dashboard/InputWorkUnit";
 import InputLocation from "../../Components/Dashboard/InputLocation";
+import InputName from "../../Components/Dashboard/InputName";
 
 const BarangMasuk = () => {
   const [data, setData] = useState({
-    itemName: "",
-    serialNumber: "",
-    type: "",
-    quantity: 0,
-    units: "",
-    quality: "",
-    date: "",
+    nama_barang: "",
+    tipe_barang: "",
+    kualitas: "Choose Item Condition",
+    tanggal: null,
+    sn: "",
+    jumlah: "",
+    satuan: "",
     picture: null,
-    information: "",
-    workUnit: "",
-    location: "",
+    keterangan: "",
+    work_unit: "",
+    lokasi: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const handleChange = (e) => {
+    const { name, value, type, files } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: type === "file" ? files[0] : value,
+    }));
+  };
 
-  const validate = () => {
-    const newErrors = {};
+  //Untuk Dropdown Input Condition
+  const handleQualityChange = (quality) => {
+    setData({
+      ...data,
+      kualitas: quality,
+    });
+  };
 
-    if (!data.itemName.trim()) newErrors.itemName = "Item Name is required.";
-    if (!data.serialNumber.trim())
-      newErrors.serialNumber = "Serial Number is required.";
-    if (!data.type.trim()) newErrors.type = "Type is required.";
-    if (!data.quantity || isNaN(data.quantity))
-      newErrors.quantity = "Valid Quantity is required.";
-    if (!data.units.trim()) newErrors.units = "Units is required.";
-    if (!data.quality.trim()) newErrors.quality = "Quality is required.";
-    if (!data.date) newErrors.date = "Date is required.";
-    if (!data.picture) newErrors.picture = "Picture is required.";
-    if (!data.information.trim())
-      newErrors.information = "Information is required.";
-    if (!data.workUnit.trim()) newErrors.workUnit = "Work Unit is required.";
-    if (!data.location.trim()) newErrors.location = "Location is required.";
+  //Untuk Dropdown Input Work Unit
+  const handleWorkUnitChange = (work_unit) => {
+    setData({
+      ...data,
+      work_unit: work_unit,
+    });
+  };
 
-    return newErrors;
+  //Untuk Date Picker
+  const handleDateChange = (date) => {
+    setData((prevData) => ({
+      ...prevData,
+      tanggal: date,
+    }));
+  };
+
+  const handleFileChange = (file) => {
+    setData((prevData) => ({
+      ...prevData,
+      picture: file,
+    }));
+  };
+
+  const handleInformationChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value, // Memperbarui state sesuai dengan nama input
+    }));
   };
 
   const handleSave = async () => {
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      try {
-        const formData = new FormData();
-        formData.append("nama_barang", data.itemName);
-        formData.append("tipe_barang", data.type);
-        formData.append("kualitas", data.quality);
-        formData.append("tanggal", data.date);
-        formData.append("sn", data.serialNumber);
-        formData.append("jumlah", data.quantity);
-        formData.append("satuan", data.units);
-        formData.append("keterangan", data.information);
-        formData.append("lokasi", data.location);
-        formData.append("picture", data.picture);
-        formData.append("work_unit", data.workUnit);
-
-        const response = await fetch("http://localhost:8000/api/barang-masuk", {
-          method: "POST",
-          body: formData,
-        });
-
-        if (response.ok) {
-          const savedData = await response.json();
-          console.log("Data saved:", savedData);
-        } else {
-          console.error("Failed to save data");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
+    console.log(data);
   };
 
   return (
@@ -102,31 +94,16 @@ const BarangMasuk = () => {
                     <div id="FirstData">
                       <div className="flex w-full space-x-6 h-[12%]">
                         <div className="w-[50%]">
-                          <NameInput
-                            label="Item Name"
-                            onChange={(e) =>
-                              setData({ ...data, itemName: e.target.value })
-                            }
-                            className="text-sm"
+                          <InputName
+                            value={data.nama_barang}
+                            onChange={handleChange}
                           />
-                          {errors.itemName && (
-                            <p className="text-red-500 text-xs">
-                              {errors.itemName}
-                            </p>
-                          )}
                         </div>
                         <div className="w-[50%]">
                           <InputSerialNumber
-                            onChange={(e) =>
-                              setData({ ...data, serialNumber: e.target.value })
-                            }
-                            className="text-sm"
+                            value={data.sn}
+                            onChange={handleChange}
                           />
-                          {errors.serialNumber && (
-                            <p className="text-red-500 text-xs">
-                              {errors.serialNumber}
-                            </p>
-                          )}
                         </div>
                       </div>
                     </div>
@@ -134,29 +111,15 @@ const BarangMasuk = () => {
                       <div className="flex w-full space-x-6 h-[12%]">
                         <div className="w-[50%]">
                           <InputType
-                            onChange={(e) =>
-                              setData({ ...data, type: e.target.value })
-                            }
-                            className="text-sm"
+                            value={data.tipe_barang}
+                            onChange={handleChange}
                           />
-                          {errors.type && (
-                            <p className="text-red-500 text-xs">
-                              {errors.type}
-                            </p>
-                          )}
                         </div>
                         <div className="w-[50%]">
                           <InputQuantity
-                            onChange={(e) =>
-                              setData({ ...data, quantity: e.target.value })
-                            }
-                            className="text-sm"
+                            value={data.jumlah}
+                            onChange={handleChange}
                           />
-                          {errors.quantity && (
-                            <p className="text-red-500 text-xs">
-                              {errors.quantity}
-                            </p>
-                          )}
                         </div>
                       </div>
                     </div>
@@ -164,29 +127,15 @@ const BarangMasuk = () => {
                       <div className="flex w-full space-x-6 h-[12%]">
                         <div className="w-[50%]">
                           <InputQuality
-                            onChange={(e) =>
-                              setData({ ...data, quality: e.target.value })
-                            }
-                            className="text-sm"
+                            value={data.kualitas}
+                            onChange={handleQualityChange}
                           />
-                          {errors.quality && (
-                            <p className="text-red-500 text-xs">
-                              {errors.quality}
-                            </p>
-                          )}
                         </div>
                         <div className="w-[50%]">
                           <InputUnits
-                            onChange={(e) =>
-                              setData({ ...data, units: e.target.value })
-                            }
-                            className="text-sm"
+                            value={data.satuan}
+                            onChange={handleChange}
                           />
-                          {errors.units && (
-                            <p className="text-red-500 text-xs">
-                              {errors.units}
-                            </p>
-                          )}
                         </div>
                       </div>
                     </div>
@@ -194,27 +143,12 @@ const BarangMasuk = () => {
                       <div className="flex w-full space-x-6 h-[12%]">
                         <div className="w-[50%]">
                           <InputDate
-                            onChange={(date) => setData({ ...data, date })}
-                            className="text-sm"
+                            selectedDate={data.tanggal}
+                            onDateChange={handleDateChange}
                           />
-                          {errors.date && (
-                            <p className="text-red-500 text-xs">
-                              {errors.date}
-                            </p>
-                          )}
                         </div>
                         <div className="w-[50%]">
-                          <InputPicture
-                            onChange={(e) =>
-                              setData({ ...data, picture: e.target.files[0] })
-                            }
-                            className="text-sm"
-                          />
-                          {errors.picture && (
-                            <p className="text-red-500 text-xs">
-                              {errors.picture}
-                            </p>
-                          )}
+                          <InputPicture onChange={handleFileChange} />
                         </div>
                       </div>
                     </div>
@@ -223,46 +157,25 @@ const BarangMasuk = () => {
                     <div id="FristData" className="w-full flex flex-col">
                       <div className="w-[100%] h-[12%]">
                         <InputInformation
-                          onChange={(e) =>
-                            setData({ ...data, information: e.target.value })
-                          }
-                          className="text-sm"
+                          value={data.keterangan}
+                          onChange={handleInformationChange}
                         />
-                        {errors.information && (
-                          <p className="text-red-500 text-xs">
-                            {errors.information}
-                          </p>
-                        )}
                       </div>
                     </div>
                     <div id="SecondData" className="w-full flex flex-col">
                       <div className="w-[100%] h-[12%]">
                         <InputWorkUnit
-                          onChange={(e) =>
-                            setData({ ...data, workUnit: e.target.value })
-                          }
-                          className="text-sm"
+                          value={data.work_unit}
+                          onChange={handleWorkUnitChange}
                         />
-                        {errors.workUnit && (
-                          <p className="text-red-500 text-xs">
-                            {errors.workUnit}
-                          </p>
-                        )}
                       </div>
                     </div>
                     <div id="ThirdData" className="w-full flex flex-col">
                       <div className="w-[100%] h-[12%]">
                         <InputLocation
-                          onChange={(e) =>
-                            setData({ ...data, location: e.target.value })
-                          }
-                          className="text-sm"
+                          value={data.lokasi}
+                          onChange={handleChange}
                         />
-                        {errors.location && (
-                          <p className="text-red-500 text-xs">
-                            {errors.location}
-                          </p>
-                        )}
                       </div>
                     </div>
                   </div>
