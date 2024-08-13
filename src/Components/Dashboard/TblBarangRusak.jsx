@@ -5,6 +5,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import axios from "axios";
 
 function TblBarangRusak() {
   const data = [
@@ -47,6 +48,31 @@ function TblBarangRusak() {
 
   function handleEntriesChange(event) {
     setEntries(parseInt(event.target.value));
+  }
+
+  async function handleDelete(id) {
+    const confirmDelete = window.confirm(
+      "Apakah Anda yakin ingin menghapus data ini?"
+    );
+    if (confirmDelete) {
+      try {
+        await axios.delete(`/api/barang-masuk/${id}`);
+        setRecords(records.filter((record) => record.id !== id));
+        alert("Data berhasil dihapus");
+      } catch (error) {
+        console.error("Terjadi kesalahan saat menghapus data!", error);
+      }
+    }
+  }
+
+  // Fungsi untuk mengonfirmasi penghapusan
+  function confirmDelete(id) {
+    const isConfirmed = window.confirm(
+      "Apakah Anda yakin ingin menghapus data ini?"
+    );
+    if (isConfirmed) {
+      handleDelete(id);
+    }
   }
 
   return (
@@ -155,7 +181,7 @@ function TblBarangRusak() {
           <Column
             header="Aksi Admin"
             style={{ width: "10%", textAlign: "center" }}
-            body={() => (
+            body={(rowData) => (
               <div
                 style={{
                   display: "flex",
@@ -169,7 +195,10 @@ function TblBarangRusak() {
                     className="text-white cursor-pointer text-sm sm:text-base"
                   />
                 </div>
-                <div className="bg-[#C80036] px-2 py-2 rounded-3">
+                <div
+                  className="bg-[#C80036] px-2 py-2 rounded-3"
+                  onClick={() => handleDelete(rowData)}
+                >
                   <FaTrash
                     title="Hapus"
                     className="text-white cursor-pointer text-sm sm:text-base"

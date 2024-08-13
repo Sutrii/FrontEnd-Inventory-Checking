@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import axios from "axios"; // Import axios for HTTP requests
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
@@ -9,6 +10,7 @@ import "primeicons/primeicons.css";
 function TblBarangPinjaman() {
   const data = [
     {
+      id: 1,
       no: 1,
       nama_barang: "Laptop Asus RAM 8gb warna biru stiker kucing",
       tipe_barang: "Laptop",
@@ -21,6 +23,7 @@ function TblBarangPinjaman() {
       aksi_admin: "Edit/Delete",
     },
     {
+      id: 2,
       no: 2,
       nama_barang: "Samsung TV",
       tipe_barang: "TV",
@@ -47,6 +50,27 @@ function TblBarangPinjaman() {
 
   function handleEntriesChange(event) {
     setEntries(parseInt(event.target.value));
+  }
+
+  // Fungsi untuk menghapus data
+  async function handleDelete(id) {
+    try {
+      await axios.delete(`/api/barang-masuk/${id}`);
+      setRecords(records.filter((record) => record.id !== id));
+      alert("Data berhasil dihapus");
+    } catch (error) {
+      console.error("There was an error deleting the record!", error);
+    }
+  }
+
+  // Fungsi untuk mengonfirmasi penghapusan
+  function confirmDelete(id) {
+    const isConfirmed = window.confirm(
+      "Apakah Anda yakin ingin menghapus data ini?"
+    );
+    if (isConfirmed) {
+      handleDelete(id);
+    }
   }
 
   return (
@@ -155,7 +179,7 @@ function TblBarangPinjaman() {
           <Column
             header="Aksi Admin"
             style={{ width: "10%", textAlign: "center" }}
-            body={() => (
+            body={(rowData) => (
               <div
                 style={{
                   display: "flex",
@@ -169,7 +193,10 @@ function TblBarangPinjaman() {
                     className="text-white cursor-pointer text-sm sm:text-base"
                   />
                 </div>
-                <div className="bg-[#C80036] px-2 py-2 rounded-3">
+                <div
+                  className="bg-[#C80036] px-2 py-2 rounded-3"
+                  onClick={() => confirmDelete(rowData.id)}
+                >
                   <FaTrash
                     title="Hapus"
                     className="text-white cursor-pointer text-sm sm:text-base"
