@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FaEdit, FaTrash } from "react-icons/fa";
@@ -9,39 +9,26 @@ import "primeicons/primeicons.css";
 import UpdateBarangPinjaman from "./UpdateBarangPinjaman";
 
 function TblBarangPinjaman() {
-  const data = [
-    {
-      id: 1,
-      no: 1,
-      nama_barang: "Laptop Asus RAM 8gb warna biru stiker kucing",
-      tipe_barang: "Laptop",
-      kualitas: "Lecet Pemakaian",
-      tanggal: "20 Maret 2024",
-      sn: "123456",
-      jumlah: 10,
-      satuan: "Unit",
-      keterangan: "Baterai Kembung",
-      aksi_admin: "Edit/Delete",
-    },
-    {
-      id: 2,
-      no: 2,
-      nama_barang: "Samsung TV",
-      tipe_barang: "TV",
-      kualitas: "Layar Pecah",
-      tanggal: "25 Maret 2024",
-      sn: "123456",
-      jumlah: 2,
-      satuan: "Unit",
-      keterangan: "Layar 24 inch",
-      aksi_admin: "Edit/Delete",
-    },
-  ];
-
-  const [records, setRecords] = useState(data);
+  const [records, setRecords] = useState([]);
   const [entries, setEntries] = useState(10);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [editData, setEditData] = useState(null);
+
+  useEffect(() => {
+    // Fetch data when the component mounts
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/barang-pinjaman"
+        );
+
+        setRecords(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []);
 
   function handleFilter(event) {
     const searchTerm = event.target.value.toLowerCase();
@@ -144,12 +131,21 @@ function TblBarangPinjaman() {
               : "bg-gray-100 border-b border-gray-200"
           }
           sortMode="multiple"
+          headerStyle={{ backgroundColor: "#F8F9FA" }}
         >
           <Column
-            field="no"
+            field="id"
             header="No"
             sortable
-            style={{ width: "5%", textAlign: "left" }}
+            headerStyle={{ backgroundColor: "#F8F9FA" }}
+            bodyStyle={{ backgroundColor: "#F3F4F6" }}
+            style={{
+              width: "5%",
+              textAlign: "left",
+              position: "sticky",
+              left: 0,
+              zIndex: 1,
+            }}
           />
           <Column
             field="nama_barang"
@@ -200,8 +196,28 @@ function TblBarangPinjaman() {
             style={{ width: "20%", textAlign: "left" }}
           />
           <Column
+            field="work_unit"
+            header="Unit Kerja"
+            sortable
+            style={{ width: "20%", textAlign: "left" }}
+          />
+          <Column
+            field="lokasi"
+            header="Lokasi"
+            sortable
+            style={{ width: "20%", textAlign: "left" }}
+          />
+          <Column
             header="Aksi Admin"
-            style={{ width: "10%", textAlign: "center" }}
+            headerStyle={{ backgroundColor: "#F8F9FA" }} // Gaya header tabel
+            bodyStyle={{ backgroundColor: "#F3F4F6" }} // Gaya isi kolom
+            style={{
+              width: "10%", // Menggunakan lebar 10%
+              textAlign: "center", // Mengatur teks rata tengah
+              position: "sticky",
+              right: 0,
+              zIndex: 1,
+            }}
             body={(rowData) => (
               <div
                 style={{
@@ -221,7 +237,7 @@ function TblBarangPinjaman() {
                 </div>
                 <div
                   className="bg-[#C80036] px-2 py-2 rounded-3"
-                  onClick={() => confirmDelete(rowData.id)}
+                  onClick={() => handleDelete(rowData.id)}
                 >
                   <FaTrash
                     title="Hapus"
