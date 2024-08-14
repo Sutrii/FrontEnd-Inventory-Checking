@@ -12,7 +12,8 @@ import InputInformation from "../../Components/Dashboard/InputInformation";
 import InputWorkUnit from "../../Components/Dashboard/InputWorkUnit";
 import InputLocation from "../../Components/Dashboard/InputLocation";
 import InputName from "../../Components/Dashboard/InputName";
-import { format, parse } from "date-fns";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BarangMasuk = () => {
   const [data, setData] = useState({
@@ -102,11 +103,28 @@ const BarangMasuk = () => {
       if (response.ok) {
         const result = await response.json();
         console.log("Data saved:", result);
+        toast.success("Data berhasil disimpan!");
+        //Reset Data after Success
+        setData({
+          nama_barang: "",
+          tipe_barang: "",
+          kualitas: "Choose Item Condition",
+          tanggal: null,
+          sn: "",
+          jumlah: "",
+          satuan: "",
+          picture: null,
+          keterangan: "",
+          work_unit: "",
+          lokasi: "",
+        });
       } else {
-        console.error("Error saving data:", await response.text()); // Untuk melihat pesan error
+        console.error("Error saving data:", await response.text());
+        toast.error("Terjadi kesalahan saat menyimpan data!");
       }
     } catch (error) {
       console.error("Error:", error);
+      toast.error("Terjadi kesalahan pada server!");
     }
   };
 
@@ -121,6 +139,7 @@ const BarangMasuk = () => {
 
   return (
     <div className="w-screen flex flex-col bg-white">
+      <ToastContainer />
       <div className="fixed top-0 right-0 z-10 w-[85%]">
         <NavbarDashboard />
       </div>
