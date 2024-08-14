@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import axios from "axios"; // Import axios for HTTP requests
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -226,6 +226,15 @@ function TblBarangRusak() {
                   justifyContent: "center",
                 }}
               >
+                <div
+                  className="bg-[#3498DB] px-2 py-2 rounded-3"
+                  onClick={() => openDetailModal(rowData)}
+                >
+                  <FaEye
+                    title="Lihat Detail"
+                    className="text-white cursor-pointer text-sm sm:text-base"
+                  />
+                </div>
                 <div
                   className="bg-[#387F39] px-2 py-2 rounded-3"
                   onClick={() => openUpdateModal(rowData)}

@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import axios from "axios"; // Import axios for HTTP requests
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import UpdateBarangMasuk from "./UpdateBarangMasuk";
+import SeeDetail from "./SeeDetail";
 
 function TblBarangMasuk() {
   const [records, setRecords] = useState([]);
   const [entries, setEntries] = useState(10);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [detailData, setDetailData] = useState(null);
 
   useEffect(() => {
     // Fetch data when the component mounts
@@ -40,6 +43,15 @@ function TblBarangMasuk() {
 
   function handleEntriesChange(event) {
     setEntries(parseInt(event.target.value));
+  }
+
+  function openDetailModal(data) {
+    setDetailData(data);
+    setIsDetailModalOpen(true);
+  }
+
+  function closeDetailModal() {
+    setIsDetailModalOpen(false);
   }
 
   // Fungsi untuk menghapus data dengan konfirmasi
@@ -227,6 +239,15 @@ function TblBarangMasuk() {
                 }}
               >
                 <div
+                  className="bg-[#3498DB] px-2 py-2 rounded-3"
+                  onClick={() => openDetailModal(rowData)}
+                >
+                  <FaEye
+                    title="Lihat Detail"
+                    className="text-white cursor-pointer text-sm sm:text-base"
+                  />
+                </div>
+                <div
                   className="bg-[#387F39] px-2 py-2 rounded-3"
                   onClick={() => openUpdateModal(rowData)}
                 >
@@ -249,6 +270,11 @@ function TblBarangMasuk() {
           />
         </DataTable>
       </div>
+      <SeeDetail
+        isDetailModalOpen={isDetailModalOpen}
+        closeDetailModal={closeDetailModal}
+        detailData={detailData}
+      />
       <UpdateBarangMasuk
         isUpdateModalOpen={isUpdateModalOpen}
         closeUpdateModal={closeUpdateModal}
