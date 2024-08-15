@@ -1,9 +1,8 @@
 import React from "react";
-import QRCode from "qrcode.react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-function QrCodePage() {
+function ItemInfo() {
   const { id } = useParams(); // Mengambil ID dari URL
   const [data, setData] = React.useState(null);
 
@@ -21,21 +20,27 @@ function QrCodePage() {
     fetchData();
   }, [id]);
 
-  // URL untuk menampilkan informasi barang
-  const qrCodeUrl = data
-    ? `http://localhost:5173/item-info/${id}` // URL yang dituju saat discan
-    : "";
-
   return (
-    <div className="container flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-xl font-bold mb-4">
-        Scan untuk Mengetahui Informasi Barang
-      </h1>
+    <div className="container mt-4">
       {data ? (
-        <QRCode
-          value={qrCodeUrl} // Menggunakan URL yang telah dibuat
-          size={256} // Ukuran QR code dapat disesuaikan
-        />
+        <div>
+          <h1 className="text-xl font-bold mb-2">Informasi Barang</h1>
+          <p>
+            <strong>Nama Barang:</strong> {data.nama_barang}
+          </p>
+          <p>
+            <strong>Tipe Barang:</strong> {data.tipe_barang}
+          </p>
+          <p>
+            <strong>Keterangan:</strong> {data.keterangan}
+          </p>
+          <p>
+            <strong>Unit Kerja:</strong> {data.work_unit}
+          </p>
+          <p>
+            <strong>Lokasi:</strong> {data.lokasi}
+          </p>
+        </div>
       ) : (
         <p>Loading...</p>
       )}
@@ -43,4 +48,4 @@ function QrCodePage() {
   );
 }
 
-export default QrCodePage;
+export default ItemInfo;
