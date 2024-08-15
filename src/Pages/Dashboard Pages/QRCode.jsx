@@ -22,31 +22,15 @@ function QrCodePage() {
   }, [id]);
 
   return (
-    <div className="container mt-4">
+    <div className="container flex flex-col items-center justify-center min-h-screen">
+      <h1 className="text-xl font-bold mb-4">
+        Scan untuk Mengetahui Informasi Barang
+      </h1>
       {data ? (
-        <div className="p-4 border border-gray-200 rounded-lg">
-          <h1 className="text-xl font-bold mb-2">Informasi Barang</h1>
-          <p>
-            <strong>Nama Barang:</strong> {data.nama_barang}
-          </p>
-          <p>
-            <strong>Tipe Barang:</strong> {data.tipe_barang}
-          </p>
-          <p>
-            <strong>Keterangan:</strong> {data.keterangan}
-          </p>
-          <p>
-            <strong>Unit Kerja:</strong> {data.work_unit}
-          </p>
-          <p>
-            <strong>Lokasi:</strong> {data.lokasi}
-          </p>
-          <div className="mt-4">
-            <QRCode
-              value={`Nama Barang: ${data.nama_barang}\nTipe: ${data.tipe_barang}\nKeterangan: ${data.keterangan}\nUnit Kerja: ${data.work_unit}\nLokasi: ${data.lokasi}`}
-            />
-          </div>
-        </div>
+        <QRCode
+          value={`Nama Barang: ${data.nama_barang}\nTipe: ${data.tipe_barang}\nKeterangan: ${data.keterangan}\nUnit Kerja: ${data.work_unit}\nLokasi: ${data.lokasi}`}
+          size={256} // Ukuran QR code dapat disesuaikan
+        />
       ) : (
         <p>Loading...</p>
       )}

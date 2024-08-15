@@ -95,6 +95,24 @@ function TblBarangMasuk() {
     }
   }
 
+  const imageLinkTemplate = (rowData) => {
+    const imageUrl = `http://localhost:8000/storage/${rowData.picture}`; // Ensure this path matches your storage setup
+    return (
+      <a
+        href={imageUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(e) => {
+          e.preventDefault();
+          setSelectedImage(imageUrl);
+        }}
+        className="text-blue-500 underline"
+      >
+        {rowData.picture}
+      </a>
+    );
+  };
+
   return (
     <div className="container px-0 py-2 mt-3 w-full">
       <div className="bg-white rounded-xl p-4 shadow-md poppins-font">
