@@ -6,6 +6,7 @@ import axios from "axios"; // Import axios for HTTP requests
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import SeeDetail from "./SeeDetail";
 import UpdateBarangPinjaman from "./UpdateBarangPinjaman";
 
 function TblBarangPinjaman() {
@@ -13,6 +14,8 @@ function TblBarangPinjaman() {
   const [entries, setEntries] = useState(10);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [detailData, setDetailData] = useState(null);
 
   useEffect(() => {
     // Fetch data when the component mounts
@@ -21,8 +24,11 @@ function TblBarangPinjaman() {
         const response = await axios.get(
           "http://localhost:8000/api/barang-pinjaman"
         );
-
-        setRecords(response.data);
+        const recordsWithNumbers = response.data.map((record, index) => ({
+          ...record,
+          nomor: index + 1,
+        }));
+        setRecords(recordsWithNumbers);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -32,7 +38,7 @@ function TblBarangPinjaman() {
 
   function handleFilter(event) {
     const searchTerm = event.target.value.toLowerCase();
-    const filteredData = data.filter((row) =>
+    const filteredData = records.filter((row) =>
       row.nama_barang.toLowerCase().includes(searchTerm)
     );
     setRecords(filteredData);
@@ -42,18 +48,36 @@ function TblBarangPinjaman() {
     setEntries(parseInt(event.target.value));
   }
 
-  // Fungsi untuk menghapus data dengan konfirmasi
+  function openDetailModal(data) {
+    setDetailData(data);
+    setIsDetailModalOpen(true);
+  }
+
+  function closeDetailModal() {
+    setIsDetailModalOpen(false);
+  }
+
+  function closeUpdateModal() {
+    setIsUpdateModalOpen(false);
+  }
+
   async function handleDelete(id) {
     const confirmDelete = window.confirm(
       "Apakah Anda yakin ingin menghapus data ini?"
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`/api/barang-pinjaman/${id}`);
-        setRecords(records.filter((record) => record.id !== id));
+        await axios.delete(`http://localhost:8000/api/barang-pinjaman/${id}`);
+        const updatedRecords = records.filter((record) => record.id !== id);
+        const recordsWithNumbers = updatedRecords.map((record, index) => ({
+          ...record,
+          nomor: index + 1,
+        }));
+        setRecords(recordsWithNumbers);
         alert("Data berhasil dihapus");
       } catch (error) {
         console.error("Terjadi kesalahan saat menghapus data!", error);
+        alert("Gagal menghapus data. Silakan coba lagi.");
       }
     }
   }
@@ -70,16 +94,41 @@ function TblBarangPinjaman() {
   async function handleUpdate() {
     if (editData) {
       try {
-        await axios.put(`/api/barang-pinjaman/${editData.id}`, editData);
+        await axios.put(
+          `http://localhost:8000/api/barang-pinjaman/${editData.id}`,
+          editData
+        );
         const updatedRecords = records.map((record) =>
           record.id === editData.id ? editData : record
         );
-        setRecords(updatedRecords);
+        const recordsWithNumbers = updatedRecords.map((record, index) => ({
+          ...record,
+          nomor: index + 1,
+        }));
+        setRecords(recordsWithNumbers);
         alert("Data berhasil diperbarui");
         setIsUpdateModalOpen(false);
       } catch (error) {
         console.error("Terjadi kesalahan saat memperbarui data!", error);
       }
+    }
+  }
+
+  async function handleAddNew(newData) {
+    try {
+      await axios.post("http://localhost:8000/api/barang-pinjaman", newData);
+      const updatedRecords = [
+        ...records,
+        { ...newData, nomor: records.length + 1 },
+      ];
+      const recordsWithNumbers = updatedRecords.map((record, index) => ({
+        ...record,
+        nomor: index + 1,
+      }));
+      setRecords(recordsWithNumbers);
+      alert("Data berhasil ditambahkan");
+    } catch (error) {
+      console.error("Terjadi kesalahan saat menambahkan data!", error);
     }
   }
 
@@ -134,7 +183,7 @@ function TblBarangPinjaman() {
           headerStyle={{ backgroundColor: "#F8F9FA" }}
         >
           <Column
-            field="id"
+            field="nomor"
             header="No"
             sortable
             headerStyle={{ backgroundColor: "#F8F9FA" }}
@@ -209,11 +258,11 @@ function TblBarangPinjaman() {
           />
           <Column
             header="Aksi Admin"
-            headerStyle={{ backgroundColor: "#F8F9FA" }} // Gaya header tabel
-            bodyStyle={{ backgroundColor: "#F3F4F6" }} // Gaya isi kolom
+            headerStyle={{ backgroundColor: "#F8F9FA" }}
+            bodyStyle={{ backgroundColor: "#F3F4F6" }}
             style={{
-              width: "10%", // Menggunakan lebar 10%
-              textAlign: "center", // Mengatur teks rata tengah
+              width: "10%",
+              textAlign: "center",
               position: "sticky",
               right: 0,
               zIndex: 1,
@@ -245,7 +294,7 @@ function TblBarangPinjaman() {
                   />
                 </div>
                 <div
-                  className="bg-[#C80036] px-2 py-2 rounded-3"
+                  className="bg-[#C53929] px-2 py-2 rounded-3"
                   onClick={() => handleDelete(rowData.id)}
                 >
                   <FaTrash
@@ -257,14 +306,25 @@ function TblBarangPinjaman() {
             )}
           />
         </DataTable>
+        {isUpdateModalOpen && (
+          <UpdateBarangPinjaman
+            isUpdateModalOpen={isUpdateModalOpen}
+            closeUpdateModal={closeUpdateModal}
+            setIsUpdateModalOpen={setIsUpdateModalOpen}
+            editData={editData}
+            setEditData={setEditData}
+            handleUpdate={handleUpdate}
+          />
+        )}
+        {isDetailModalOpen && (
+          <SeeDetail
+            isDetailModalOpen={isDetailModalOpen}
+            setIsDetailModalOpen={setIsDetailModalOpen}
+            closeDetailModal={closeDetailModal}
+            detailData={detailData}
+          />
+        )}
       </div>
-      <UpdateBarangPinjaman
-        isUpdateModalOpen={isUpdateModalOpen}
-        closeUpdateModal={closeUpdateModal}
-        handleUpdate={handleUpdate}
-        editData={editData}
-        setEditData={setEditData}
-      />
     </div>
   );
 }

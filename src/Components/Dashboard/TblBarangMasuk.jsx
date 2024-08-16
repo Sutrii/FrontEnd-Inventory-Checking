@@ -24,8 +24,11 @@ function TblBarangMasuk() {
         const response = await axios.get(
           "http://localhost:8000/api/barang-masuk"
         );
-
-        setRecords(response.data);
+        const recordsWithNumbers = response.data.map((record, index) => ({
+          ...record,
+          nomor: index + 1,
+        }));
+        setRecords(recordsWithNumbers);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -35,7 +38,7 @@ function TblBarangMasuk() {
 
   function handleFilter(event) {
     const searchTerm = event.target.value.toLowerCase();
-    const filteredData = data.filter((row) =>
+    const filteredData = records.filter((row) =>
       row.nama_barang.toLowerCase().includes(searchTerm)
     );
     setRecords(filteredData);
@@ -43,6 +46,15 @@ function TblBarangMasuk() {
 
   function handleEntriesChange(event) {
     setEntries(parseInt(event.target.value));
+  }
+
+  function openUpdateModal(data) {
+    setEditData(data); // Pastikan data yang diset di sini sudah benar
+    setIsUpdateModalOpen(true);
+  }
+
+  function closeUpdateModal() {
+    setIsUpdateModalOpen(false);
   }
 
   function openDetailModal(data) {
@@ -54,39 +66,43 @@ function TblBarangMasuk() {
     setIsDetailModalOpen(false);
   }
 
-  // Fungsi untuk menghapus data dengan konfirmasi
   async function handleDelete(id) {
     const confirmDelete = window.confirm(
       "Apakah Anda yakin ingin menghapus data ini?"
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`/api/barang-masuk/${id}`);
-        setRecords(records.filter((record) => record.id !== id));
+        await axios.delete(`http://localhost:8000/api/barang-masuk/${id}`);
+        const updatedRecords = records.filter((record) => record.id !== id);
+        const recordsWithNumbers = updatedRecords.map((record, index) => ({
+          ...record,
+          nomor: index + 1,
+        }));
+        setRecords(recordsWithNumbers);
         alert("Data berhasil dihapus");
       } catch (error) {
         console.error("Terjadi kesalahan saat menghapus data!", error);
+        alert("Gagal menghapus data. Silakan coba lagi.");
       }
     }
-  }
-
-  function openUpdateModal(data) {
-    setEditData(data);
-    setIsUpdateModalOpen(true);
-  }
-
-  function closeUpdateModal() {
-    setIsUpdateModalOpen(false);
   }
 
   async function handleUpdate() {
     if (editData) {
       try {
-        await axios.put(`/api/barang-masuk/${editData.id}`, editData);
+        await axios.put(
+          `http://localhost:8000/api/barang-masuk/${editData.id}`,
+          editData
+        );
+        // Update records setelah update berhasil
         const updatedRecords = records.map((record) =>
           record.id === editData.id ? editData : record
         );
-        setRecords(updatedRecords);
+        const recordsWithNumbers = updatedRecords.map((record, index) => ({
+          ...record,
+          nomor: index + 1,
+        }));
+        setRecords(recordsWithNumbers);
         alert("Data berhasil diperbarui");
         setIsUpdateModalOpen(false);
       } catch (error) {
@@ -95,23 +111,23 @@ function TblBarangMasuk() {
     }
   }
 
-  const imageLinkTemplate = (rowData) => {
-    const imageUrl = `http://localhost:8000/storage/${rowData.picture}`; // Ensure this path matches your storage setup
-    return (
-      <a
-        href={imageUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={(e) => {
-          e.preventDefault();
-          setSelectedImage(imageUrl);
-        }}
-        className="text-blue-500 underline"
-      >
-        {rowData.picture}
-      </a>
-    );
-  };
+  async function handleAddNew(newData) {
+    try {
+      await axios.post("http://localhost:8000/api/barang-masuk", newData);
+      const updatedRecords = [
+        ...records,
+        { ...newData, nomor: records.length + 1 },
+      ];
+      const recordsWithNumbers = updatedRecords.map((record, index) => ({
+        ...record,
+        nomor: index + 1,
+      }));
+      setRecords(recordsWithNumbers);
+      alert("Data berhasil ditambahkan");
+    } catch (error) {
+      console.error("Terjadi kesalahan saat menambahkan data!", error);
+    }
+  }
 
   return (
     <div className="container px-0 py-2 mt-3 w-full">
@@ -164,7 +180,7 @@ function TblBarangMasuk() {
           headerStyle={{ backgroundColor: "#F8F9FA" }}
         >
           <Column
-            field="id"
+            field="nomor"
             header="No"
             sortable
             headerStyle={{ backgroundColor: "#F8F9FA" }}
@@ -239,11 +255,11 @@ function TblBarangMasuk() {
           />
           <Column
             header="Aksi Admin"
-            headerStyle={{ backgroundColor: "#F8F9FA" }} // Gaya header tabel
-            bodyStyle={{ backgroundColor: "#F3F4F6" }} // Gaya isi kolom
+            headerStyle={{ backgroundColor: "#F8F9FA" }}
+            bodyStyle={{ backgroundColor: "#F3F4F6" }}
             style={{
-              width: "10%", // Menggunakan lebar 10%
-              textAlign: "center", // Mengatur teks rata tengah
+              width: "10%",
+              textAlign: "center",
               position: "sticky",
               right: 0,
               zIndex: 1,
@@ -275,7 +291,7 @@ function TblBarangMasuk() {
                   />
                 </div>
                 <div
-                  className="bg-[#C80036] px-2 py-2 rounded-3"
+                  className="bg-[#C53929] px-2 py-2 rounded-3"
                   onClick={() => handleDelete(rowData.id)}
                 >
                   <FaTrash
@@ -287,19 +303,26 @@ function TblBarangMasuk() {
             )}
           />
         </DataTable>
+        {isUpdateModalOpen && (
+          <UpdateBarangMasuk
+            isUpdateModalOpen={isUpdateModalOpen}
+            closeUpdateModal={closeUpdateModal}
+            setIsUpdateModalOpen={setIsUpdateModalOpen}
+            editData={editData}
+            setEditData={setEditData}
+            handleUpdate={handleUpdate}
+            detailData={detailData}
+          />
+        )}
+        {isDetailModalOpen && (
+          <SeeDetail
+            isDetailModalOpen={isDetailModalOpen}
+            setIsDetailModalOpen={setIsDetailModalOpen}
+            closeDetailModal={closeDetailModal}
+            detailData={detailData}
+          />
+        )}
       </div>
-      <SeeDetail
-        isDetailModalOpen={isDetailModalOpen}
-        closeDetailModal={closeDetailModal}
-        detailData={detailData}
-      />
-      <UpdateBarangMasuk
-        isUpdateModalOpen={isUpdateModalOpen}
-        closeUpdateModal={closeUpdateModal}
-        handleUpdate={handleUpdate}
-        editData={editData}
-        setEditData={setEditData}
-      />
     </div>
   );
 }

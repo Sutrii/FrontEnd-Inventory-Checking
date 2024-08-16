@@ -10,6 +10,8 @@ import InputInformation from "./InputInformation";
 import InputWorkUnit from "./InputWorkUnit";
 import InputLocation from "./InputLocation";
 import InputName from "./InputName";
+import "react-datepicker/dist/react-datepicker.css";
+import { AiFillPicture } from "react-icons/ai";
 
 const UpdateBarangMasuk = ({
   isUpdateModalOpen,
@@ -17,45 +19,23 @@ const UpdateBarangMasuk = ({
   handleUpdate,
   editData,
   setEditData,
-  itemId, // ID barang yang akan diupdate
 }) => {
   const modalRef = useRef(null);
   const [loading, setLoading] = useState(false);
 
-  // Function to handle clicks outside the modal
+  useEffect(() => {
+    if (isUpdateModalOpen) {
+      setLoading(false); // Set loading ke false jika modal dibuka
+    }
+  }, [isUpdateModalOpen]);
+
+  // Fungsi untuk menangani klik di luar modal
   const handleClickOutside = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       closeUpdateModal();
     }
   };
 
-  // Fetch data when modal is opened
-  useEffect(() => {
-    if (isUpdateModalOpen && itemId) {
-      const fetchData = async () => {
-        setLoading(true);
-        try {
-          const response = await fetch(
-            `http://localhost:8000/api/barang-masuk/${itemId}`
-          );
-          if (response.ok) {
-            const data = await response.json();
-            setEditData(data); // Set data yang diambil
-          } else {
-            console.error("Error fetching data");
-          }
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchData();
-    }
-  }, [isUpdateModalOpen, itemId, setEditData]);
-
-  // Add and clean up event listener
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -74,25 +54,6 @@ const UpdateBarangMasuk = ({
             <h3 className="poppins-semibold text-xl">
               Update Tabel Barang Masuk
             </h3>
-            <button
-              className="text-gray-600 hover:text-gray-900"
-              onClick={closeUpdateModal}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
           </div>
         </div>
         <div className="p-4 pt-0">
@@ -103,137 +64,167 @@ const UpdateBarangMasuk = ({
               <div className="mb-4">
                 <InputName
                   label="Item Name"
-                  value={editData?.itemName || ""}
+                  value={editData?.nama_barang || ""}
                   onChange={(e) =>
                     setEditData({
                       ...editData,
-                      itemName: e.target.value,
+                      nama_barang: e.target.value,
                     })
                   }
                 />
               </div>
               <div className="mb-4">
                 <InputSerialNumber
-                  value={editData?.serialNumber || ""}
+                  value={editData?.sn || ""}
                   onChange={(e) =>
                     setEditData({
                       ...editData,
-                      serialNumber: e.target.value,
+                      sn: e.target.value,
                     })
                   }
                 />
               </div>
               <div className="mb-4">
                 <InputType
-                  value={editData?.type || ""}
+                  value={editData?.tipe_barang || ""}
                   onChange={(e) =>
                     setEditData({
                       ...editData,
-                      type: e.target.value,
+                      tipe_barang: e.target.value,
                     })
                   }
                 />
               </div>
               <div className="mb-4">
                 <InputQuantity
-                  value={editData?.quantity || ""}
+                  value={editData?.jumlah || ""}
                   onChange={(e) =>
                     setEditData({
                       ...editData,
-                      quantity: e.target.value,
+                      jumlah: e.target.value,
                     })
                   }
                 />
               </div>
               <div className="mb-4">
                 <InputQuality
-                  value={editData?.quality || ""}
+                  value={editData?.kualitas || ""}
                   onChange={(e) =>
                     setEditData({
                       ...editData,
-                      quality: e.target.value,
+                      kualitas: e.target.value,
                     })
                   }
                 />
               </div>
               <div className="mb-4">
                 <InputUnits
-                  value={editData?.units || ""}
+                  value={editData?.satuan || ""}
                   onChange={(e) =>
                     setEditData({
                       ...editData,
-                      units: e.target.value,
+                      satuan: e.target.value,
                     })
                   }
                 />
               </div>
               <div className="mb-4">
                 <InputDate
-                  value={editData?.date || ""}
-                  onChange={(date) =>
+                  selectedDate={
+                    editData?.tanggal ? new Date(editData.tanggal) : null
+                  }
+                  onDateChange={(date) =>
                     setEditData({
                       ...editData,
-                      date,
+                      tanggal: date,
                     })
                   }
                 />
               </div>
               <div className="mb-4">
+                {editData?.picture ? (
+                  // Menampilkan gambar baru jika ada, jika tidak tampilkan placeholder
+                  <img
+                    src={
+                      typeof editData.picture === "string" &&
+                      editData.picture.startsWith("http")
+                        ? editData.picture
+                        : `http://localhost:8000/storage/pictures/${editData.picture}`
+                    }
+                    alt={editData.nama_barang || "Gambar Barang"}
+                    style={{ maxWidth: "100%", height: "auto" }}
+                  />
+                ) : (
+                  <img
+                    src="https://via.placeholder.com/150"
+                    alt="Placeholder"
+                    style={{ maxWidth: "100%", height: "auto" }}
+                  />
+                )}
                 <InputPicture
                   value={editData?.picture || ""}
-                  onChange={(e) =>
-                    setEditData({
-                      ...editData,
-                      picture: e.target.files[0],
-                    })
-                  }
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      // Menyimpan file gambar yang dipilih
+                      setEditData({
+                        ...editData,
+                        picture: URL.createObjectURL(file), // Menggunakan URL.createObjectURL untuk gambar yang diupload
+                        // Jika Anda ingin menyimpan nama file asli, Anda dapat menambahkan key lain
+                        pictureFileName: file.name,
+                      });
+                    }
+                  }}
                 />
               </div>
               <div className="mb-4">
                 <InputInformation
-                  value={editData?.information || ""}
+                  value={editData?.keterangan || ""}
                   onChange={(e) =>
                     setEditData({
                       ...editData,
-                      information: e.target.value,
+                      keterangan: e.target.value,
                     })
                   }
                 />
               </div>
               <div className="mb-4">
                 <InputWorkUnit
-                  value={editData?.workUnit || ""}
-                  onChange={(e) =>
+                  value={editData?.work_unit || ""}
+                  onChange={(work_unit) =>
                     setEditData({
                       ...editData,
-                      workUnit: e.target.value,
+                      work_unit: work_unit,
                     })
                   }
                 />
               </div>
               <div className="mb-4">
                 <InputLocation
-                  value={editData?.location || ""}
+                  value={editData?.lokasi || ""}
                   onChange={(e) =>
                     setEditData({
                       ...editData,
-                      location: e.target.value,
+                      lokasi: e.target.value,
                     })
                   }
                 />
               </div>
               <div className="flex justify-end space-x-2">
                 <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                  onClick={() => {
+                    console.log("Update clicked");
+                    handleUpdate();
+                  }}
+                >
+                  Update
+                </button>
+                <button
                   className="bg-red-500 text-white px-4 py-2 rounded"
                   onClick={closeUpdateModal}
                 >
                   Cancel
-                </button>
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
-                  onClick={handleUpdate}
-                >
-                  Update
                 </button>
               </div>
             </>
