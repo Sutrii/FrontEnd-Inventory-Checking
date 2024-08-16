@@ -31,6 +31,7 @@ const SidebarDashboard = () => {
       setActiveTab("barangPinjamanInv");
     else if (path.includes("input-barang-rusak"))
       setActiveTab("barangRusakInv");
+    else if (path.includes("input-barang")) setActiveTab("inputBarangInv");
     else if (path.includes("social-media")) setActiveTab("socialMedia");
     else if (path.includes("logout")) setActiveTab("logout");
   }, [location]);
@@ -262,6 +263,26 @@ const SidebarDashboard = () => {
               }`}
             >
               Barang Rusak
+            </span>
+          </div>
+        </NavLink>
+        <NavLink to="/input-barang">
+          <div
+            className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
+              activeTab === "inputBarangInv" ? "text-white" : "text-[#919191]"
+            }`}
+          >
+            <VscListFlat
+              className={`text-base mr-2 ${
+                activeTab === "inputBarangInv" ? "text-white" : "text-[#919191]"
+              }`}
+            />
+            <span
+              className={`text-xs poppins-regular ${
+                activeTab === "inputBarangInv" ? "text-white" : "text-[#919191]"
+              }`}
+            >
+              Input Barang
             </span>
           </div>
         </NavLink>

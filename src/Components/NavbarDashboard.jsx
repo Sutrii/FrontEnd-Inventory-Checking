@@ -26,6 +26,8 @@ const NavbarDashboard = () => {
         return "Input Barang Pinjaman";
       case "/input-barang-rusak":
         return "Input Barang Rusak";
+      case "/input-barang":
+        return "Input Barang";
       default:
         return "Dashboard";
     }

@@ -13,6 +13,7 @@ import BarangPinjaman from "./Pages/Dashboard Pages/BarangPinjaman";
 import BarangRusak from "./Pages/Dashboard Pages/BarangRusak";
 import AboutUs from "./Pages/AboutUs";
 import QrCodePage from "./Pages/Dashboard Pages/QRCode";
+import InputBarang from "./Pages/Dashboard Pages/InputBarang";
 import ItemInfo from "./Pages/Dashboard Pages/ItemInfo";
 
 function Routers() {
@@ -31,6 +32,7 @@ function Routers() {
       <Route path="/input-barang-keluar" element={<BarangKeluar />} />
       <Route path="/input-barang-pinjaman" element={<BarangPinjaman />} />{" "}
       <Route path="/input-barang-rusak" element={<BarangRusak />} />
+      <Route path="/input-barang" element={<InputBarang />} />
       <Route path="/print-qr-code/:id" element={<QrCodePage />} />
       <Route path="/item-info/:id" element={<ItemInfo />} />
     </Routes>
