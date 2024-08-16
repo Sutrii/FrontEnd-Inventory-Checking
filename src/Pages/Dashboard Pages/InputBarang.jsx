@@ -61,6 +61,16 @@ const InputBarang = () => {
     });
   };
 
+  //Untuk Dropdown Input Category
+  const [selectedCategory, setSelectedCategory] = useState();
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setData({
+      ...data,
+      kategori_input: category,
+    });
+  };
+
   //Untuk Date Picker
   const handleDateChange = (date) => {
     setData((prevData) => ({
@@ -97,6 +107,7 @@ const InputBarang = () => {
   const handleSave = async () => {
     try {
       const formData = new FormData();
+      formData.append("kategori_input", data.kategori_input);
       formData.append("nama_barang", data.nama_barang);
       formData.append("tipe_barang", data.tipe_barang);
       formData.append("kualitas", data.kualitas);
@@ -112,7 +123,7 @@ const InputBarang = () => {
         formData.append("picture", data.picture);
       }
 
-      const response = await fetch("http://localhost:8000/api/barang-masuk", {
+      const response = await fetch("http://localhost:8000/api/input-barang", {
         method: "POST",
         body: formData, // Jangan set header Content-Type
       });
@@ -123,10 +134,13 @@ const InputBarang = () => {
         toast.success("Data berhasil disimpan!");
         //Reset Data after Success
         setData({
+          kategori_input: "Choose Input Category",
           nama_barang: "",
           tipe_barang: "",
           kualitas: "Choose Item Condition",
           tanggal: null,
+          tanggal_awal_pinjam: null,
+          tanggal_akhir_pinjam: null,
           sn: "",
           jumlah: "",
           satuan: "",
@@ -154,11 +168,6 @@ const InputBarang = () => {
     return "";
   };
 
-  const [selectedCategory, setSelectedCategory] = useState();
-  const handleCategoryChange = (category) => {
-    setSelectedCategory(category);
-  };
-
   return (
     <div className="w-screen flex flex-col bg-white">
       <ToastContainer />
@@ -171,6 +180,7 @@ const InputBarang = () => {
             <div id="DashboardContent" className="flex flex-row">
               <div className="flex flex-col bg-gray-100 w-full h-screen pt-24 px-4">
                 <InputCategory
+                  value={data.kategori_input}
                   selectedCategory={selectedCategory}
                   onCategoryChange={handleCategoryChange}
                 />
@@ -459,14 +469,111 @@ const InputBarang = () => {
                     </div>
                   </>
                 )}
-                <div className="flex justify-end w-full py-4">
-                  <button
-                    onClick={handleSave}
-                    className="bg-blue-500 text-white py-2 px-4 rounded-md w-[25%] poppins-regular text-xs"
-                  >
-                    Submit Data
-                  </button>
-                </div>
+                {selectedCategory === "Barang Rusak" && (
+                  <>
+                    <div className="flex flex-row w-full h-full space-x-6 pt-4">
+                      <div id="LeftBoxParent" className="w-[60%] space-y-6">
+                        <div id="FirstData">
+                          <div className="flex w-full space-x-6 h-[12%]">
+                            <div className="w-[50%]">
+                              <InputName
+                                value={data.nama_barang}
+                                onChange={handleChange}
+                              />
+                            </div>
+                            <div className="w-[50%]">
+                              <InputSerialNumber
+                                value={data.sn}
+                                onChange={handleChange}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div id="SecondData">
+                          <div className="flex w-full space-x-6 h-[12%]">
+                            <div className="w-[50%]">
+                              <InputType
+                                value={data.tipe_barang}
+                                onChange={handleChange}
+                              />
+                            </div>
+                            <div className="w-[50%]">
+                              <InputQuantity
+                                value={data.jumlah}
+                                onChange={handleChange}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div id="ThirdData">
+                          <div className="flex w-full space-x-6 h-[12%]">
+                            <div className="w-[50%]">
+                              <InputQuality
+                                value={data.kualitas}
+                                onChange={handleQualityChange}
+                              />
+                            </div>
+                            <div className="w-[50%]">
+                              <InputUnits
+                                value={data.satuan}
+                                onChange={handleChange}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div id="FourthData">
+                          <div className="flex w-full space-x-6 h-[12%]">
+                            <div className="w-[50%]">
+                              <InputDate
+                                selectedDate={data.tanggal}
+                                onDateChange={handleDateChange}
+                              />
+                            </div>
+                            <div className="w-[50%]">
+                              <InputPicture onChange={handleFileChange} />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="RightBoxParent" className="w-[40%] space-y-6">
+                        <div id="FristData" className="w-full flex flex-col">
+                          <div className="w-[100%] h-[12%]">
+                            <InputInformation
+                              value={data.keterangan}
+                              onChange={handleInformationChange}
+                            />
+                          </div>
+                        </div>
+                        <div id="SecondData" className="w-full flex flex-col">
+                          <div className="w-[100%] h-[12%]">
+                            <InputWorkUnit
+                              value={data.work_unit}
+                              onChange={handleWorkUnitChange}
+                            />
+                          </div>
+                        </div>
+                        <div id="ThirdData" className="w-full flex flex-col">
+                          <div className="w-[100%] h-[12%]">
+                            <InputLocation
+                              value={data.lokasi}
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+                {selectedCategory && (
+                  <div className="flex justify-end w-full py-4">
+                    <button
+                      onClick={handleSave}
+                      className="bg-blue-500 text-white py-2 px-4 rounded-md w-[25%] poppins-regular text-xs"
+                    >
+                      Submit Data
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

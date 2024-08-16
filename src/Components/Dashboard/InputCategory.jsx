@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const InputCategory = ({ value, onCategoryChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(
-    value || "Choose Item Category"
+    value || "Choose Input Category"
   );
 
   const toggleDropdown = () => {
