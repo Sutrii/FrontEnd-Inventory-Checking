@@ -31,6 +31,7 @@ const SidebarDashboard = () => {
       setActiveTab("barangPinjamanInv");
     else if (path.includes("input-barang-rusak"))
       setActiveTab("barangRusakInv");
+    else if (path.includes("tabel-inventory")) setActiveTab("inputInventory");
     else if (path.includes("input-barang")) setActiveTab("inputBarangInv");
     else if (path.includes("social-media")) setActiveTab("socialMedia");
     else if (path.includes("logout")) setActiveTab("logout");
@@ -164,6 +165,26 @@ const SidebarDashboard = () => {
               }`}
             >
               Tbl Barang Rusak
+            </span>
+          </div>
+        </NavLink>
+        <NavLink to="/tabel-inventory">
+          <div
+            className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
+              activeTab === "inputInventory" ? "text-white" : "text-[#919191]"
+            }`}
+          >
+            <BsTruck
+              className={`text-base mr-2 ${
+                activeTab === "inputInventory" ? "text-white" : "text-[#919191]"
+              }`}
+            />
+            <span
+              className={`text-xs poppins-regular ${
+                activeTab === "inputInventory" ? "text-white" : "text-[#919191]"
+              }`}
+            >
+              Tbl Inventory
             </span>
           </div>
         </NavLink>

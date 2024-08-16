@@ -15,6 +15,7 @@ import AboutUs from "./Pages/AboutUs";
 import QrCodePage from "./Pages/Dashboard Pages/QRCode";
 import InputBarang from "./Pages/Dashboard Pages/InputBarang";
 import ItemInfo from "./Pages/Dashboard Pages/ItemInfo";
+import TabelInventory from "./Pages/Dashboard Pages/TabelInventory";
 
 function Routers() {
   return (
@@ -28,6 +29,7 @@ function Routers() {
       <Route path="/tabel-barang-keluar" element={<TabelBarangKeluar />} />
       <Route path="/tabel-barang-pinjaman" element={<TabelBarangPinjaman />} />
       <Route path="/tabel-barang-rusak" element={<TabelBarangRusak />} />
+      <Route path="/tabel-inventory" element={<TabelInventory />} />
       <Route path="/input-barang-masuk" element={<BarangMasuk />} />
       <Route path="/input-barang-keluar" element={<BarangKeluar />} />
       <Route path="/input-barang-pinjaman" element={<BarangPinjaman />} />{" "}

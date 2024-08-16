@@ -83,7 +83,7 @@ const InputBarang = () => {
   const handleStartDateChange = (date) => {
     setData((prevData) => ({
       ...prevData,
-      tanggal_awal_pinjam: date,
+      tanggal: date,
     }));
   };
 
@@ -430,7 +430,7 @@ const InputBarang = () => {
                           <div className="flex w-full space-x-6 h-[12%]">
                             <div className="w-[50%]">
                               <InputStartDate
-                                selectedDate={data.tanggal_awal_pinjam}
+                                selectedDate={data.tanggal}
                                 onDateChange={handleStartDateChange}
                               />
                             </div>
