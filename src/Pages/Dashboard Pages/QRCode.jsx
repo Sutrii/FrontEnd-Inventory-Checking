@@ -11,7 +11,7 @@ function QrCodePage() {
     async function fetchData() {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/barang-masuk/${id}`
+          `http://localhost:8000/api/input-barang/${id}`
         );
         setData(response.data);
       } catch (error) {

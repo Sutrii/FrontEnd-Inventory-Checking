@@ -224,14 +224,26 @@ function TblInventory() {
             style={{ width: "12%", textAlign: "left" }}
           />
           <Column
-            field="tanggal"
+            field="tanggal_awal_pinjam"
             header="Awal Peminjaman"
             sortable
             style={{ width: "15%", textAlign: "left" }}
           />
           <Column
-            field="tanggal"
+            field="tanggal_akhir_pinjam"
             header="Akhir Peminjaman"
+            sortable
+            style={{ width: "15%", textAlign: "left" }}
+          />
+          <Column
+            field="divisi_peminjam"
+            header="Divisi Peminjam"
+            sortable
+            style={{ width: "15%", textAlign: "left" }}
+          />
+          <Column
+            field="nama_peminjam"
+            header="Nama Peminjam"
             sortable
             style={{ width: "15%", textAlign: "left" }}
           />

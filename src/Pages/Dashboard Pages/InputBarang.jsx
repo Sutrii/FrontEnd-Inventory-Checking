@@ -13,9 +13,12 @@ import InputWorkUnit from "../../Components/Dashboard/InputWorkUnit";
 import InputLocation from "../../Components/Dashboard/InputLocation";
 import InputName from "../../Components/Dashboard/InputName";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import InputCategory from "../../Components/Dashboard/InputCategory";
 import InputStartDate from "../../Components/Dashboard/InputStartDate";
+import InputEndDate from "../../Components/Dashboard/InputEndDate";
+import InputDivisiPeminjam from "../../Components/Dashboard/InputDivisiPeminjam";
+import InputNamaPeminjam from "../../Components/Dashboard/InputNamaPeminjam";
+import "react-toastify/dist/ReactToastify.css";
 
 const InputBarang = () => {
   const [data, setData] = useState({
@@ -30,8 +33,8 @@ const InputBarang = () => {
     keterangan: "",
     work_unit: "",
     lokasi: "",
-    tanggal_awal_pinjam: null,
-    tanggal_akhir_pinjam: null,
+    tanggal_awal_pinjam: "",
+    tanggal_akhir_pinjam: "",
     divisi_peminjam: "",
     nama_peminjam: "",
   });
@@ -83,7 +86,15 @@ const InputBarang = () => {
   const handleStartDateChange = (date) => {
     setData((prevData) => ({
       ...prevData,
-      tanggal: date,
+      tanggal_awal_pinjam: date,
+    }));
+  };
+
+  //Untuk Date Picker
+  const handleEndDateChange = (date) => {
+    setData((prevData) => ({
+      ...prevData,
+      tanggal_akhir_pinjam: date,
     }));
   };
 
@@ -109,9 +120,19 @@ const InputBarang = () => {
       const formData = new FormData();
       formData.append("kategori_input", data.kategori_input);
       formData.append("nama_barang", data.nama_barang);
+      formData.append("nama_peminjam", data.nama_peminjam);
+      formData.append("divisi_peminjam", data.divisi_peminjam);
       formData.append("tipe_barang", data.tipe_barang);
       formData.append("kualitas", data.kualitas);
-      formData.append("tanggal", convertToISOFormat(data.tanggal)); // Format ke YYYY-MM-DD
+      formData.append("tanggal", convertToISOFormat(data.tanggal));
+      formData.append(
+        "tanggal_awal_pinjam",
+        convertToISOFormat(data.tanggal_awal_pinjam)
+      );
+      formData.append(
+        "tanggal_akhir_pinjam",
+        convertToISOFormat(data.tanggal_akhir_pinjam)
+      );
       formData.append("sn", data.sn);
       formData.append("jumlah", data.jumlah);
       formData.append("satuan", data.satuan);
@@ -141,6 +162,8 @@ const InputBarang = () => {
           tanggal: null,
           tanggal_awal_pinjam: null,
           tanggal_akhir_pinjam: null,
+          nama_peminjam: "",
+          divisi_peminjam: "",
           sn: "",
           jumlah: "",
           satuan: "",
@@ -179,11 +202,24 @@ const InputBarang = () => {
           <div className="h-screen">
             <div id="DashboardContent" className="flex flex-row">
               <div className="flex flex-col bg-gray-100 w-full h-screen pt-24 px-4">
-                <InputCategory
-                  value={data.kategori_input}
-                  selectedCategory={selectedCategory}
-                  onCategoryChange={handleCategoryChange}
-                />
+                <div
+                  id="LeftBoxParent"
+                  className="flex flex-row w-[100%] space-x-6"
+                >
+                  <div className="w-[60%]">
+                    <InputCategory
+                      value={data.kategori_input}
+                      selectedCategory={selectedCategory}
+                      onCategoryChange={handleCategoryChange}
+                    />
+                  </div>
+                  <div className="w-[40%]">
+                    <InputDate
+                      selectedDate={data.tanggal}
+                      onDateChange={handleDateChange}
+                    />
+                  </div>
+                </div>
                 {selectedCategory === "Barang Masuk" && (
                   <>
                     <div className="flex flex-row w-full h-full space-x-6 pt-4">
@@ -229,9 +265,9 @@ const InputBarang = () => {
                               />
                             </div>
                             <div className="w-[50%]">
-                              <InputUnits
-                                value={data.satuan}
-                                onChange={handleChange}
+                              <InputWorkUnit
+                                value={data.work_unit}
+                                onChange={handleWorkUnitChange}
                               />
                             </div>
                           </div>
@@ -239,13 +275,16 @@ const InputBarang = () => {
                         <div id="FourthData">
                           <div className="flex w-full space-x-6 h-[12%]">
                             <div className="w-[50%]">
-                              <InputDate
-                                selectedDate={data.tanggal}
-                                onDateChange={handleDateChange}
+                              <InputUnits
+                                value={data.satuan}
+                                onChange={handleChange}
                               />
                             </div>
                             <div className="w-[50%]">
-                              <InputPicture onChange={handleFileChange} />
+                              <InputLocation
+                                value={data.lokasi}
+                                onChange={handleChange}
+                              />
                             </div>
                           </div>
                         </div>
@@ -261,18 +300,7 @@ const InputBarang = () => {
                         </div>
                         <div id="SecondData" className="w-full flex flex-col">
                           <div className="w-[100%] h-[12%]">
-                            <InputWorkUnit
-                              value={data.work_unit}
-                              onChange={handleWorkUnitChange}
-                            />
-                          </div>
-                        </div>
-                        <div id="ThirdData" className="w-full flex flex-col">
-                          <div className="w-[100%] h-[12%]">
-                            <InputLocation
-                              value={data.lokasi}
-                              onChange={handleChange}
-                            />
+                            <InputPicture onChange={handleFileChange} />
                           </div>
                         </div>
                       </div>
@@ -324,9 +352,9 @@ const InputBarang = () => {
                               />
                             </div>
                             <div className="w-[50%]">
-                              <InputUnits
-                                value={data.satuan}
-                                onChange={handleChange}
+                              <InputWorkUnit
+                                value={data.work_unit}
+                                onChange={handleWorkUnitChange}
                               />
                             </div>
                           </div>
@@ -334,13 +362,16 @@ const InputBarang = () => {
                         <div id="FourthData">
                           <div className="flex w-full space-x-6 h-[12%]">
                             <div className="w-[50%]">
-                              <InputDate
-                                selectedDate={data.tanggal}
-                                onDateChange={handleDateChange}
+                              <InputUnits
+                                value={data.satuan}
+                                onChange={handleChange}
                               />
                             </div>
                             <div className="w-[50%]">
-                              <InputPicture onChange={handleFileChange} />
+                              <InputLocation
+                                value={data.lokasi}
+                                onChange={handleChange}
+                              />
                             </div>
                           </div>
                         </div>
@@ -356,18 +387,7 @@ const InputBarang = () => {
                         </div>
                         <div id="SecondData" className="w-full flex flex-col">
                           <div className="w-[100%] h-[12%]">
-                            <InputWorkUnit
-                              value={data.work_unit}
-                              onChange={handleWorkUnitChange}
-                            />
-                          </div>
-                        </div>
-                        <div id="ThirdData" className="w-full flex flex-col">
-                          <div className="w-[100%] h-[12%]">
-                            <InputLocation
-                              value={data.lokasi}
-                              onChange={handleChange}
-                            />
+                            <InputPicture onChange={handleFileChange} />
                           </div>
                         </div>
                       </div>
@@ -430,12 +450,31 @@ const InputBarang = () => {
                           <div className="flex w-full space-x-6 h-[12%]">
                             <div className="w-[50%]">
                               <InputStartDate
-                                selectedDate={data.tanggal}
+                                selectedDate={data.tanggal_awal_pinjam}
                                 onDateChange={handleStartDateChange}
                               />
                             </div>
                             <div className="w-[50%]">
-                              <InputPicture onChange={handleFileChange} />
+                              <InputEndDate
+                                selectedDate={data.tanggal_akhir_pinjam}
+                                onDateChange={handleEndDateChange}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div id="FifthData">
+                          <div className="flex w-full space-x-6 h-[12%]">
+                            <div className="w-[50%]">
+                              <InputDivisiPeminjam
+                                value={data.divisi_peminjam}
+                                onChange={handleChange}
+                              />
+                            </div>
+                            <div className="w-[50%]">
+                              <InputNamaPeminjam
+                                value={data.nama_peminjam}
+                                onChange={handleChange}
+                              />
                             </div>
                           </div>
                         </div>
@@ -463,6 +502,11 @@ const InputBarang = () => {
                               value={data.lokasi}
                               onChange={handleChange}
                             />
+                          </div>
+                        </div>
+                        <div id="FourthData" className="w-full flex flex-col">
+                          <div className="w-[100%] h-[12%]">
+                            <InputPicture onChange={handleFileChange} />
                           </div>
                         </div>
                       </div>
@@ -514,9 +558,9 @@ const InputBarang = () => {
                               />
                             </div>
                             <div className="w-[50%]">
-                              <InputUnits
-                                value={data.satuan}
-                                onChange={handleChange}
+                              <InputWorkUnit
+                                value={data.work_unit}
+                                onChange={handleWorkUnitChange}
                               />
                             </div>
                           </div>
@@ -524,13 +568,16 @@ const InputBarang = () => {
                         <div id="FourthData">
                           <div className="flex w-full space-x-6 h-[12%]">
                             <div className="w-[50%]">
-                              <InputDate
-                                selectedDate={data.tanggal}
-                                onDateChange={handleDateChange}
+                              <InputUnits
+                                value={data.satuan}
+                                onChange={handleChange}
                               />
                             </div>
                             <div className="w-[50%]">
-                              <InputPicture onChange={handleFileChange} />
+                              <InputLocation
+                                value={data.lokasi}
+                                onChange={handleChange}
+                              />
                             </div>
                           </div>
                         </div>
@@ -546,18 +593,7 @@ const InputBarang = () => {
                         </div>
                         <div id="SecondData" className="w-full flex flex-col">
                           <div className="w-[100%] h-[12%]">
-                            <InputWorkUnit
-                              value={data.work_unit}
-                              onChange={handleWorkUnitChange}
-                            />
-                          </div>
-                        </div>
-                        <div id="ThirdData" className="w-full flex flex-col">
-                          <div className="w-[100%] h-[12%]">
-                            <InputLocation
-                              value={data.lokasi}
-                              onChange={handleChange}
-                            />
+                            <InputPicture onChange={handleFileChange} />
                           </div>
                         </div>
                       </div>
