@@ -2,7 +2,11 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function SeeDetail({ isDetailModalOpen, closeDetailModal, detailData }) {
+function ViewInventoryItem({
+  isDetailModalOpen,
+  closeDetailModal,
+  detailData,
+}) {
   return (
     <Modal
       show={isDetailModalOpen}
@@ -94,21 +98,23 @@ function SeeDetail({ isDetailModalOpen, closeDetailModal, detailData }) {
               readOnly
             />
           </div>
-          <div className="d-flex justify-content-end gap-2">
-            <Link
-              to={`/print-qr-code/${detailData?.id}`}
-              className="btn btn-primary"
-            >
-              Print QR Code
-            </Link>
-            <Button variant="danger" onClick={closeDetailModal}>
-              Close
-            </Button>
-          </div>
+          <Modal.Footer>
+            <div className="d-flex justify-content-end gap-2">
+              <Link
+                to={`/print-qr-code/${detailData?.id}`}
+                className="btn btn-primary"
+              >
+                Print QR Code
+              </Link>
+              <Button variant="danger" onClick={closeDetailModal}>
+                Close
+              </Button>
+            </div>
+          </Modal.Footer>
         </form>
       </Modal.Body>
     </Modal>
   );
 }
 
-export default SeeDetail;
+export default ViewInventoryItem;

@@ -7,7 +7,7 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import UpdateBarangMasuk from "./UpdateBarangMasuk";
-import SeeDetail from "./SeeDetail";
+import SeeDetail from "./ViewInventoryItem";
 
 function TblBarangMasuk() {
   const [records, setRecords] = useState([]);

@@ -6,7 +6,7 @@ import axios from "axios"; // Import axios for HTTP requests
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import SeeDetail from "./SeeDetail";
+import SeeDetail from "./ViewInventoryItem";
 import UpdateBarangKeluar from "./UpdateBarangKeluar";
 
 function TblBarangKeluar() {

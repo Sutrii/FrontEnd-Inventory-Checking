@@ -7,7 +7,8 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import UpdateBarangMasuk from "./UpdateBarangMasuk";
-import SeeDetail from "./SeeDetail";
+import SeeDetail from "./ViewInventoryItem";
+import UpdateInventoryItem from "./UpdateInventoryItem";
 
 function TblInventory() {
   const [records, setRecords] = useState([]);
@@ -89,10 +90,19 @@ function TblInventory() {
 
   async function handleUpdate() {
     if (editData) {
+      const formData = new FormData();
+      if (editData.picture) {
+        formData.append("picture", editData.picture);
+      }
       try {
         await axios.put(
           `http://localhost:8000/api/input-barang/${editData.id}`,
-          editData
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
         // Update records setelah update berhasil
         const updatedRecords = records.map((record) =>
@@ -335,7 +345,16 @@ function TblInventory() {
           {/* Kondisional untuk menampilkan kolom tanggal_awal_pinjam dan tanggal_akhir_pinjam */}
         </DataTable>
         {isUpdateModalOpen && (
-          <UpdateBarangMasuk
+          // <UpdateBarangMasuk
+          //   isUpdateModalOpen={isUpdateModalOpen}
+          //   closeUpdateModal={closeUpdateModal}
+          //   setIsUpdateModalOpen={setIsUpdateModalOpen}
+          //   editData={editData}
+          //   setEditData={setEditData}
+          //   handleUpdate={handleUpdate}
+          //   detailData={detailData}
+          // />
+          <UpdateInventoryItem
             isUpdateModalOpen={isUpdateModalOpen}
             closeUpdateModal={closeUpdateModal}
             setIsUpdateModalOpen={setIsUpdateModalOpen}
