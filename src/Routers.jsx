@@ -16,6 +16,7 @@ import QrCodePage from "./Pages/Dashboard Pages/QRCode";
 import InputBarang from "./Pages/Dashboard Pages/InputBarang";
 import ItemInfo from "./Pages/Dashboard Pages/ItemInfo";
 import TabelInventory from "./Pages/Dashboard Pages/TabelInventory";
+import ProtectedRoute from "./ProtectedRoute";
 
 function Routers() {
   return (
@@ -23,20 +24,125 @@ function Routers() {
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path="/home" element={<Home />} />
       <Route path="/aboutus" element={<AboutUs />} />
-      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/tabel-barang-masuk" element={<TabelBarangMasuk />} />
-      <Route path="/tabel-barang-keluar" element={<TabelBarangKeluar />} />
-      <Route path="/tabel-barang-pinjaman" element={<TabelBarangPinjaman />} />
-      <Route path="/tabel-barang-rusak" element={<TabelBarangRusak />} />
-      <Route path="/tabel-inventory" element={<TabelInventory />} />
-      <Route path="/input-barang-masuk" element={<BarangMasuk />} />
-      <Route path="/input-barang-keluar" element={<BarangKeluar />} />
-      <Route path="/input-barang-pinjaman" element={<BarangPinjaman />} />{" "}
-      <Route path="/input-barang-rusak" element={<BarangRusak />} />
-      <Route path="/input-barang" element={<InputBarang />} />
-      <Route path="/print-qr-code/:id" element={<QrCodePage />} />
-      <Route path="/item-info/:id" element={<ItemInfo />} />
+
+      {/* Bungkus rute yang membutuhkan autentikasi dengan ProtectedRoute */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/tabel-barang-masuk"
+        element={
+          <ProtectedRoute>
+            <TabelBarangMasuk />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/tabel-barang-keluar"
+        element={
+          <ProtectedRoute>
+            <TabelBarangKeluar />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/tabel-barang-pinjaman"
+        element={
+          <ProtectedRoute>
+            <TabelBarangPinjaman />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/tabel-barang-rusak"
+        element={
+          <ProtectedRoute>
+            <TabelBarangRusak />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/tabel-inventory"
+        element={
+          <ProtectedRoute>
+            <TabelInventory />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/input-barang-masuk"
+        element={
+          <ProtectedRoute>
+            <BarangMasuk />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/input-barang-keluar"
+        element={
+          <ProtectedRoute>
+            <BarangKeluar />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/input-barang-pinjaman"
+        element={
+          <ProtectedRoute>
+            <BarangPinjaman />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/input-barang-rusak"
+        element={
+          <ProtectedRoute>
+            <BarangRusak />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/input-barang"
+        element={
+          <ProtectedRoute>
+            <InputBarang />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/print-qr-code/:id"
+        element={
+          <ProtectedRoute>
+            <QrCodePage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/item-info/:id"
+        element={
+          <ProtectedRoute>
+            <ItemInfo />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

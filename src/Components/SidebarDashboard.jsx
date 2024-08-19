@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import logoPelindo from "../assets/img/logo-pelindo.png";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { BsTruck } from "react-icons/bs";
@@ -36,6 +36,14 @@ const SidebarDashboard = () => {
     else if (path.includes("social-media")) setActiveTab("socialMedia");
     else if (path.includes("logout")) setActiveTab("logout");
   }, [location]);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    // Menghapus token atau data sesi dari localStorage
+    localStorage.removeItem("authToken");
+
+    // Arahkan pengguna kembali ke halaman login
+    navigate("/login");
+  };
 
   return (
     <div
@@ -342,6 +350,7 @@ const SidebarDashboard = () => {
           className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
             activeTab === "logout" ? "text-white" : "text-[#919191]"
           }`}
+          onClick={handleLogout}
         >
           <MdOutlineLogin
             className={`text-base mr-2 ${

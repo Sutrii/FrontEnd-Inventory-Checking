@@ -30,6 +30,7 @@ const Login = () => {
       setEmail("");
       setPassword("");
       navigate("/dashboard");
+      localStorage.setItem("authToken", response.data.token);
     } catch (e) {
       console.error("Error:", e.response ? e.response.data : e.message);
     }
