@@ -1,12 +1,12 @@
 import React from "react";
 import NavbarDashboard from "../../Components/NavbarDashboard";
 import SidebarDashboard from "../../Components/SidebarDashboard";
-import BarangMasuk from "../../Components/Dashboard/BoxBarangMasuk";
-import BarangKeluar from "../../Components/Dashboard/BoxBarangKeluar";
-import BarangPinjaman from "../../Components/Dashboard/BoxBarangPinjaman";
-import BarangRusak from "../../Components/Dashboard/BoxBarangRusak";
-import TotalBarang from "../../Components/Dashboard/BoxTotalBarang";
-import PolarChart from "../../Components/Dashboard/Chart";
+import BoxBarangKeluar from "../../Components/Dashboard/BoxBarangKeluar";
+import BoxBarangMasuk from "../../Components/Dashboard/BoxBarangMasuk";
+import BoxBarangPinjaman from "../../Components/Dashboard/BoxBarangPinjaman";
+import BoxBarangRusak from "../../Components/Dashboard/BoxBarangRusak";
+import BoxTotalBarang from "../../Components/Dashboard/BoxTotalBarang";
+import BoxChart from "../../Components/Dashboard/BoxChart";
 
 const Dashboard = () => {
   return (
@@ -24,26 +24,26 @@ const Dashboard = () => {
                     <div id="FirstData">
                       <div className="flex w-full space-x-6">
                         <div className="w-[50%]">
-                          <BarangMasuk />
+                          <BoxBarangMasuk />
                         </div>
                         <div className="w-[50%]">
-                          <BarangKeluar />
+                          <BoxBarangKeluar />
                         </div>
                       </div>
                     </div>
                     <div id="SecondData" className="mt-3">
                       <div className="flex w-full space-x-6">
                         <div className="w-[50%]">
-                          <BarangPinjaman />
+                          <BoxBarangPinjaman />
                         </div>
                         <div className="w-[50%]">
-                          <BarangRusak />
+                          <BoxBarangRusak />
                         </div>
                       </div>
                     </div>
                     <div id="ThirdData" className="mt-3">
                       <div className="w-[100%]">
-                        <TotalBarang />
+                        <BoxTotalBarang />
                       </div>
                     </div>
                   </div>
@@ -54,7 +54,7 @@ const Dashboard = () => {
                     >
                       <div className="w-[100%] h-[100%]">
                         <div className="w-full h-[573px]">
-                          <PolarChart />
+                          <BoxChart />
                         </div>
                       </div>
                     </div>
