@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { AiFillPicture } from "react-icons/ai";
 
-const InputPicture = ({ onChange }) => {
-  const [fileName, setFileName] = useState("Input Item Picture");
+const InputPicture = ({ value, onChange }) => {
+  const [fileName, setFileName] = useState(value || "Input Item Picture");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -22,7 +22,7 @@ const InputPicture = ({ onChange }) => {
           <input
             type="file"
             accept="image/*"
-            onChange={handleImageChange}
+            onChange={onChange}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           />
           <div className="flex items-center poppins-regular text-sm text-gray-400 w-full h-full border border-gray-300 rounded-md px-2 py-1 bg-white cursor-pointer">

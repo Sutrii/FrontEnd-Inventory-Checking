@@ -10,6 +10,7 @@ import InputInformation from "./InputInformation";
 import InputWorkUnit from "./InputWorkUnit";
 import InputLocation from "./InputLocation";
 import InputName from "./InputName";
+import InputCategory from "./InputCategory";
 import "react-datepicker/dist/react-datepicker.css";
 import { Modal, Button } from "react-bootstrap";
 
@@ -43,6 +44,18 @@ const UpdateInventoryItem = ({
 
   if (!isUpdateModalOpen) return null;
 
+  const handleImageChange = (e) => {
+    if (e.target && e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setEditData({
+        ...editData,
+        picture: URL.createObjectURL(file),
+        pictureFile: file, // Simpan file asli
+        pictureFileName: file.name, // Simpan nama file
+      });
+    }
+  };
+
   return (
     <div className="modal fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
       {loading ? (
@@ -64,10 +77,9 @@ const UpdateInventoryItem = ({
                 {editData?.picture ? (
                   <img
                     src={
-                      typeof editData.picture === "string" &&
-                      editData.picture.startsWith("http")
+                      editData.picture && editData.picture.startsWith("http")
                         ? editData.picture
-                        : `http://localhost:8000/storage/pictures/${editData.picture}`
+                        : editData.picture // URL.createObjectURL(file) digunakan di tempat lain, pastikan ini adalah URL gambar lokal atau placeholder
                     }
                     alt={editData.nama_barang || "Gambar Barang"}
                     style={{ maxWidth: "100%", height: "auto" }}
@@ -81,22 +93,28 @@ const UpdateInventoryItem = ({
                 )}
                 <InputPicture
                   value={editData?.picture || ""}
-                  onChange={(picture) => {
-                    if (picture && picture.files && picture.files[0]) {
-                      const file = picture.target.files
-                        ? picture.target.files[0]
-                        : null; // Cek apakah files ada
-                      console.log(file); // Debugging: Cek apakah file terpilih
-                      setEditData({
-                        ...editData,
-                        picture: URL.createObjectURL(file),
-                        pictureFileName: file.name,
-                      });
-                    }
-                  }}
+                  onChange={handleImageChange} // Pastikan untuk menggunakan handler yang benar
+                  placeholder={editData.picture}
                 />
               </div>
-              <form>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleUpdate();
+                }}
+              >
+                <div className="mb-4">
+                  <InputCategory
+                    label="Kategori Barang"
+                    value={editData?.kategori_input || ""}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        kategori_input: e.target.value,
+                      })
+                    }
+                  />
+                </div>
                 <div className="mb-4">
                   <InputName
                     label="Item Name"
@@ -145,10 +163,10 @@ const UpdateInventoryItem = ({
                 <div className="mb-3">
                   <InputQuality
                     value={editData?.kualitas || ""}
-                    onChange={(kualitas) =>
+                    onChange={(e) =>
                       setEditData({
                         ...editData,
-                        kualitas: kualitas,
+                        kualitas: e.target.value,
                       })
                     }
                   />
@@ -178,10 +196,10 @@ const UpdateInventoryItem = ({
                 <div className="mb-3">
                   <InputWorkUnit
                     value={editData?.work_unit || ""}
-                    onChange={(work_unit) =>
+                    onChange={(e) =>
                       setEditData({
                         ...editData,
-                        work_unit: work_unit,
+                        work_unit: e.target.value,
                       })
                     }
                   />
@@ -201,7 +219,9 @@ const UpdateInventoryItem = ({
                   <div className="d-flex justify-content-end gap-2">
                     <Button
                       className="bg-blue-500 text-white px-4 rounded"
+                      type="submit"
                       onClick={() => {
+                        // Update clicked, trigger the handleUpdate
                         console.log("Update clicked");
                         handleUpdate();
                       }}
