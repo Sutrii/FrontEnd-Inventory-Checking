@@ -27,6 +27,14 @@ const UpdateInventoryItem = ({
   const [selectedCategory, setSelectedCategory] = useState(
     editData?.kategori_input || ""
   );
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setEditData({
+      ...editData,
+      kategori_input: category,
+    });
+  };
+
   const [imageURL, setImageURL] = useState(editData?.picture || "");
   const [imageFile, setImageFile] = useState(null);
 
@@ -72,7 +80,7 @@ const UpdateInventoryItem = ({
   }, [imageURL]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
     setLoading(true);
 
     // Prepare form data
@@ -92,9 +100,12 @@ const UpdateInventoryItem = ({
       "tanggal_akhir_pinjam",
       editData.tanggal_akhir_pinjam || ""
     );
+
     if (imageFile) {
       formData.append("picture", imageFile);
     }
+
+    console.log("FormData:", ...formData);
 
     // Send data to the backend
     try {
@@ -124,7 +135,7 @@ const UpdateInventoryItem = ({
               <Modal.Title>Edit Barang</Modal.Title>
             </Modal.Header>
             <Modal.Body ref={modalRef}>
-              <div className="text-center">
+              <div className="text-center mb-4">
                 {imageURL ? (
                   <img
                     src={imageURL}
@@ -143,152 +154,148 @@ const UpdateInventoryItem = ({
                   onChange={handleImageChange}
                 />
               </div>
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <InputCategory
-                    label="Kategori Barang"
-                    value={editData?.kategori_input || ""}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      setSelectedCategory(value);
-                      setEditData({
-                        ...editData,
-                        kategori_input: value,
-                      });
-                    }}
-                  />
-                </div>
-                {selectedCategory === "Barang Pinjaman" && (
-                  <>
-                    <div className="mb-3">
-                      <InputStartDate
-                        selectedDate={editData?.tanggal_awal_pinjam} // Use editData?.tanggal_awal_pinjam directly
-                        onDateChange={(date) =>
-                          setEditData({
-                            ...editData,
-                            tanggal_awal_pinjam: date,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <InputEndDate
-                        selectedDate={editData?.tanggal_akhir_pinjam} // Use editData?.tanggal_akhir_pinjam directly
-                        onDateChange={(date) =>
-                          setEditData({
-                            ...editData,
-                            tanggal_akhir_pinjam: date,
-                          })
-                        }
-                      />
-                    </div>
-                  </>
-                )}
-                <div className="mb-4">
-                  <InputName
-                    label="Item Name"
-                    value={editData?.nama_barang || ""}
-                    onChange={(e) =>
-                      setEditData({
-                        ...editData,
-                        nama_barang: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-4">
-                  <InputSerialNumber
-                    value={editData?.sn || ""}
-                    onChange={(e) =>
-                      setEditData({
-                        ...editData,
-                        sn: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <InputType
-                    value={editData?.tipe_barang || ""}
-                    onChange={(e) =>
-                      setEditData({
-                        ...editData,
-                        tipe_barang: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <InputQuantity
-                    value={editData?.jumlah || ""}
-                    onChange={(e) =>
-                      setEditData({
-                        ...editData,
-                        jumlah: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <InputQuality
-                    value={editData?.kualitas || ""}
-                    onChange={(e) =>
-                      setEditData({
-                        ...editData,
-                        kualitas: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <InputUnits
-                    value={editData?.satuan || ""}
-                    onChange={(e) =>
-                      setEditData({
-                        ...editData,
-                        satuan: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <InputInformation
-                    value={editData?.keterangan || ""}
-                    onChange={(e) =>
-                      setEditData({
-                        ...editData,
-                        keterangan: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <InputWorkUnit
-                    value={editData?.work_unit || ""}
-                    onChange={(e) =>
-                      setEditData({
-                        ...editData,
-                        work_unit: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <InputLocation
-                    value={editData?.lokasi || ""}
-                    onChange={(e) =>
-                      setEditData({
-                        ...editData,
-                        lokasi: e.target.value,
-                      })
-                    }
-                  />
-                </div>
+              <div className="mb-4">
+                <InputCategory
+                  label="Kategori Barang"
+                  value={editData?.kategori_input || ""}
+                  onCategoryChange={handleCategoryChange}
+                />
+              </div>
+              {selectedCategory === "Barang Pinjaman" && (
+                <>
+                  <div className="mb-3">
+                    <InputStartDate
+                      selectedDate={editData?.tanggal_awal_pinjam} // Use editData?.tanggal_awal_pinjam directly
+                      onDateChange={(date) =>
+                        setEditData({
+                          ...editData,
+                          tanggal_awal_pinjam: date,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <InputEndDate
+                      selectedDate={editData?.tanggal_akhir_pinjam} // Use editData?.tanggal_akhir_pinjam directly
+                      onDateChange={(date) =>
+                        setEditData({
+                          ...editData,
+                          tanggal_akhir_pinjam: date,
+                        })
+                      }
+                    />
+                  </div>
+                </>
+              )}
+              <div className="mb-4">
+                <InputName
+                  label="Item Name"
+                  value={editData?.nama_barang || ""}
+                  onChange={(e) =>
+                    setEditData({
+                      ...editData,
+                      nama_barang: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="mb-4">
+                <InputSerialNumber
+                  value={editData?.sn || ""}
+                  onChange={(e) =>
+                    setEditData({
+                      ...editData,
+                      sn: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="mb-3">
+                <InputType
+                  value={editData?.tipe_barang || ""}
+                  onChange={(e) =>
+                    setEditData({
+                      ...editData,
+                      tipe_barang: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="mb-3">
+                <InputQuantity
+                  value={editData?.jumlah || ""}
+                  onChange={(e) =>
+                    setEditData({
+                      ...editData,
+                      jumlah: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="mb-3">
+                <InputQuality
+                  value={editData?.kualitas || ""}
+                  onChange={(quality) =>
+                    setEditData({
+                      ...editData,
+                      kualitas: quality,
+                    })
+                  }
+                />
+              </div>
+              <div className="mb-3">
+                <InputUnits
+                  value={editData?.satuan || ""}
+                  onChange={(e) =>
+                    setEditData({
+                      ...editData,
+                      satuan: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="mb-3">
+                <InputInformation
+                  value={editData?.keterangan || ""}
+                  onChange={(e) =>
+                    setEditData({
+                      ...editData,
+                      keterangan: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="mb-3">
+                <InputWorkUnit
+                  value={editData?.work_unit || ""}
+                  onChange={(work_unit) =>
+                    setEditData({
+                      ...editData,
+                      work_unit: work_unit,
+                    })
+                  }
+                />
+              </div>
+              <div className="mb-3">
+                <InputLocation
+                  value={editData?.lokasi || ""}
+                  onChange={(e) =>
+                    setEditData({
+                      ...editData,
+                      lokasi: e.target.value,
+                    })
+                  }
+                />
+              </div>
 
-                <Button type="submit" variant="primary" className="w-full">
-                  Update
-                </Button>
-              </form>
+              <Button
+                type="button"
+                variant="primary"
+                className="w-full"
+                onClick={(e) => handleSubmit(e)} // Pass the event manually
+              >
+                Update
+              </Button>
             </Modal.Body>
           </Modal>
         </>

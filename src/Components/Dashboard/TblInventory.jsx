@@ -106,11 +106,11 @@ function TblInventory() {
       try {
         await axios.put(
           `http://localhost:8000/api/input-barang/${editData.id}`,
-          formData,
+          editData,
           {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
+            // headers: {
+            //   "Content-Type": "multipart/form-data",
+            // },
           }
         );
         // Update records setelah update berhasil
@@ -357,15 +357,6 @@ function TblInventory() {
           {/* Kondisional untuk menampilkan kolom tanggal_awal_pinjam dan tanggal_akhir_pinjam */}
         </DataTable>
         {isUpdateModalOpen && (
-          // <UpdateBarangMasuk
-          //   isUpdateModalOpen={isUpdateModalOpen}
-          //   closeUpdateModal={closeUpdateModal}
-          //   setIsUpdateModalOpen={setIsUpdateModalOpen}
-          //   editData={editData}
-          //   setEditData={setEditData}
-          //   handleUpdate={handleUpdate}
-          //   detailData={detailData}
-          // />
           <UpdateInventoryItem
             isUpdateModalOpen={isUpdateModalOpen}
             closeUpdateModal={closeUpdateModal}
