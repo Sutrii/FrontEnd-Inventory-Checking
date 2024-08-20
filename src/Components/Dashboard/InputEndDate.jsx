@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 const InputEndDate = ({ onDateChange, selectedDate }) => {
   const [localDate, setLocalDate] = useState(selectedDate || null);
 
   useEffect(() => {
-    setLocalDate(selectedDate);
+    // Convert ISO string to Date object if necessary
+    if (typeof selectedDate === "string") {
+      setLocalDate(selectedDate ? parseISO(selectedDate) : null);
+    } else {
+      setLocalDate(selectedDate);
+    }
   }, [selectedDate]);
 
   const handleChange = (date) => {
     setLocalDate(date);
-    console.log("Date before formatting:", date);
     if (onDateChange) {
       const formattedDate = date ? format(date, "yyyy-MM-dd") : "";
-      console.log("Formatted Date:", formattedDate);
       onDateChange(formattedDate);
     }
   };

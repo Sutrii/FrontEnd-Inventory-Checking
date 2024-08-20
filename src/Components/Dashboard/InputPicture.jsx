@@ -22,7 +22,7 @@ const InputPicture = ({ value, onChange }) => {
           <input
             type="file"
             accept="image/*"
-            onChange={onChange}
+            onChange={handleImageChange} // Use internal handler
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           />
           <div className="flex items-center poppins-regular text-sm text-gray-400 w-full h-full border border-gray-300 rounded-md px-2 py-1 bg-white cursor-pointer">

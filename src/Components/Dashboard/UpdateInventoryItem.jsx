@@ -4,13 +4,14 @@ import InputType from "./InputType";
 import InputQuantity from "./InputQuantity";
 import InputQuality from "./InputQuality";
 import InputUnits from "./InputUnits";
-import InputDate from "./InputDate";
 import InputPicture from "./InputPicture";
 import InputInformation from "./InputInformation";
 import InputWorkUnit from "./InputWorkUnit";
 import InputLocation from "./InputLocation";
 import InputName from "./InputName";
 import InputCategory from "./InputCategory";
+import InputStartDate from "./InputStartDate";
+import InputEndDate from "./InputEndDate";
 import "react-datepicker/dist/react-datepicker.css";
 import { Modal, Button } from "react-bootstrap";
 
@@ -23,14 +24,21 @@ const UpdateInventoryItem = ({
 }) => {
   const modalRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(
+    editData?.kategori_input || ""
+  );
+  const [imageURL, setImageURL] = useState(editData?.picture || "");
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
     if (isUpdateModalOpen) {
-      setLoading(false); // Set loading ke false jika modal dibuka
+      setLoading(false);
+      if (editData?.picture) {
+        setImageURL(editData.picture);
+      }
     }
-  }, [isUpdateModalOpen]);
+  }, [isUpdateModalOpen, editData?.picture]);
 
-  // Fungsi untuk menangani klik di luar modal
   const handleClickOutside = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       closeUpdateModal();
@@ -42,17 +50,60 @@ const UpdateInventoryItem = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (!isUpdateModalOpen) return null;
-
-  const handleImageChange = (e) => {
-    if (e.target && e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
+  const handleImageChange = (file) => {
+    if (file) {
+      const url = URL.createObjectURL(file); // Create object URL
+      setImageURL(url);
+      setImageFile(file); // Save file for upload
       setEditData({
         ...editData,
-        picture: URL.createObjectURL(file),
-        pictureFile: file, // Simpan file asli
-        pictureFileName: file.name, // Simpan nama file
+        pictureFile: file,
+        pictureFileName: file.name,
       });
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (imageURL && imageURL.startsWith("blob:")) {
+        URL.revokeObjectURL(imageURL);
+      }
+    };
+  }, [imageURL]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    // Prepare form data
+    const formData = new FormData();
+    formData.append("nama_barang", editData.nama_barang || "");
+    formData.append("sn", editData.sn || "");
+    formData.append("tipe_barang", editData.tipe_barang || "");
+    formData.append("jumlah", editData.jumlah || "");
+    formData.append("kualitas", editData.kualitas || "");
+    formData.append("satuan", editData.satuan || "");
+    formData.append("keterangan", editData.keterangan || "");
+    formData.append("work_unit", editData.work_unit || "");
+    formData.append("lokasi", editData.lokasi || "");
+    formData.append("kategori_input", editData.kategori_input || "");
+    formData.append("tanggal_awal_pinjam", editData.tanggal_awal_pinjam || "");
+    formData.append(
+      "tanggal_akhir_pinjam",
+      editData.tanggal_akhir_pinjam || ""
+    );
+    if (imageFile) {
+      formData.append("picture", imageFile);
+    }
+
+    // Send data to the backend
+    try {
+      await handleUpdate(formData);
+    } catch (error) {
+      console.error("Error updating item:", error);
+    } finally {
+      setLoading(false);
+      closeUpdateModal();
     }
   };
 
@@ -72,16 +123,12 @@ const UpdateInventoryItem = ({
             <Modal.Header>
               <Modal.Title>Edit Barang</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body ref={modalRef}>
               <div className="text-center">
-                {editData?.picture ? (
+                {imageURL ? (
                   <img
-                    src={
-                      editData.picture && editData.picture.startsWith("http")
-                        ? editData.picture
-                        : editData.picture // URL.createObjectURL(file) digunakan di tempat lain, pastikan ini adalah URL gambar lokal atau placeholder
-                    }
-                    alt={editData.nama_barang || "Gambar Barang"}
+                    src={imageURL}
+                    alt={editData?.nama_barang || "Gambar Barang"}
                     style={{ maxWidth: "100%", height: "auto" }}
                   />
                 ) : (
@@ -92,29 +139,51 @@ const UpdateInventoryItem = ({
                   />
                 )}
                 <InputPicture
-                  value={editData?.picture || ""}
-                  onChange={handleImageChange} // Pastikan untuk menggunakan handler yang benar
-                  placeholder={editData.picture}
+                  value={editData?.pictureFileName || "Input Item Picture"}
+                  onChange={handleImageChange}
                 />
               </div>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleUpdate();
-                }}
-              >
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <InputCategory
                     label="Kategori Barang"
                     value={editData?.kategori_input || ""}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setSelectedCategory(value);
                       setEditData({
                         ...editData,
-                        kategori_input: e.target.value,
-                      })
-                    }
+                        kategori_input: value,
+                      });
+                    }}
                   />
                 </div>
+                {selectedCategory === "Barang Pinjaman" && (
+                  <>
+                    <div className="mb-3">
+                      <InputStartDate
+                        selectedDate={editData?.tanggal_awal_pinjam} // Use editData?.tanggal_awal_pinjam directly
+                        onDateChange={(date) =>
+                          setEditData({
+                            ...editData,
+                            tanggal_awal_pinjam: date,
+                          })
+                        }
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <InputEndDate
+                        selectedDate={editData?.tanggal_akhir_pinjam} // Use editData?.tanggal_akhir_pinjam directly
+                        onDateChange={(date) =>
+                          setEditData({
+                            ...editData,
+                            tanggal_akhir_pinjam: date,
+                          })
+                        }
+                      />
+                    </div>
+                  </>
+                )}
                 <div className="mb-4">
                   <InputName
                     label="Item Name"
@@ -215,24 +284,10 @@ const UpdateInventoryItem = ({
                     }
                   />
                 </div>
-                <Modal.Footer>
-                  <div className="d-flex justify-content-end gap-2">
-                    <Button
-                      className="bg-blue-500 text-white px-4 rounded"
-                      type="submit"
-                      onClick={() => {
-                        // Update clicked, trigger the handleUpdate
-                        console.log("Update clicked");
-                        handleUpdate();
-                      }}
-                    >
-                      Update
-                    </Button>
-                    <Button variant="danger" onClick={closeUpdateModal}>
-                      Close
-                    </Button>
-                  </div>
-                </Modal.Footer>
+
+                <Button type="submit" variant="primary" className="w-full">
+                  Update
+                </Button>
               </form>
             </Modal.Body>
           </Modal>
