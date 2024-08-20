@@ -123,182 +123,203 @@ const UpdateInventoryItem = ({
       {loading ? (
         <div className="text-center">Loading...</div>
       ) : (
-        <>
-          <Modal
-            show={isUpdateModalOpen}
-            onHide={closeUpdateModal}
-            size="md"
-            scrollable
-            dialogClassName="modal-dialog-centered"
-          >
-            <Modal.Header>
-              <Modal.Title>Edit Barang</Modal.Title>
-            </Modal.Header>
-            <Modal.Body ref={modalRef}>
-              <div className="text-center mb-4">
-                {imageURL ? (
-                  <img
-                    src={imageURL}
-                    alt={editData?.nama_barang || "Gambar Barang"}
-                    style={{ maxWidth: "100%", height: "auto" }}
-                  />
-                ) : (
-                  <img
-                    src="https://via.placeholder.com/150"
-                    alt="Placeholder"
-                    style={{ maxWidth: "100%", height: "auto" }}
-                  />
-                )}
-                <InputPicture
-                  value={editData?.pictureFileName || "Input Item Picture"}
-                  onChange={handleImageChange}
+        <Modal
+          show={isUpdateModalOpen}
+          onHide={closeUpdateModal}
+          size="md"
+          scrollable
+          dialogClassName="modal-dialog-centered"
+          className="custom-modal"
+        >
+          <Modal.Header>
+            <Modal.Title>Edit Barang</Modal.Title>
+          </Modal.Header>
+          <Modal.Body ref={modalRef} className="modal-body">
+            <div className="text-center mb-4">
+              {imageURL ? (
+                <img
+                  src={imageURL}
+                  alt={editData?.nama_barang || "Gambar Barang"}
+                  style={{ maxWidth: "100%", height: "auto" }}
                 />
-              </div>
-              <div className="mb-4">
-                <InputCategory
-                  label="Kategori Barang"
-                  value={editData?.kategori_input || ""}
-                  onCategoryChange={handleCategoryChange}
+              ) : (
+                <img
+                  src="https://via.placeholder.com/150"
+                  alt="Placeholder"
+                  style={{ maxWidth: "100%", height: "auto" }}
                 />
-              </div>
-              {selectedCategory === "Barang Pinjaman" && (
-                <>
-                  <div className="mb-3">
-                    <InputStartDate
-                      selectedDate={editData?.tanggal_awal_pinjam} // Use editData?.tanggal_awal_pinjam directly
-                      onDateChange={(date) =>
-                        setEditData({
-                          ...editData,
-                          tanggal_awal_pinjam: date,
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <InputEndDate
-                      selectedDate={editData?.tanggal_akhir_pinjam} // Use editData?.tanggal_akhir_pinjam directly
-                      onDateChange={(date) =>
-                        setEditData({
-                          ...editData,
-                          tanggal_akhir_pinjam: date,
-                        })
-                      }
-                    />
-                  </div>
-                </>
               )}
-              <div className="mb-4">
-                <InputName
-                  label="Item Name"
-                  value={editData?.nama_barang || ""}
-                  onChange={(e) =>
-                    setEditData({
-                      ...editData,
-                      nama_barang: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div className="mb-4">
-                <InputSerialNumber
-                  value={editData?.sn || ""}
-                  onChange={(e) =>
-                    setEditData({
-                      ...editData,
-                      sn: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div className="mb-3">
-                <InputType
-                  value={editData?.tipe_barang || ""}
-                  onChange={(e) =>
-                    setEditData({
-                      ...editData,
-                      tipe_barang: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div className="mb-3">
-                <InputQuantity
-                  value={editData?.jumlah || ""}
-                  onChange={(e) =>
-                    setEditData({
-                      ...editData,
-                      jumlah: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div className="mb-3">
-                <InputQuality
-                  value={editData?.kualitas || ""}
-                  onChange={(quality) =>
-                    setEditData({
-                      ...editData,
-                      kualitas: quality,
-                    })
-                  }
-                />
-              </div>
-              <div className="mb-3">
-                <InputUnits
-                  value={editData?.satuan || ""}
-                  onChange={(e) =>
-                    setEditData({
-                      ...editData,
-                      satuan: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div className="mb-3">
-                <InputInformation
-                  value={editData?.keterangan || ""}
-                  onChange={(e) =>
-                    setEditData({
-                      ...editData,
-                      keterangan: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div className="mb-3">
-                <InputWorkUnit
-                  value={editData?.work_unit || ""}
-                  onChange={(work_unit) =>
-                    setEditData({
-                      ...editData,
-                      work_unit: work_unit,
-                    })
-                  }
-                />
-              </div>
-              <div className="mb-3">
-                <InputLocation
-                  value={editData?.lokasi || ""}
-                  onChange={(e) =>
-                    setEditData({
-                      ...editData,
-                      lokasi: e.target.value,
-                    })
-                  }
-                />
-              </div>
+              <InputPicture
+                value={editData?.pictureFileName || "Input Item Picture"}
+                onChange={handleImageChange}
+              />
+            </div>
+            <div className="mb-4">
+              <InputCategory
+                label="Kategori Barang"
+                value={editData?.kategori_input || ""}
+                onCategoryChange={handleCategoryChange}
+              />
+            </div>
+            {selectedCategory === "Barang Pinjaman" && (
+              <>
+                <div className="mb-3">
+                  <InputStartDate
+                    selectedDate={editData?.tanggal_awal_pinjam}
+                    onDateChange={(date) =>
+                      setEditData({
+                        ...editData,
+                        tanggal_awal_pinjam: date,
+                      })
+                    }
+                  />
+                </div>
+                <div className="mb-3">
+                  <InputEndDate
+                    selectedDate={editData?.tanggal_akhir_pinjam}
+                    onDateChange={(date) =>
+                      setEditData({
+                        ...editData,
+                        tanggal_akhir_pinjam: date,
+                      })
+                    }
+                  />
+                </div>
+              </>
+            )}
+            <div className="mb-4">
+              <InputName
+                label="Item Name"
+                value={editData?.nama_barang || ""}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    nama_barang: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="mb-4">
+              <InputSerialNumber
+                value={editData?.sn || ""}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sn: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="mb-3">
+              <InputType
+                value={editData?.tipe_barang || ""}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    tipe_barang: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="mb-3">
+              <InputQuantity
+                value={editData?.jumlah || ""}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    jumlah: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="mb-3">
+              <InputQuality
+                value={editData?.kualitas || ""}
+                onChange={(quality) =>
+                  setEditData({
+                    ...editData,
+                    kualitas: quality,
+                  })
+                }
+              />
+            </div>
+            <div className="mb-3">
+              <InputUnits
+                value={editData?.satuan || ""}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    satuan: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="mb-3">
+              <InputInformation
+                value={editData?.keterangan || ""}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    keterangan: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="mb-3">
+              <InputWorkUnit
+                value={editData?.work_unit || ""}
+                onChange={(work_unit) =>
+                  setEditData({
+                    ...editData,
+                    work_unit: work_unit,
+                  })
+                }
+              />
+            </div>
+            <div className="mb-3">
+              <InputLocation
+                value={editData?.lokasi || ""}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    lokasi: e.target.value,
+                  })
+                }
+              />
+            </div>
+          </Modal.Body>
+          <Modal.Footer className="fixed-footer">
+            <Button
+              type="button"
+              variant="primary"
+              className="update-button"
+              onClick={handleSubmit}
+            >
+              Update
+            </Button>
+          </Modal.Footer>
+          <style jsx>{`
+            .custom-modal .modal-dialog {
+              max-height: 90vh;
+            }
 
-              <Button
-                type="button"
-                variant="primary"
-                className="w-full"
-                onClick={(e) => handleSubmit(e)} // Pass the event manually
-              >
-                Update
-              </Button>
-            </Modal.Body>
-          </Modal>
-        </>
+            .modal-body {
+              overflow-y: auto;
+              padding-bottom: 4.5rem; /* Adjust according to the button height */
+            }
+
+            .fixed-footer {
+              position: sticky;
+              bottom: 0;
+              background: white;
+              z-index: 999;
+            }
+
+            .update-button {
+              margin: 0 auto;
+            }
+          `}</style>
+        </Modal>
       )}
     </div>
   );
