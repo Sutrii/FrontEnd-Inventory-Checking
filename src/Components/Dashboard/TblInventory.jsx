@@ -6,12 +6,13 @@ import axios from "axios"; // Import axios for HTTP requests
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import UpdateBarangMasuk from "./UpdateBarangMasuk";
+import { CiSearch } from "react-icons/ci";
 import SeeDetail from "./ViewInventoryItem";
 import UpdateInventoryItem from "./UpdateInventoryItem";
 
 function TblInventory() {
   const [records, setRecords] = useState([]);
+  const [allRecords, setAllRecords] = useState([]);
   const [entries, setEntries] = useState(10);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -30,6 +31,7 @@ function TblInventory() {
           nomor: index + 1,
         }));
         setRecords(recordsWithNumbers);
+        setAllRecords(recordsWithNumbers);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -39,10 +41,17 @@ function TblInventory() {
 
   function handleFilter(event) {
     const searchTerm = event.target.value.toLowerCase();
-    const filteredData = records.filter((row) =>
-      row.nama_barang.toLowerCase().includes(searchTerm)
-    );
-    setRecords(filteredData);
+    if (searchTerm === "") {
+      // Jika input kosong, kembalikan semua data
+      setRecords(allRecords);
+    } else {
+      const filteredData = allRecords.filter(
+        (row) =>
+          row.nama_barang.toLowerCase().includes(searchTerm) ||
+          row.nama_peminjam?.toLowerCase().includes(searchTerm) // Memastikan nama_peminjam ada sebelum mencarinya
+      );
+      setRecords(filteredData);
+    }
   }
 
   function handleEntriesChange(event) {
@@ -163,14 +172,17 @@ function TblInventory() {
               entries
             </label>
           </div>
-          <div className="text-end">
-            <input
-              type="text"
-              placeholder="Search"
-              onChange={handleFilter}
-              className="form-control"
-              style={{ width: "200px" }}
-            />
+          <div className="h-full">
+            <div className="relative flex items-center">
+              <CiSearch className="absolute left-3 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Cari Nama Barang atau Nama Peminjam"
+                onChange={handleFilter}
+                className="form-control rounded-2xl pl-10 poppins-regular text-xs h-10"
+                style={{ width: "320px" }}
+              />
+            </div>
           </div>
         </div>
         <DataTable
