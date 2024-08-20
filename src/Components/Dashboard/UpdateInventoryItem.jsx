@@ -14,6 +14,8 @@ import InputStartDate from "./InputStartDate";
 import InputEndDate from "./InputEndDate";
 import "react-datepicker/dist/react-datepicker.css";
 import { Modal, Button } from "react-bootstrap";
+import InputNamaPeminjam from "./InputNamaPeminjam";
+import InputDivisiPeminjam from "./InputDivisiPeminjam";
 
 const UpdateInventoryItem = ({
   isUpdateModalOpen,
@@ -86,6 +88,8 @@ const UpdateInventoryItem = ({
     // Prepare form data
     const formData = new FormData();
     formData.append("nama_barang", editData.nama_barang || "");
+    formData.append("nama_peminjam", editData.nama_peminjam || "");
+    formData.append("divisi_peminjam", editData.divisi_peminjam || "");
     formData.append("sn", editData.sn || "");
     formData.append("tipe_barang", editData.tipe_barang || "");
     formData.append("jumlah", editData.jumlah || "");
@@ -163,7 +167,7 @@ const UpdateInventoryItem = ({
               </div>
               {selectedCategory === "Barang Pinjaman" && (
                 <>
-                  <div className="mb-3">
+                  <div className="mb-4">
                     <InputStartDate
                       selectedDate={editData?.tanggal_awal_pinjam} // Use editData?.tanggal_awal_pinjam directly
                       onDateChange={(date) =>
@@ -174,13 +178,37 @@ const UpdateInventoryItem = ({
                       }
                     />
                   </div>
-                  <div className="mb-3">
+                  <div className="mb-4">
                     <InputEndDate
                       selectedDate={editData?.tanggal_akhir_pinjam} // Use editData?.tanggal_akhir_pinjam directly
                       onDateChange={(date) =>
                         setEditData({
                           ...editData,
                           tanggal_akhir_pinjam: date,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <InputDivisiPeminjam
+                      label="Nama Peminjam"
+                      value={editData?.nama_peminjam || ""}
+                      onChange={(e) =>
+                        setEditData({
+                          ...editData,
+                          nama_peminjam: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <InputNamaPeminjam
+                      label="Divisi Peminjam"
+                      value={editData?.divisi_peminjam || ""}
+                      onChange={(e) =>
+                        setEditData({
+                          ...editData,
+                          divisi_peminjam: e.target.value,
                         })
                       }
                     />
