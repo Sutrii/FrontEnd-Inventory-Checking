@@ -1,33 +1,27 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faCog } from "@fortawesome/free-solid-svg-icons";
+import { useLocation, useNavigate } from "react-router-dom";
+import { IoIosLogOut } from "react-icons/io";
 
 const NavbarDashboard = () => {
   const location = useLocation();
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    // Menghapus token atau data sesi dari localStorage
+    localStorage.removeItem("authToken");
+
+    // Arahkan pengguna kembali ke halaman login
+    navigate("/login");
+  };
 
   const getTitle = () => {
     switch (location.pathname) {
       case "/dashboard":
         return "Dashboard";
-      case "/tabel-barang-masuk":
-        return "Tabel Barang Masuk";
-      case "/tabel-barang-keluar":
-        return "Tabel Barang Keluar";
-      case "/tabel-barang-pinjaman":
-        return "Tabel Barang Pinjaman";
-      case "/tabel-barang-rusak":
-        return "Tabel Barang Rusak";
-      case "/input-barang-masuk":
-        return "Input Barang Masuk";
-      case "/input-barang-keluar":
-        return "Input Barang Keluar";
-      case "/input-barang-pinjaman":
-        return "Input Barang Pinjaman";
-      case "/input-barang-rusak":
-        return "Input Barang Rusak";
+      case "/tabel-inventory":
+        return "Tabel Inventaris";
       case "/input-barang":
-        return "Input Barang";
+        return "Input Inventaris";
       default:
         return "Dashboard";
     }
@@ -46,22 +40,16 @@ const NavbarDashboard = () => {
             {getTitle()}
           </span>
         </div>
-        <div
-          id="IconSection"
-          className="flex items-center space-x-3 ml-auto w-auto h-full"
-        >
-          <div className="bg-[#EBB64D] px-3 py-2 rounded-4">
-            <FontAwesomeIcon
-              icon={faEdit}
-              className="text-black cursor-pointer text-sm sm:text-base"
-            />
-          </div>
-          <div className="bg-[#EBB64D] px-3 py-2 rounded-4">
-            <FontAwesomeIcon
-              icon={faCog}
-              className="text-black cursor-pointer text-sm sm:text-base"
-            />
-          </div>
+        <div id="IconSection" className="flex items-center ml-auto mx-2 h-full">
+          <button
+            className="bg-[#F0134D] w-[100px] px-2 py-2 rounded-3 text-white flex items-center justify-center space-x-2"
+            onClick={handleLogout}
+          >
+            <div>
+              <span className="poppins-medium text-sm">Logout</span>
+            </div>
+            <IoIosLogOut />
+          </button>
         </div>
       </div>
     </div>

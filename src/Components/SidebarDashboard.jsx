@@ -3,9 +3,6 @@ import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import logoPelindo from "../assets/img/logo-pelindo.png";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { BsTruck } from "react-icons/bs";
-import { FiSquare } from "react-icons/fi";
-import { TbCheckbox } from "react-icons/tb";
-import { CiGrid41 } from "react-icons/ci";
 import { VscListFlat } from "react-icons/vsc";
 import { FaInstagram } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
@@ -36,14 +33,6 @@ const SidebarDashboard = () => {
     else if (path.includes("social-media")) setActiveTab("socialMedia");
     else if (path.includes("logout")) setActiveTab("logout");
   }, [location]);
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    // Menghapus token atau data sesi dari localStorage
-    localStorage.removeItem("authToken");
-
-    // Arahkan pengguna kembali ke halaman login
-    navigate("/login");
-  };
 
   return (
     <div
@@ -159,26 +148,6 @@ const SidebarDashboard = () => {
             Social Media
           </span>
         </a>
-        {/* Log Out Section */}
-        <div
-          className={`flex items-center text-left px-2 cursor-pointer ${
-            activeTab === "logout" ? "text-white" : "text-[#919191]"
-          }`}
-          onClick={handleLogout}
-        >
-          <MdOutlineLogin
-            className={`text-base mr-2 ${
-              activeTab === "logout" ? "text-white" : "text-[#919191]"
-            }`}
-          />
-          <span
-            className={`text-xs poppins-regular ${
-              activeTab === "logout" ? "text-white" : "text-[#919191]"
-            }`}
-          >
-            Log Out
-          </span>
-        </div>
       </div>
     </div>
   );
