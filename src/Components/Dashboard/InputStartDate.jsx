@@ -26,12 +26,12 @@ const InputStartDate = ({ onDateChange, selectedDate }) => {
   // Format placeholder sesuai dengan format yang diinginkan
   const placeholderText = localDate
     ? format(localDate, "MM/dd/yyyy") // Format tanggal sesuai kebutuhan
-    : "Input Date";
+    : "Masukkan Tanggal";
 
   return (
     <div className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3">
       <div className="flex justify-between items-center">
-        <h2 className="text-sm poppins-semibold">Item Start Date</h2>
+        <h2 className="text-sm poppins-semibold">Tanggal Awal Peminjaman</h2>
       </div>
       <div className="flex flex-col items-center space-y-4">
         <DatePicker

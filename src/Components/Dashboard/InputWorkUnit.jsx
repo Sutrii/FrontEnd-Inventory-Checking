@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const InputWorkUnit = ({ value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedWorkUnit, setSelectedWorkUnit] = useState(
-    value || "Choose Work Unit"
+    value || "Pilih Unit Kerja"
   );
 
   const toggleDropdown = () => {
@@ -21,7 +21,7 @@ const InputWorkUnit = ({ value, onChange }) => {
   return (
     <div className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3">
       <div className="flex justify-between items-center">
-        <h2 className="text-sm poppins-semibold">Work Unit</h2>
+        <h2 className="text-sm poppins-semibold">Unit Kerja</h2>
       </div>
       <div className="flex justify-center poppins-regular relative inline-block text-left w-full">
         <div className="w-full">

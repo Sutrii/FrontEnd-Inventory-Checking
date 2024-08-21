@@ -606,7 +606,7 @@ const InputBarang = () => {
                       onClick={handleSave}
                       className="bg-blue-500 text-white py-2 px-4 rounded-md w-[25%] poppins-regular text-xs"
                     >
-                      Submit Data
+                      Tambah Data
                     </button>
                   </div>
                 )}

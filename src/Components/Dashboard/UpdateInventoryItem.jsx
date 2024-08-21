@@ -12,6 +12,8 @@ import InputName from "./InputName";
 import InputCategory from "./InputCategory";
 import InputStartDate from "./InputStartDate";
 import InputEndDate from "./InputEndDate";
+import InputDivisiPeminjam from "./InputDivisiPeminjam";
+import InputNamaPeminjam from "./InputNamaPeminjam";
 import "react-datepicker/dist/react-datepicker.css";
 import { Modal, Button } from "react-bootstrap";
 

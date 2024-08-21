@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const InputQuality = ({ value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedQuality, setSelectedQuality] = useState(
-    value || "Choose Item Condition"
+    value || "Masukkan Kualitas"
   );
 
   const toggleDropdown = () => {
@@ -21,7 +21,7 @@ const InputQuality = ({ value, onChange }) => {
   return (
     <div className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3">
       <div className="flex justify-between items-center">
-        <h2 className="text-sm poppins-semibold">Item Condition</h2>
+        <h2 className="text-sm poppins-semibold">Kualitas</h2>
       </div>
       <div className="flex justify-center poppins-regular relative inline-block text-left w-full">
         <div className="w-full">
