@@ -64,7 +64,7 @@ const SidebarDashboard = () => {
             className="text-xs poppins-regular pb-1 w-full inline-block"
             style={{ borderBottom: "0.5px solid #BEBEBE" }}
           >
-            Reports
+            Menu
           </span>
         </div>
         <NavLink to="/dashboard">
@@ -87,95 +87,7 @@ const SidebarDashboard = () => {
             </span>
           </div>
         </NavLink>
-        {/* Summary Section */}
-        <div className="text-left text-white mb-3 px-2">
-          <span
-            className="text-xs poppins-regular pb-1 w-full inline-block"
-            style={{ borderBottom: "0.5px solid #BEBEBE" }}
-          >
-            Summary
-          </span>
-        </div>
-        <NavLink to="/tabel-barang-masuk">
-          <div
-            className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
-              activeTab === "barangMasuk" ? "text-white" : "text-[#919191]"
-            }`}
-          >
-            <BsTruck
-              className={`text-base mr-2 ${
-                activeTab === "barangMasuk" ? "text-white" : "text-[#919191]"
-              }`}
-            />
-            <span
-              className={`text-xs poppins-regular ${
-                activeTab === "barangMasuk" ? "text-white" : "text-[#919191]"
-              }`}
-            >
-              Tbl Barang Masuk
-            </span>
-          </div>
-        </NavLink>
-        <NavLink to="/tabel-barang-keluar">
-          <div
-            className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
-              activeTab === "barangKeluar" ? "text-white" : "text-[#919191]"
-            }`}
-          >
-            <BsTruck
-              className={`text-base mr-2 ${
-                activeTab === "barangKeluar" ? "text-white" : "text-[#919191]"
-              }`}
-            />
-            <span
-              className={`text-xs poppins-regular ${
-                activeTab === "barangKeluar" ? "text-white" : "text-[#919191]"
-              }`}
-            >
-              Tbl Barang Keluar
-            </span>
-          </div>
-        </NavLink>
-        <NavLink to="/tabel-barang-pinjaman">
-          <div
-            className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
-              activeTab === "barangPinjaman" ? "text-white" : "text-[#919191]"
-            }`}
-          >
-            <BsTruck
-              className={`text-base mr-2 ${
-                activeTab === "barangPinjaman" ? "text-white" : "text-[#919191]"
-              }`}
-            />
-            <span
-              className={`text-xs poppins-regular ${
-                activeTab === "barangPinjaman" ? "text-white" : "text-[#919191]"
-              }`}
-            >
-              Tbl Barang Pinjaman
-            </span>
-          </div>
-        </NavLink>
-        <NavLink to="/tabel-barang-rusak">
-          <div
-            className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
-              activeTab === "barangRusak" ? "text-white" : "text-[#919191]"
-            }`}
-          >
-            <BsTruck
-              className={`text-base mr-2 ${
-                activeTab === "barangRusak" ? "text-white" : "text-[#919191]"
-              }`}
-            />
-            <span
-              className={`text-xs poppins-regular ${
-                activeTab === "barangRusak" ? "text-white" : "text-[#919191]"
-              }`}
-            >
-              Tbl Barang Rusak
-            </span>
-          </div>
-        </NavLink>
+
         <NavLink to="/tabel-inventory">
           <div
             className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
@@ -192,109 +104,11 @@ const SidebarDashboard = () => {
                 activeTab === "inputInventory" ? "text-white" : "text-[#919191]"
               }`}
             >
-              Tbl Inventory
+              Tabel Inventaris
             </span>
           </div>
         </NavLink>
-        {/* Inventories Section */}
-        <div className="text-left text-white mb-3 px-2">
-          <span
-            className="text-xs poppins-regular pb-1 w-full inline-block"
-            style={{ borderBottom: "0.5px solid #BEBEBE" }}
-          >
-            Inventories
-          </span>
-        </div>
-        <NavLink to="/input-barang-masuk">
-          <div
-            className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
-              activeTab === "barangMasukInv" ? "text-white" : "text-[#919191]"
-            }`}
-          >
-            <FiSquare
-              className={`text-base mr-2 ${
-                activeTab === "barangMasukInv" ? "text-white" : "text-[#919191]"
-              }`}
-            />
-            <span
-              className={`text-xs poppins-regular ${
-                activeTab === "barangMasukInv" ? "text-white" : "text-[#919191]"
-              }`}
-            >
-              Barang Masuk
-            </span>
-          </div>
-        </NavLink>
-        <NavLink to="/input-barang-keluar">
-          <div
-            className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
-              activeTab === "barangKeluarInv" ? "text-white" : "text-[#919191]"
-            }`}
-          >
-            <TbCheckbox
-              className={`text-base mr-2 ${
-                activeTab === "barangKeluarInv"
-                  ? "text-white"
-                  : "text-[#919191]"
-              }`}
-            />
-            <span
-              className={`text-xs poppins-regular ${
-                activeTab === "barangKeluarInv"
-                  ? "text-white"
-                  : "text-[#919191]"
-              }`}
-            >
-              Barang Keluar
-            </span>
-          </div>
-        </NavLink>
-        <NavLink to="/input-barang-pinjaman">
-          <div
-            className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
-              activeTab === "barangPinjamanInv"
-                ? "text-white"
-                : "text-[#919191]"
-            }`}
-          >
-            <CiGrid41
-              className={`text-base mr-2 ${
-                activeTab === "barangPinjamanInv"
-                  ? "text-white"
-                  : "text-[#919191]"
-              }`}
-            />
-            <span
-              className={`text-xs poppins-regular ${
-                activeTab === "barangPinjamanInv"
-                  ? "text-white"
-                  : "text-[#919191]"
-              }`}
-            >
-              Barang Pinjaman
-            </span>
-          </div>
-        </NavLink>
-        <NavLink to="/input-barang-rusak">
-          <div
-            className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
-              activeTab === "barangRusakInv" ? "text-white" : "text-[#919191]"
-            }`}
-          >
-            <VscListFlat
-              className={`text-base mr-2 ${
-                activeTab === "barangRusakInv" ? "text-white" : "text-[#919191]"
-              }`}
-            />
-            <span
-              className={`text-xs poppins-regular ${
-                activeTab === "barangRusakInv" ? "text-white" : "text-[#919191]"
-              }`}
-            >
-              Barang Rusak
-            </span>
-          </div>
-        </NavLink>
+
         <NavLink to="/input-barang">
           <div
             className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
@@ -311,7 +125,7 @@ const SidebarDashboard = () => {
                 activeTab === "inputBarangInv" ? "text-white" : "text-[#919191]"
               }`}
             >
-              Input Barang
+              Input Inventaris
             </span>
           </div>
         </NavLink>
@@ -321,7 +135,7 @@ const SidebarDashboard = () => {
             className="text-xs poppins-regular pb-1 w-full inline-block"
             style={{ borderBottom: "0.5px solid #BEBEBE" }}
           >
-            About Us
+            Tentang Kami
           </span>
         </div>
         <a
@@ -347,7 +161,7 @@ const SidebarDashboard = () => {
         </a>
         {/* Log Out Section */}
         <div
-          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
+          className={`flex items-center text-left px-2 cursor-pointer ${
             activeTab === "logout" ? "text-white" : "text-[#919191]"
           }`}
           onClick={handleLogout}

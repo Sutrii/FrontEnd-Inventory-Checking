@@ -12,8 +12,6 @@ import InputName from "./InputName";
 import InputCategory from "./InputCategory";
 import InputStartDate from "./InputStartDate";
 import InputEndDate from "./InputEndDate";
-import InputDivisiPeminjam from "./InputDivisiPeminjam";
-import InputNamaPeminjam from "./InputNamaPeminjam";
 import "react-datepicker/dist/react-datepicker.css";
 import { Modal, Button } from "react-bootstrap";
 import InputNamaPeminjam from "./InputNamaPeminjam";
@@ -194,11 +192,11 @@ const UpdateInventoryItem = ({
                   <div className="mb-4">
                     <InputDivisiPeminjam
                       label="Nama Peminjam"
-                      value={editData?.nama_peminjam || ""}
+                      value={editData?.divisi_peminjam || ""}
                       onChange={(e) =>
                         setEditData({
                           ...editData,
-                          nama_peminjam: e.target.value,
+                          divisi_peminjam: e.target.value,
                         })
                       }
                     />
@@ -206,11 +204,11 @@ const UpdateInventoryItem = ({
                   <div className="mb-4">
                     <InputNamaPeminjam
                       label="Divisi Peminjam"
-                      value={editData?.divisi_peminjam || ""}
+                      value={editData?.nama_peminja || ""}
                       onChange={(e) =>
                         setEditData({
                           ...editData,
-                          divisi_peminjam: e.target.value,
+                          nama_peminjam: e.target.value,
                         })
                       }
                     />
