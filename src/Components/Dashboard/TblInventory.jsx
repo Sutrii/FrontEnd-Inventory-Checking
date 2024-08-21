@@ -130,27 +130,9 @@ function TblInventory() {
     }
   }
 
-  async function handleAddNew(newData) {
-    try {
-      await axios.post("http://localhost:8000/api/input-barang", newData);
-      const updatedRecords = [
-        ...records,
-        { ...newData, nomor: records.length + 1 },
-      ];
-      const recordsWithNumbers = updatedRecords.map((record, index) => ({
-        ...record,
-        nomor: index + 1,
-      }));
-      setRecords(recordsWithNumbers);
-      alert("Data berhasil ditambahkan");
-    } catch (error) {
-      console.error("Terjadi kesalahan saat menambahkan data!", error);
-    }
-  }
-
   return (
     <div className="container px-0 py-2 mt-3 w-full">
-      <div className="bg-white rounded-xl p-4 shadow-md poppins-font">
+      <div className="bg-white rounded-xl p-4 shadow-md poppins-regular text-sm">
         <div className="flex justify-between mb-3">
           <div className="flex items-center">
             <label htmlFor="entries" className="me-2">
@@ -158,7 +140,7 @@ function TblInventory() {
             </label>
             <select
               id="entries"
-              className="form-select"
+              className="form-select text-sm"
               style={{ width: "80px" }}
               onChange={handleEntriesChange}
               value={entries}
@@ -204,6 +186,8 @@ function TblInventory() {
           <Column
             field="nomor"
             header="No"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
             headerStyle={{ backgroundColor: "#F8F9FA" }}
             bodyStyle={{ backgroundColor: "#F3F4F6" }}
@@ -217,105 +201,115 @@ function TblInventory() {
           />
           <Column
             field="kategori_input"
-            header="Kategori Input"
+            header="Kategori"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "15%", textAlign: "left" }}
           />
           <Column
             field="nama_barang"
             header="Nama Barang"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "15%", textAlign: "left" }}
           />
           <Column
             field="tipe_barang"
             header="Tipe"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "10%", textAlign: "left" }}
           />
           <Column
             field="kualitas"
             header="Kualitas"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "15%", textAlign: "left" }}
           />
           <Column
             field="tanggal"
             header="Tanggal"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "12%", textAlign: "left" }}
           />
           <Column
             field="tanggal_awal_pinjam"
             header="Awal Peminjaman"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "15%", textAlign: "left" }}
           />
           <Column
             field="tanggal_akhir_pinjam"
             header="Akhir Peminjaman"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "15%", textAlign: "left" }}
           />
           <Column
             field="divisi_peminjam"
             header="Divisi Peminjam"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "15%", textAlign: "left" }}
           />
           <Column
             field="nama_peminjam"
             header="Nama Peminjam"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "15%", textAlign: "left" }}
           />
           <Column
             field="sn"
             header="S/N"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "10%", textAlign: "left" }}
           />
           <Column
             field="jumlah"
             header="Jumlah"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "10%", textAlign: "left" }}
           />
           <Column
             field="satuan"
             header="Satuan"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "10%", textAlign: "left" }}
           />
           <Column
             field="keterangan"
             header="Keterangan"
+            headerClassName="text-xs"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "20%", textAlign: "left" }}
           />
           <Column
             field="work_unit"
             header="Unit Kerja"
+            headerClassName="text-sm"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "20%", textAlign: "left" }}
           />
           <Column
             field="lokasi"
             header="Lokasi"
+            headerClassName="text-sm"
+            className="text-center poppins-regular text-xs"
             sortable
-            style={{ width: "20%", textAlign: "left" }}
           />
           <Column
             header="Aksi Admin"
+            headerClassName="text-xs sticky right-0 z-[1]"
+            className="sticky right-0 z-[1]"
             headerStyle={{ backgroundColor: "#F8F9FA" }}
             bodyStyle={{ backgroundColor: "#F3F4F6" }}
-            style={{
-              width: "10%",
-              textAlign: "center",
-              position: "sticky",
-              right: 0,
-              zIndex: 1,
-            }}
             body={(rowData) => (
               <div
                 style={{

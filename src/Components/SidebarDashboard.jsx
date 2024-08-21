@@ -4,7 +4,7 @@ import logoPelindo from "../assets/img/logo-pelindo.png";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { BsTruck } from "react-icons/bs";
 import { VscListFlat } from "react-icons/vsc";
-import { FaInstagram } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
 
 const SidebarDashboard = () => {
@@ -113,7 +113,7 @@ const SidebarDashboard = () => {
             className="text-xs poppins-regular pb-1 w-full inline-block"
             style={{ borderBottom: "0.5px solid #BEBEBE" }}
           >
-            Social Media
+            Sosial Media
           </span>
         </div>
         <a
@@ -134,7 +134,70 @@ const SidebarDashboard = () => {
               activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
             }`}
           >
-            Social Media
+            Instagram
+          </span>
+        </a>
+        <a
+          href="https://twitter.com/indonesiaport"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
+            activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
+          }`}
+        >
+          <FaTwitter
+            className={`text-base mr-2 ${
+              activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
+            }`}
+          />
+          <span
+            className={`text-xs poppins-regular ${
+              activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
+            }`}
+          >
+            Twitter
+          </span>
+        </a>
+        <a
+          href="https://www.facebook.com/Indonesiaport"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
+            activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
+          }`}
+        >
+          <FaFacebook
+            className={`text-base mr-2 ${
+              activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
+            }`}
+          />
+          <span
+            className={`text-xs poppins-regular ${
+              activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
+            }`}
+          >
+            Facebook
+          </span>
+        </a>
+        <a
+          href="https://www.youtube.com/user/IndonesiaPortCorp"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
+            activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
+          }`}
+        >
+          <FaYoutube
+            className={`text-base mr-2 ${
+              activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
+            }`}
+          />
+          <span
+            className={`text-xs poppins-regular ${
+              activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
+            }`}
+          >
+            Youtube
           </span>
         </a>
       </div>

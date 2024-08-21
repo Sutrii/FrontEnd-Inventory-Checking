@@ -26,6 +26,8 @@
     "chart.js": "^4.4.3",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.12",
+    "exceljs": "^4.4.0",
+    "file-saver": "^2.0.5",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.424.0",
     "primeicons": "^7.0.0",
@@ -43,7 +45,8 @@
     "react-router-dom": "^6.26.0",
     "react-toastify": "^10.0.5",
     "shadcn-ui": "^0.2.3",
-    "tw-elements-react": "^1.0.0-alpha-end"
+    "tw-elements-react": "^1.0.0-alpha-end",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

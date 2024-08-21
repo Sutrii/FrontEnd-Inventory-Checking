@@ -1,15 +1,28 @@
 import React, { useState } from "react";
+import axios from "axios";
 import NavbarDashboard from "../../Components/NavbarDashboard";
 import SidebarDashboard from "../../Components/SidebarDashboard";
-import TblBarangMasuk from "../../Components/Dashboard/TblBarangMasuk";
 import logoPelindo from "../../assets/img/logo-pelindo.png";
 import TblInventory from "../../Components/Dashboard/TblInventory";
+import ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
 
-const TabelInventory = () => {
+const TabelInventory = ({ inventoryData }) => {
+  // pastikan `inventoryData` adalah data yang dikirim sebagai props
   const [search, setSearch] = useState("");
 
-  const handleExportPDF = () => {
-    // Tambahkan logika untuk mengekspor PDF di sini
+  const handleExportExcel = async () => {
+    try {
+      const response = await axios.get("/inventory-export", {
+        responseType: "blob", // Specify response type as blob for binary data
+      });
+      const blob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      saveAs(blob, "inventory.xlsx");
+    } catch (error) {
+      console.error("Failed to export Excel:", error);
+    }
   };
 
   return (
@@ -29,10 +42,10 @@ const TabelInventory = () => {
                       Tabel Barang Masuk
                     </h1>
                     <button
-                      onClick={handleExportPDF}
+                      onClick={handleExportExcel}
                       className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-xl"
                     >
-                      Export PDF
+                      Export Excel
                     </button>
                   </div>
                   <TblInventory />
