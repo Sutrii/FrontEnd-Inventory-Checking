@@ -8,12 +8,7 @@ const BoxChart = () => {
       {
         label: "Traffic",
         data: [],
-        backgroundColor: [
-          "rgba(63, 81, 181, 0.5)",
-          "rgba(77, 182, 172, 0.5)",
-          "rgba(66, 133, 244, 0.5)",
-          "rgba(156, 39, 176, 0.5)",
-        ],
+        backgroundColor: ["#9EDE73", "#6499E9", "#F0134D", "#FFCD56"],
       },
     ],
   });
@@ -44,12 +39,7 @@ const BoxChart = () => {
             {
               label: "Traffic",
               data: datasetData,
-              backgroundColor: [
-                "rgba(63, 81, 181, 0.5)",
-                "rgba(77, 182, 172, 0.5)",
-                "rgba(66, 133, 244, 0.5)",
-                "rgba(156, 39, 176, 0.5)",
-              ],
+              backgroundColor: ["#9EDE73", "#6499E9", "#F0134D", "#FFCD56"],
             },
           ],
         });
