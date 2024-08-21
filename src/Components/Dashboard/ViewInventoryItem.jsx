@@ -16,7 +16,7 @@ function ViewInventoryItem({
       dialogClassName="modal-dialog-centered" // Memastikan modal berada di tengah vertikal
     >
       <Modal.Header>
-        <Modal.Title>Detail Barang Masuk</Modal.Title>
+        <Modal.Title>Detail Barang</Modal.Title>
         <Button
           variant="link"
           onClick={closeDetailModal}
@@ -102,7 +102,7 @@ function ViewInventoryItem({
             <div className="d-flex justify-content-end gap-2">
               <Link
                 to={`/print-qr-code/${detailData?.id}`}
-                className="btn btn-primary"
+                className="btn bg-[#3498DB] hover:bg-[#2980B9] text-white"
               >
                 Print QR Code
               </Link>

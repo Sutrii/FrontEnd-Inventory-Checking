@@ -14,8 +14,6 @@ import InputStartDate from "./InputStartDate";
 import InputEndDate from "./InputEndDate";
 import "react-datepicker/dist/react-datepicker.css";
 import { Modal, Button } from "react-bootstrap";
-import InputNamaPeminjam from "./InputNamaPeminjam";
-import InputDivisiPeminjam from "./InputDivisiPeminjam";
 
 const UpdateInventoryItem = ({
   isUpdateModalOpen,
@@ -191,7 +189,7 @@ const UpdateInventoryItem = ({
                   </div>
                   <div className="mb-4">
                     <InputDivisiPeminjam
-                      label="Nama Peminjam"
+                      label="Divisi Peminjam"
                       value={editData?.divisi_peminjam || ""}
                       onChange={(e) =>
                         setEditData({
@@ -203,8 +201,8 @@ const UpdateInventoryItem = ({
                   </div>
                   <div className="mb-4">
                     <InputNamaPeminjam
-                      label="Divisi Peminjam"
-                      value={editData?.nama_peminja || ""}
+                      label="Nama Peminjam"
+                      value={editData?.nama_peminjam || ""}
                       onChange={(e) =>
                         setEditData({
                           ...editData,
@@ -319,7 +317,7 @@ const UpdateInventoryItem = ({
               <Button
                 type="button"
                 variant="primary"
-                className="w-full"
+                className="w-full bg-[#3498DB] hover:bg-[#2980B9] text-white"
                 onClick={(e) => handleSubmit(e)} // Pass the event manually
               >
                 Update
