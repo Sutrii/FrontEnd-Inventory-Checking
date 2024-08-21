@@ -10,6 +10,7 @@ import { MdOutlineLogin } from "react-icons/md";
 const SidebarDashboard = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("");
+  const isActive = (path) => location.pathname === path;
 
   useEffect(() => {
     // Update activeTab based on the current route
@@ -37,10 +38,10 @@ const SidebarDashboard = () => {
   return (
     <div
       id="SidebarParent"
-      className="w-full h-screen bg-[#222E3C] border border-black p-3"
+      className="w-full h-screen bg-[#222E3C] border border-black"
     >
       <div id="InsideParent" className="flex flex-col w-full h-full">
-        <div className="flex flex-col items-center mb-6">
+        <div className="flex flex-col items-center mb-6 pt-3 px-3">
           <img
             src={logoPelindo}
             alt="Pelindo Logo"
@@ -48,7 +49,7 @@ const SidebarDashboard = () => {
           />
         </div>
         {/* Reports Section */}
-        <div className="text-left text-white mb-3 px-2">
+        <div className="text-left text-white mb-3 px-4">
           <span
             className="text-xs poppins-regular pb-1 w-full inline-block"
             style={{ borderBottom: "0.5px solid #BEBEBE" }}
@@ -56,82 +57,70 @@ const SidebarDashboard = () => {
             Menu
           </span>
         </div>
-        <NavLink to="/dashboard">
-          <div
-            className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
-              activeTab === "dashboard" ? "text-white" : "text-[#919191]"
-            }`}
+        {["/dashboard", "/tabel-inventory", "/input-barang"].map((path) => (
+          <NavLink
+            key={path}
+            to={path}
+            className="px-4 poppins-regular text-xs h-9 pt-0 pl-2 flex items-center"
+            style={{
+              color: isActive(path) ? "white" : "#919191",
+              position: "relative",
+              textDecoration: "none",
+              zIndex: 1,
+              backgroundColor: isActive(path) ? "#25364D" : "transparent",
+              borderRadius: "5px",
+              transition: "background-color 0.3s", // Transition for smooth hover effect
+            }}
+            onMouseEnter={(e) => {
+              if (!isActive(path)) {
+                e.currentTarget.style.backgroundColor = "#25364D";
+                e.currentTarget.style.color = "white";
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isActive(path)) {
+                e.currentTarget.style.backgroundColor = "transparent";
+                e.currentTarget.style.color = "#919191";
+              }
+            }}
           >
-            <GiSettingsKnobs
-              className={`text-base mr-2 ${
-                activeTab === "dashboard" ? "text-white" : "text-[#919191]"
-              }`}
-            />
-            <span
-              className={`text-xs poppins-regular ${
-                activeTab === "dashboard" ? "text-white" : "text-[#919191]"
-              }`}
-            >
-              Dashboard
-            </span>
-          </div>
-        </NavLink>
+            {path === "/dashboard" && <GiSettingsKnobs className="mr-2" />}
+            {path === "/tabel-inventory" && <BsTruck className="mr-2" />}
+            {path === "/input-barang" && <VscListFlat className="mr-2" />}
+            {/* Menambahkan ikon */}
+            {path === "/dashboard"
+              ? "Dashboard"
+              : path === "/tabel-inventory"
+              ? "Tabel Inventaris"
+              : "Input Inventaris"}
+            {isActive(path) && (
+              <span
+                className="flex absolute h-9 w-full top-0"
+                style={{
+                  borderLeft: "3px solid #3B7DDD",
+                  transition: "0.5s",
+                  pointerEvents: "none",
+                  zIndex: -1,
+                  left: 0,
+                }}
+              />
+            )}
+          </NavLink>
+        ))}
 
-        <NavLink to="/tabel-inventory">
-          <div
-            className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
-              activeTab === "inputInventory" ? "text-white" : "text-[#919191]"
-            }`}
-          >
-            <BsTruck
-              className={`text-base mr-2 ${
-                activeTab === "inputInventory" ? "text-white" : "text-[#919191]"
-              }`}
-            />
-            <span
-              className={`text-xs poppins-regular ${
-                activeTab === "inputInventory" ? "text-white" : "text-[#919191]"
-              }`}
-            >
-              Tabel Inventaris
-            </span>
-          </div>
-        </NavLink>
-
-        <NavLink to="/input-barang">
-          <div
-            className={`flex items-center text-left px-2 mb-4 cursor-pointer ${
-              activeTab === "inputBarangInv" ? "text-white" : "text-[#919191]"
-            }`}
-          >
-            <VscListFlat
-              className={`text-base mr-2 ${
-                activeTab === "inputBarangInv" ? "text-white" : "text-[#919191]"
-              }`}
-            />
-            <span
-              className={`text-xs poppins-regular ${
-                activeTab === "inputBarangInv" ? "text-white" : "text-[#919191]"
-              }`}
-            >
-              Input Inventaris
-            </span>
-          </div>
-        </NavLink>
-        {/* About Us Section */}
-        <div className="text-left text-white mb-3 px-2">
+        <div className="text-left text-white mt-4 px-4">
           <span
             className="text-xs poppins-regular pb-1 w-full inline-block"
             style={{ borderBottom: "0.5px solid #BEBEBE" }}
           >
-            Tentang Kami
+            Social Media
           </span>
         </div>
         <a
           href="https://www.instagram.com/pelindomultiterminal?igsh=MXhmN2VsOHRpMWJuNQ=="
           target="_blank"
           rel="noopener noreferrer"
-          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
+          className={`flex items-center text-left px-4 mt-3 cursor-pointer ${
             activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
           }`}
         >
