@@ -108,7 +108,7 @@ const SidebarDashboard = () => {
           </NavLink>
         ))}
 
-        <div className="text-left text-white mt-4 px-4">
+        <div className="text-left text-white mt-4 mb-3 px-4">
           <span
             className="text-xs poppins-regular pb-1 w-full inline-block"
             style={{ borderBottom: "0.5px solid #BEBEBE" }}

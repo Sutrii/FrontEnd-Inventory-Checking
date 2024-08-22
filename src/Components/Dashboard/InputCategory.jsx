@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const InputCategory = ({ value, onCategoryChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(
     value || "Pilih Kategori Barang"
   );
+
+  useEffect(() => {
+    setSelectedCategory(value || "Pilih Kategori Barang");
+  }, [value]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
