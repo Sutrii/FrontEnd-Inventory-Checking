@@ -792,29 +792,23 @@ function TblInventory() {
                             <div
                               className="bg-[#3498DB] p-2 rounded-full hover:bg-blue-200"
                               title="Detail"
+                              onClick={() => openDetailModal(record)}
                             >
-                              <FaEye
-                                className="text-white cursor-pointer text-lg"
-                                onClick={() => openDetailModal(record)}
-                              />
+                              <FaEye className="text-white cursor-pointer text-lg" />
                             </div>
                             <div
                               className="bg-[#387F39] p-2 rounded-full hover:bg-green-200"
                               title="Edit"
+                              onClick={() => openUpdateModal(record)}
                             >
-                              <FaEdit
-                                className="text-white cursor-pointer text-lg"
-                                onClick={() => openUpdateModal(record)}
-                              />
+                              <FaEdit className="text-white cursor-pointer text-lg" />
                             </div>
                             <div
                               className="bg-[#C53929] p-2 rounded-full hover:bg-red-200"
                               title="Delete"
+                              onClick={() => handleDelete(record.id)}
                             >
-                              <FaTrash
-                                className="text-white cursor-pointer text-lg"
-                                onClick={() => handleDelete(record.id)}
-                              />
+                              <FaTrash className="text-white cursor-pointer text-lg" />
                             </div>
                           </div>
                         </td>

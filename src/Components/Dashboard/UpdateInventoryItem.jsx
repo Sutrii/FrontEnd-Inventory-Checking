@@ -16,6 +16,10 @@ import InputDivisiPeminjam from "./InputDivisiPeminjam";
 import InputNamaPeminjam from "./InputNamaPeminjam";
 import "react-datepicker/dist/react-datepicker.css";
 import { Modal, Button } from "react-bootstrap";
+import InputBuktiKeluar from "./InputBuktiKeluar";
+import InputTujuanKeluar from "./InputTujuanKeluar";
+import InputStatusRusak from "./InputStatusRusak";
+import InputSolusiRusak from "./InputSolusiRusak";
 
 const UpdateInventoryItem = ({
   isUpdateModalOpen,
@@ -99,6 +103,9 @@ const UpdateInventoryItem = ({
     formData.append("nama_barang", editData.nama_barang || "");
     formData.append("nama_peminjam", editData.nama_peminjam || "");
     formData.append("divisi_peminjam", editData.divisi_peminjam || "");
+    formData.append("tujuan_keluar", editData.tujuan_keluar || "");
+    formData.append("status_barang", editData.status_barang || "");
+    formData.append("solusi_barang", editData.solusi_barang || "");
     formData.append("sn", editData.sn || "");
     formData.append("tipe_barang", editData.tipe_barang || "");
     formData.append("jumlah", editData.jumlah || "");
@@ -116,6 +123,10 @@ const UpdateInventoryItem = ({
 
     if (imageFile) {
       formData.append("picture", imageFile);
+    }
+
+    if (editData.bukti) {
+      formData.append("bukti", editData.bukti);
     }
 
     console.log("FormData:", ...formData);
@@ -167,6 +178,12 @@ const UpdateInventoryItem = ({
               </div>
               {selectedCategory === "Barang Pinjaman" && (
                 <>
+                  <div className="text-center mb-4">
+                    <InputBuktiKeluar
+                      selectedDate={editData?.bukti}
+                      onChange={handleImageChange}
+                    />
+                  </div>
                   <div className="mb-4">
                     <InputStartDate
                       selectedDate={editData?.tanggal_awal_pinjam} // Use editData?.tanggal_awal_pinjam directly
@@ -209,6 +226,56 @@ const UpdateInventoryItem = ({
                         setEditData({
                           ...editData,
                           nama_peminjam: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                </>
+              )}
+              {selectedCategory === "Barang Keluar" && (
+                <>
+                  <div className="text-center mb-4">
+                    <InputBuktiKeluar
+                      selectedDate={editData?.bukti}
+                      onChange={handleImageChange}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <InputTujuanKeluar
+                      label="Tujuan Keluar"
+                      value={editData?.tujuan_keluar || ""}
+                      onChange={(e) =>
+                        setEditData({
+                          ...editData,
+                          tujuan_keluar: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                </>
+              )}
+              {selectedCategory === "Barang Rusak" && (
+                <>
+                  <div className="mb-4">
+                    <InputStatusRusak
+                      label="Status Barang"
+                      value={editData?.status_barang || ""}
+                      onChange={(e) =>
+                        setEditData({
+                          ...editData,
+                          status_barang: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <InputSolusiRusak
+                      label="Solusi Barang"
+                      value={editData?.solusi_barang || ""}
+                      onChange={(e) =>
+                        setEditData({
+                          ...editData,
+                          solusi_barang: e.target.value,
                         })
                       }
                     />

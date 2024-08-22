@@ -679,7 +679,7 @@ const InputBarang = () => {
                         </div>
                         <div id="SecondData" className="w-full flex flex-col">
                           <div className="w-[100%] h-[12%]">
-                            <InputPicture onChange={handleFileChange} />
+                            <InputPicture onChange={handlePhotoChange} />
                           </div>
                         </div>
                       </div>
