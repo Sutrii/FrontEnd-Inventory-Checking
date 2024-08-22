@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NavbarDashboard from "../../Components/NavbarDashboard";
 import SidebarDashboard from "../../Components/SidebarDashboard";
@@ -6,10 +6,33 @@ import logoPelindo from "../../assets/img/logo-pelindo.png";
 import TblInventory from "../../Components/Dashboard/TblInventory";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
+import { FiBell } from "react-icons/fi"; // Import ikon notifikasi
+import { NavLink } from "react-router-dom";
 
 const TabelInventory = ({ inventoryData }) => {
-  // pastikan `inventoryData` adalah data yang dikirim sebagai props
   const [search, setSearch] = useState("");
+  const [totalBarangPinjaman, setTotalBarangPinjaman] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/input-barang");
+        const data = await response.json();
+
+        // Filter data untuk kategori 'Barang Masuk'
+        const barangPinjaman = data.filter(
+          (item) => item.kategori_input === "Barang Pinjaman"
+        );
+
+        // Set jumlah barang masuk
+        setTotalBarangPinjaman(barangPinjaman.length);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleExportExcel = async () => {
     try {
@@ -23,6 +46,11 @@ const TabelInventory = ({ inventoryData }) => {
     } catch (error) {
       console.error("Failed to export Excel:", error);
     }
+  };
+
+  const handleNotification = () => {
+    // Add functionality for notification button here
+    alert("Notification button clicked");
   };
 
   return (
@@ -41,12 +69,24 @@ const TabelInventory = ({ inventoryData }) => {
                     <h1 className="text-xl poppins-semibold uppercase text-center lg:text-left tracking-widest">
                       Tabel Inventaris
                     </h1>
-                    <button
-                      onClick={handleExportExcel}
-                      className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-xl"
-                    >
-                      Export Excel
-                    </button>
+                    <div className="flex items-center space-x-2">
+                      <NavLink to="/notification" className="relative mr-2">
+                        <button className="bg-[#3498DB] text-white font-bold py-2 px-4 rounded-xl flex items-center">
+                          <FiBell className="mr-2" /> {/* Ikon notifikasi */}
+                          Notifikasi
+                          <span className="absolute top-[-10px] right-[-10px] bg-[#C53929] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                            {totalBarangPinjaman}
+                          </span>
+                        </button>
+                      </NavLink>
+
+                      <button
+                        onClick={handleExportExcel}
+                        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-xl"
+                      >
+                        Export Excel
+                      </button>
+                    </div>
                   </div>
                   <TblInventory />
                 </div>

@@ -26,7 +26,7 @@ const InputBarang = () => {
   const [data, setData] = useState({
     nama_barang: "",
     tipe_barang: "",
-    kualitas: "Choose Item Condition",
+    kualitas: "Pilih Kualitas Barang",
     tanggal: null,
     sn: "",
     jumlah: "",

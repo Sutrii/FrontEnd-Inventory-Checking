@@ -22,6 +22,8 @@ const NavbarDashboard = () => {
         return "Tabel Inventaris";
       case "/input-barang":
         return "Input Inventaris";
+      case "/notification":
+        return "Tabel Sisa Masa Barang Pinjaman";
       default:
         return "Dashboard";
     }
@@ -46,7 +48,7 @@ const NavbarDashboard = () => {
             onClick={handleLogout}
           >
             <div>
-              <span className="poppins-medium text-sm">Logout</span>
+              <span className="poppins-regular text-sm">Logout</span>
             </div>
             <IoIosLogOut />
           </button>

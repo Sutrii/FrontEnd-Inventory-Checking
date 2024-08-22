@@ -38,6 +38,42 @@ function ViewInventoryItem({
         </div>
         <form>
           <div className="mb-3">
+            <label htmlFor="tipeBarang" className="form-label">
+              Kategori Barang
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="tipeBarang"
+              value={detailData?.kategori_input || ""}
+              readOnly
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="tipeBarang" className="form-label">
+              Tanggal Awal Peminjaman
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="tipeBarang"
+              value={detailData?.tanggal_awal_pinjam || ""}
+              readOnly
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="tipeBarang" className="form-label">
+              Tanggal Akhir Peminjaman
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="tipeBarang"
+              value={detailData?.tanggal_akhir_pinjam || ""}
+              readOnly
+            />
+          </div>
+          <div className="mb-3">
             <label htmlFor="namaBarang" className="form-label">
               Nama Barang
             </label>

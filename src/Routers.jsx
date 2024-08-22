@@ -18,6 +18,7 @@ import ItemInfo from "./Pages/Dashboard Pages/ItemInfo";
 import TabelInventory from "./Pages/Dashboard Pages/TabelInventory";
 import ProtectedRoute from "./ProtectedRoute";
 import InventoryTable from "./Pages/Dashboard Pages/Inventorytable";
+import Notification from "./Pages/Dashboard Pages/Notification";
 
 function Routers() {
   return (
@@ -33,6 +34,15 @@ function Routers() {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/notification"
+        element={
+          <ProtectedRoute>
+            <Notification />
           </ProtectedRoute>
         }
       />
