@@ -37,7 +37,7 @@ const UpdateInventoryItem = ({
     });
   };
 
-  const [imageURL, setImageURL] = useState(editData?.picture || "");
+  const [imageURL, setImageURL] = useState(editData.picture || "");
   const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
@@ -60,26 +60,35 @@ const UpdateInventoryItem = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // const handleImageChange = (file) => {
+  //   if (file) {
+  // const url = URL.createObjectURL(file); // Create object URL
+  // setImageURL(url);
+  // setImageFile(file); // Save file for upload
+  // setEditData({
+  //   ...editData,
+  //   pictureFile: file,
+  //   pictureFileName: file.name,
+  // });
+  //   }
+  // };
   const handleImageChange = (file) => {
-    if (file) {
-      const url = URL.createObjectURL(file); // Create object URL
-      setImageURL(url);
-      setImageFile(file); // Save file for upload
-      setEditData({
-        ...editData,
-        pictureFile: file,
-        pictureFileName: file.name,
-      });
-    }
+    const url = URL.createObjectURL(file); // Create object URL
+    setImageURL(url);
+    setImageFile(file); // Save file for upload
+    setEditData({
+      ...editData,
+      picture: file,
+    });
   };
 
-  useEffect(() => {
-    return () => {
-      if (imageURL && imageURL.startsWith("blob:")) {
-        URL.revokeObjectURL(imageURL);
-      }
-    };
-  }, [imageURL]);
+  // useEffect(() => {
+  //   return () => {
+  //     if (imageURL && imageURL.startsWith("blob:")) {
+  //       URL.revokeObjectURL(imageURL);
+  //     }
+  //   };
+  // }, [imageURL]);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
@@ -140,23 +149,14 @@ const UpdateInventoryItem = ({
             </Modal.Header>
             <Modal.Body ref={modalRef}>
               <div className="text-center mb-4">
-                {imageURL ? (
+                {editData?.picture && (
                   <img
-                    src={imageURL}
-                    alt={editData?.nama_barang || "Gambar Barang"}
-                    style={{ maxWidth: "100%", height: "auto" }}
-                  />
-                ) : (
-                  <img
-                    src="https://via.placeholder.com/150"
-                    alt="Placeholder"
+                    src={`http://localhost:8000/storage/pictures/${editData.picture}`}
+                    alt={editData.nama_barang}
                     style={{ maxWidth: "100%", height: "auto" }}
                   />
                 )}
-                <InputPicture
-                  value={editData?.pictureFileName || "Input Item Picture"}
-                  onChange={handleImageChange}
-                />
+                <InputPicture onChange={handleImageChange} />
               </div>
               <div className="mb-4">
                 <InputCategory

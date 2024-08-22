@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
-import axios from "axios"; // Import axios for HTTP requests
+import axios from "axios";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
@@ -10,125 +10,23 @@ import { CiSearch } from "react-icons/ci";
 import SeeDetail from "./ViewInventoryItem";
 import UpdateInventoryItem from "./UpdateInventoryItem";
 
-function TblInventory() {
-  const [records, setRecords] = useState([]);
-  const [allRecords, setAllRecords] = useState([]);
+const TableComponent = ({
+  handleFilter,
+  handleDelete,
+  records,
+  setRecords,
+  isUpdateModalOpen,
+  setIsUpdateModalOpen,
+  isDetailModalOpen,
+  setIsDetailModalOpen,
+  fetchData,
+}) => {
   const [entries, setEntries] = useState(5);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const [editData, setEditData] = useState();
-  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-  const [detailData, setDetailData] = useState(null);
-
-  useEffect(() => {
-    // Fetch data when the component mounts
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          "http://localhost:8000/api/input-barang"
-        );
-        const recordsWithNumbers = response.data.map((record, index) => ({
-          ...record,
-          nomor: index + 1,
-        }));
-        setRecords(recordsWithNumbers);
-        setAllRecords(recordsWithNumbers);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    fetchData();
-  }, []);
-
-  function handleFilter(event) {
-    const searchTerm = event.target.value.toLowerCase();
-    if (searchTerm === "") {
-      // Jika input kosong, kembalikan semua data
-      setRecords(allRecords);
-    } else {
-      const filteredData = allRecords.filter(
-        (row) =>
-          row.nama_barang.toLowerCase().includes(searchTerm) ||
-          row.nama_peminjam?.toLowerCase().includes(searchTerm) // Memastikan nama_peminjam ada sebelum mencarinya
-      );
-      setRecords(filteredData);
-    }
+  function handleEntriesChange(e) {
+    setEntries(parseInt(e.target.value));
   }
 
-  function handleEntriesChange(event) {
-    setEntries(parseInt(event.target.value));
-  }
-
-  function openUpdateModal(data) {
-    setEditData(data); // Pastikan data yang diset di sini sudah benar
-    setIsUpdateModalOpen(true);
-  }
-
-  function closeUpdateModal() {
-    setIsUpdateModalOpen(false);
-  }
-
-  function openDetailModal(data) {
-    setDetailData(data);
-    setIsDetailModalOpen(true);
-  }
-
-  function closeDetailModal() {
-    setIsDetailModalOpen(false);
-  }
-
-  async function handleDelete(id) {
-    const confirmDelete = window.confirm(
-      "Apakah Anda yakin ingin menghapus data ini?"
-    );
-    if (confirmDelete) {
-      try {
-        await axios.delete(`http://localhost:8000/api/input-barang/${id}`);
-        const updatedRecords = records.filter((record) => record.id !== id);
-        const recordsWithNumbers = updatedRecords.map((record, index) => ({
-          ...record,
-          nomor: index + 1,
-        }));
-        setRecords(recordsWithNumbers);
-        alert("Data berhasil dihapus");
-      } catch (error) {
-        console.error("Terjadi kesalahan saat menghapus data!", error);
-        alert("Gagal menghapus data. Silakan coba lagi.");
-      }
-    }
-  }
-
-  async function handleUpdate() {
-    if (editData) {
-      const formData = new FormData();
-      if (editData.picture) {
-        formData.append("picture", editData.picture);
-      }
-      try {
-        await axios.put(
-          `http://localhost:8000/api/input-barang/${editData.id}`,
-          editData,
-          {
-            // headers: {
-            //   "Content-Type": "multipart/form-data",
-            // },
-          }
-        );
-        // Update records setelah update berhasil
-        const updatedRecords = records.map((record) =>
-          record.id === editData.id ? editData : record
-        );
-        const recordsWithNumbers = updatedRecords.map((record, index) => ({
-          ...record,
-          nomor: index + 1,
-        }));
-        setRecords(recordsWithNumbers);
-        alert("Data berhasil diperbarui");
-        setIsUpdateModalOpen(false);
-      } catch (error) {
-        console.error("Terjadi kesalahan saat memperbarui data!", error);
-      }
-    }
-  }
+  const [search, setSearch] = useState("");
 
   return (
     <div className="container px-0 py-2 mt-3 w-full">
@@ -357,8 +255,11 @@ function TblInventory() {
             setIsUpdateModalOpen={setIsUpdateModalOpen}
             editData={editData}
             setEditData={setEditData}
-            handleUpdate={handleUpdate}
+            fetchData={fetchData}
+            // handleUpdate={handleUpdate}
             detailData={detailData}
+            records={records}
+            setRecords={setRecords}
           />
         )}
         {isDetailModalOpen && (
@@ -372,6 +273,6 @@ function TblInventory() {
       </div>
     </div>
   );
-}
+};
 
-export default TblInventory;
+export default TableComponent;

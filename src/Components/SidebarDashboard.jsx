@@ -141,7 +141,7 @@ const SidebarDashboard = () => {
           href="https://twitter.com/indonesiaport"
           target="_blank"
           rel="noopener noreferrer"
-          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
+          className={`flex items-center text-left px-4 mt-4 cursor-pointer ${
             activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
           }`}
         >
@@ -162,7 +162,7 @@ const SidebarDashboard = () => {
           href="https://www.facebook.com/Indonesiaport"
           target="_blank"
           rel="noopener noreferrer"
-          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
+          className={`flex items-center text-left px-4 mt-4 cursor-pointer ${
             activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
           }`}
         >
@@ -183,7 +183,7 @@ const SidebarDashboard = () => {
           href="https://www.youtube.com/user/IndonesiaPortCorp"
           target="_blank"
           rel="noopener noreferrer"
-          className={`flex items-center text-left px-2 mb-3 cursor-pointer ${
+          className={`flex items-center text-left px-4 mt-4 cursor-pointer ${
             activeTab === "socialMedia" ? "text-white" : "text-[#919191]"
           }`}
         >

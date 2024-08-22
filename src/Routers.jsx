@@ -17,6 +17,7 @@ import InputBarang from "./Pages/Dashboard Pages/InputBarang";
 import ItemInfo from "./Pages/Dashboard Pages/ItemInfo";
 import TabelInventory from "./Pages/Dashboard Pages/TabelInventory";
 import ProtectedRoute from "./ProtectedRoute";
+import InventoryTable from "./Pages/Dashboard Pages/Inventorytable";
 
 function Routers() {
   return (
@@ -76,6 +77,7 @@ function Routers() {
         path="/tabel-inventory"
         element={
           <ProtectedRoute>
+            {/* <InventoryTable /> */}
             <TabelInventory />
           </ProtectedRoute>
         }

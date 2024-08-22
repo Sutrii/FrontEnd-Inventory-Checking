@@ -19,7 +19,7 @@ const TabelInventory = ({ inventoryData }) => {
       const blob = new Blob([response.data], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
-      saveAs(blob, "inventory.xlsx");
+      saveAs(blob, "Data Inventaris.xlsx");
     } catch (error) {
       console.error("Failed to export Excel:", error);
     }
@@ -39,7 +39,7 @@ const TabelInventory = ({ inventoryData }) => {
                   <div className="flex w-full justify-between items-center bg-white rounded-xl shadow-md p-4">
                     <img src={logoPelindo} alt="Logo Pelindo" className="h-6" />
                     <h1 className="text-xl poppins-semibold uppercase text-center lg:text-left tracking-widest">
-                      Tabel Barang Masuk
+                      Tabel Inventaris
                     </h1>
                     <button
                       onClick={handleExportExcel}

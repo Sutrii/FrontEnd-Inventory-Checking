@@ -16,6 +16,8 @@ import { ToastContainer, toast } from "react-toastify";
 import InputCategory from "../../Components/Dashboard/InputCategory";
 import InputStartDate from "../../Components/Dashboard/InputStartDate";
 import InputEndDate from "../../Components/Dashboard/InputEndDate";
+import InputTujuanKeluar from "../../Components/Dashboard/InputTujuanKeluar";
+import InputBuktiKeluar from "../../Components/Dashboard/InputBuktiKeluar";
 import InputDivisiPeminjam from "../../Components/Dashboard/InputDivisiPeminjam";
 import InputNamaPeminjam from "../../Components/Dashboard/InputNamaPeminjam";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,7 +31,9 @@ const InputBarang = () => {
     sn: "",
     jumlah: "",
     satuan: "",
+    tujuan_keluar: "",
     picture: null,
+    bukti: null,
     keterangan: "",
     work_unit: "",
     lokasi: "",
@@ -99,10 +103,17 @@ const InputBarang = () => {
   };
 
   //Untuk Upload Foto
-  const handleFileChange = (file) => {
+  const handlePhotoChange = (file) => {
     setData((prevData) => ({
       ...prevData,
       picture: file,
+    }));
+  };
+
+  const handleFileChange = (file) => {
+    setData((prevData) => ({
+      ...prevData,
+      bukti: file,
     }));
   };
 
@@ -143,6 +154,9 @@ const InputBarang = () => {
       if (data.picture) {
         formData.append("picture", data.picture);
       }
+      if (data.bukti) {
+        formData.append("bukti", data.bukti);
+      }
 
       const response = await fetch("http://localhost:8000/api/input-barang", {
         method: "POST",
@@ -164,10 +178,12 @@ const InputBarang = () => {
           tanggal_akhir_pinjam: null,
           nama_peminjam: "",
           divisi_peminjam: "",
+          tujuan_keluar: "",
           sn: "",
           jumlah: "",
           satuan: "",
           picture: null,
+          bukti: null,
           keterangan: "",
           work_unit: "",
           lokasi: "",
@@ -300,7 +316,7 @@ const InputBarang = () => {
                         </div>
                         <div id="SecondData" className="w-full flex flex-col">
                           <div className="w-[100%] h-[12%]">
-                            <InputPicture onChange={handleFileChange} />
+                            <InputPicture onChange={handlePhotoChange} />
                           </div>
                         </div>
                       </div>
@@ -375,6 +391,19 @@ const InputBarang = () => {
                             </div>
                           </div>
                         </div>
+                        <div id="FifthData">
+                          <div className="flex w-full space-x-6 h-[12%]">
+                            <div className="w-[50%]">
+                              <InputTujuanKeluar
+                                value={data.tujuan_keluar}
+                                onChange={handleChange}
+                              />
+                            </div>
+                            <div className="w-[50%]">
+                              <InputBuktiKeluar onChange={handleFileChange} />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div id="RightBoxParent" className="w-[40%] space-y-6">
                         <div id="FristData" className="w-full flex flex-col">
@@ -387,7 +416,7 @@ const InputBarang = () => {
                         </div>
                         <div id="SecondData" className="w-full flex flex-col">
                           <div className="w-[100%] h-[12%]">
-                            <InputPicture onChange={handleFileChange} />
+                            <InputPicture onChange={handlePhotoChange} />
                           </div>
                         </div>
                       </div>
@@ -478,6 +507,16 @@ const InputBarang = () => {
                             </div>
                           </div>
                         </div>
+                        <div id="SixthData">
+                          <div className="flex w-full space-x-6 h-[12%]">
+                            <div className="w-[50%]">
+                              <InputPicture onChange={handlePhotoChange} />
+                            </div>
+                            <div className="w-[50%]">
+                              <InputBuktiKeluar onChange={handleFileChange} />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div id="RightBoxParent" className="w-[40%] space-y-6">
                         <div id="FristData" className="w-full flex flex-col">
@@ -502,11 +541,6 @@ const InputBarang = () => {
                               value={data.lokasi}
                               onChange={handleChange}
                             />
-                          </div>
-                        </div>
-                        <div id="FourthData" className="w-full flex flex-col">
-                          <div className="w-[100%] h-[12%]">
-                            <InputPicture onChange={handleFileChange} />
                           </div>
                         </div>
                       </div>
