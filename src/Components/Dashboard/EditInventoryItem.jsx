@@ -21,7 +21,7 @@ import InputTujuanKeluar from "./InputTujuanKeluar";
 import InputStatusRusak from "./InputStatusRusak";
 import InputSolusiRusak from "./InputSolusiRusak";
 
-const UpdateInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
+const EditInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
   const modalRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [editData, setEditData] = useState({
@@ -421,4 +421,4 @@ const UpdateInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
   );
 };
 
-export default UpdateInventoryItem;
+export default EditInventoryItem;
