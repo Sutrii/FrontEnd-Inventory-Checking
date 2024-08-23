@@ -21,30 +21,28 @@ import InputTujuanKeluar from "./InputTujuanKeluar";
 import InputStatusRusak from "./InputStatusRusak";
 import InputSolusiRusak from "./InputSolusiRusak";
 
-const UpdateInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
+const UpdateInventoryItem = ({
+  isUpdateModalOpen,
+  closeUpdateModal,
+  handleUpdate,
+  editData,
+  setEditData,
+}) => {
   const modalRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  const [editData, setEditData] = useState({
-    nama_barang: "",
-    tipe_barang: "",
-    kualitas: "Pilih Kualitas Barang",
-    tanggal: null,
-    sn: "",
-    jumlah: "",
-    satuan: "",
-    tujuan_keluar: "",
-    picture: null,
-    bukti: null,
-    keterangan: "",
-    work_unit: "",
-    lokasi: "",
-    tanggal_awal_pinjam: "",
-    tanggal_akhir_pinjam: "",
-    divisi_peminjam: "",
-    nama_peminjam: "",
-    status_barang: "",
-    solusi_barang: "",
-  });
+  const [selectedCategory, setSelectedCategory] = useState(
+    editData?.kategori_input || ""
+  );
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setEditData({
+      ...editData,
+      kategori_input: category,
+    });
+  };
+
+  const [imageURL, setImageURL] = useState(editData.picture || "");
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
     if (isUpdateModalOpen) {
@@ -61,111 +59,86 @@ const UpdateInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
     }
   };
 
-  const [selectedCategory, setSelectedCategory] = useState(
-    editData?.kategori_input || ""
-  );
-  const handleCategoryChange = (category) => {
-    setSelectedCategory(category);
-    setEditData({
-      ...editData,
-      kategori_input: category,
-    });
-  };
-
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  //   const handleImageChange = (file) => {
-  //     const url = URL.createObjectURL(file); // Create object URL
-  //     setImageURL(url);
-  //     setImageFile(file); // Save file for upload
-  //     setEditData({
-  //       ...editData,
-  //       picture: file,
-  //     });
-  //   };
-
-  //Untuk Upload Foto
-  const handlePhotoChange = (file) => {
-    setEditData((prevData) => ({
-      ...prevData,
+  // const handleImageChange = (file) => {
+  //   if (file) {
+  // const url = URL.createObjectURL(file); // Create object URL
+  // setImageURL(url);
+  // setImageFile(file); // Save file for upload
+  // setEditData({
+  //   ...editData,
+  //   pictureFile: file,
+  //   pictureFileName: file.name,
+  // });
+  //   }
+  // };
+  const handleImageChange = (file) => {
+    const url = URL.createObjectURL(file); // Create object URL
+    setImageURL(url);
+    setImageFile(file); // Save file for upload
+    setEditData({
+      ...editData,
       picture: file,
-    }));
+    });
   };
 
-  const handleFileChange = (file) => {
-    setEditData((prevData) => ({
-      ...prevData,
-      bukti: file,
-    }));
-  };
+  // useEffect(() => {
+  //   return () => {
+  //     if (imageURL && imageURL.startsWith("blob:")) {
+  //       URL.revokeObjectURL(imageURL);
+  //     }
+  //   };
+  // }, [imageURL]);
 
-  //Untuk Form Keterangan
-  const handleInformationChange = (e) => {
-    const { name, value } = e.target;
-    setEditData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+    setLoading(true);
 
-  const handleSave = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("nama_barang", editData.nama_barang || "");
-      formData.append("nama_peminjam", editData.nama_peminjam || "");
-      formData.append("divisi_peminjam", editData.divisi_peminjam || "");
-      formData.append("tujuan_keluar", editData.tujuan_keluar || "");
-      formData.append("status_barang", editData.status_barang || "");
-      formData.append("solusi_barang", editData.solusi_barang || "");
-      formData.append("sn", editData.sn || "");
-      formData.append("tipe_barang", editData.tipe_barang || "");
-      formData.append("jumlah", editData.jumlah || "");
-      formData.append("kualitas", editData.kualitas || "");
-      formData.append("satuan", editData.satuan || "");
-      formData.append("keterangan", editData.keterangan || "");
-      formData.append("work_unit", editData.work_unit || "");
-      formData.append("lokasi", editData.lokasi || "");
-      formData.append("kategori_input", editData.kategori_input || "");
-      formData.append(
-        "tanggal_awal_pinjam",
-        editData.tanggal_awal_pinjam || ""
-      );
-      formData.append(
-        "tanggal_akhir_pinjam",
-        editData.tanggal_akhir_pinjam || ""
-      );
-      formData.append("picture", editData.picture);
+    // Prepare form data
+    const formData = new FormData();
+    formData.append("nama_barang", editData.nama_barang || "");
+    formData.append("nama_peminjam", editData.nama_peminjam || "");
+    formData.append("divisi_peminjam", editData.divisi_peminjam || "");
+    formData.append("tujuan_keluar", editData.tujuan_keluar || "");
+    formData.append("status_barang", editData.status_barang || "");
+    formData.append("solusi_barang", editData.solusi_barang || "");
+    formData.append("sn", editData.sn || "");
+    formData.append("tipe_barang", editData.tipe_barang || "");
+    formData.append("jumlah", editData.jumlah || "");
+    formData.append("kualitas", editData.kualitas || "");
+    formData.append("satuan", editData.satuan || "");
+    formData.append("keterangan", editData.keterangan || "");
+    formData.append("work_unit", editData.work_unit || "");
+    formData.append("lokasi", editData.lokasi || "");
+    formData.append("kategori_input", editData.kategori_input || "");
+    formData.append("tanggal_awal_pinjam", editData.tanggal_awal_pinjam || "");
+    formData.append(
+      "tanggal_akhir_pinjam",
+      editData.tanggal_akhir_pinjam || ""
+    );
+
+    if (imageFile) {
+      formData.append("picture", imageFile);
+    }
+
+    if (editData.bukti) {
       formData.append("bukti", editData.bukti);
+    }
 
-      //   if (editData.picture) {
-      //     formData.append("picture", editData.picture);
-      //   }
-      //   if (editData.bukti) {
-      //     formData.append("bukti", editData.bukti);
-      //   }
+    console.log("FormData:", ...formData);
 
-      const response = await fetch("http://localhost:8000/api/input-barang", {
-        method: "PUT",
-        body: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Data saved:", result);
-        toast.success("Data berhasil disimpan!");
-      } else {
-        console.error("Error saving data:", await response.text());
-        toast.error("Terjadi kesalahan saat menyimpan data!");
-      }
+    // Send data to the backend
+    try {
+      await handleUpdate(formData);
     } catch (error) {
-      console.error("Error:", error);
-      toast.error("Terjadi kesalahan pada server!");
+      console.error("Error updating item:", error);
+    } finally {
+      setLoading(false);
+      closeUpdateModal();
     }
   };
 
@@ -194,7 +167,7 @@ const UpdateInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
                     style={{ maxWidth: "100%", height: "auto" }}
                   />
                 )}
-                <InputPicture onChange={handlePhotoChange} />
+                <InputPicture onChange={handleImageChange} />
               </div>
               <div className="mb-4">
                 <InputCategory
@@ -208,12 +181,12 @@ const UpdateInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
                   <div className="text-center mb-4">
                     <InputBuktiKeluar
                       selectedDate={editData?.bukti}
-                      onChange={handleFileChange}
+                      onChange={handleImageChange}
                     />
                   </div>
                   <div className="mb-4">
                     <InputStartDate
-                      selectedDate={editData?.tanggal_awal_pinjam}
+                      selectedDate={editData?.tanggal_awal_pinjam} // Use editData?.tanggal_awal_pinjam directly
                       onDateChange={(date) =>
                         setEditData({
                           ...editData,
@@ -224,7 +197,7 @@ const UpdateInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
                   </div>
                   <div className="mb-4">
                     <InputEndDate
-                      selectedDate={editData?.tanggal_akhir_pinjam}
+                      selectedDate={editData?.tanggal_akhir_pinjam} // Use editData?.tanggal_akhir_pinjam directly
                       onDateChange={(date) =>
                         setEditData({
                           ...editData,
@@ -264,7 +237,7 @@ const UpdateInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
                   <div className="text-center mb-4">
                     <InputBuktiKeluar
                       selectedDate={editData?.bukti}
-                      onChange={handleFileChange}
+                      onChange={handleImageChange}
                     />
                   </div>
                   <div className="mb-4">
@@ -379,7 +352,12 @@ const UpdateInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
               <div className="mb-3">
                 <InputInformation
                   value={editData?.keterangan || ""}
-                  onChange={handleInformationChange}
+                  onChange={(e) =>
+                    setEditData({
+                      ...editData,
+                      keterangan: e.target.value,
+                    })
+                  }
                 />
               </div>
               <div className="mb-3">
@@ -409,7 +387,7 @@ const UpdateInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
                 type="button"
                 variant="primary"
                 className="w-full bg-[#3498DB] hover:bg-[#2980B9] text-white"
-                onClick={handleSave}
+                onClick={(e) => handleSubmit(e)} // Pass the event manually
               >
                 Update
               </Button>
