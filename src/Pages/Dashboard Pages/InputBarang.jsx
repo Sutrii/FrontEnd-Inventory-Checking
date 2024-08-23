@@ -254,6 +254,9 @@ const InputBarang = () => {
           <div className="h-screen">
             <div id="DashboardContent" className="flex flex-row">
               <div className="flex flex-col bg-gray-100 w-full h-screen pt-24 px-4">
+                <p className="font-sm text-gray-600 ml-2 mb-2">
+                  Masukkan kategori barang dan tanggal terlebih dahulu
+                </p>
                 <div
                   id="LeftBoxParent"
                   className="flex flex-row w-[100%] space-x-6"

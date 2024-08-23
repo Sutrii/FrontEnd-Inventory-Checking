@@ -790,21 +790,21 @@ function TblInventory() {
                         <td className="text-xs text-center px-4">
                           <div className="flex justify-center gap-2">
                             <div
-                              className="bg-[#3498DB] p-2 rounded-full hover:bg-blue-200"
+                              className="bg-[#3498DB] p-2 rounded-xl hover:bg-blue-200"
                               title="Detail"
                               onClick={() => openDetailModal(record)}
                             >
                               <FaEye className="text-white cursor-pointer text-lg" />
                             </div>
                             <div
-                              className="bg-[#387F39] p-2 rounded-full hover:bg-green-200"
+                              className="bg-[#387F39] p-2 rounded-xl hover:bg-green-200"
                               title="Edit"
                               onClick={() => openUpdateModal(record)}
                             >
                               <FaEdit className="text-white cursor-pointer text-lg" />
                             </div>
                             <div
-                              className="bg-[#C53929] p-2 rounded-full hover:bg-red-200"
+                              className="bg-[#C53929] p-2 rounded-xl hover:bg-red-200"
                               title="Delete"
                               onClick={() => handleDelete(record.id)}
                             >
