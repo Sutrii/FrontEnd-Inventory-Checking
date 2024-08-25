@@ -8,6 +8,7 @@ import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { FiBell } from "react-icons/fi"; // Import ikon notifikasi
 import { NavLink } from "react-router-dom";
+import InventoryTable from "../../Components/Dashboard/InventoryTable";
 
 const TabelInventory = ({ inventoryData }) => {
   const [search, setSearch] = useState("");
@@ -48,11 +49,6 @@ const TabelInventory = ({ inventoryData }) => {
     }
   };
 
-  const handleNotification = () => {
-    // Add functionality for notification button here
-    alert("Notification button clicked");
-  };
-
   return (
     <div className="w-screen flex flex-col bg-white">
       <div className="fixed top-0 right-0 z-10 w-[85%]">
@@ -72,7 +68,7 @@ const TabelInventory = ({ inventoryData }) => {
                     <div className="flex items-center space-x-2">
                       <NavLink to="/notification" className="relative mr-2">
                         <button className="bg-[#3498DB] text-white font-bold py-2 px-4 rounded-xl flex items-center">
-                          <FiBell className="mr-2" /> {/* Ikon notifikasi */}
+                          <FiBell className="mr-2" />
                           Notifikasi
                           <span className="absolute top-[-10px] right-[-10px] bg-[#C53929] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                             {totalBarangPinjaman}
@@ -88,7 +84,8 @@ const TabelInventory = ({ inventoryData }) => {
                       </button>
                     </div>
                   </div>
-                  <TblInventory />
+                  {/* <TblInventory /> */}
+                  <InventoryTable />
                 </div>
               </div>
             </div>

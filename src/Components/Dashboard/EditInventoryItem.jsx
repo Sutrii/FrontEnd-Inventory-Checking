@@ -21,37 +21,19 @@ import InputTujuanKeluar from "./InputTujuanKeluar";
 import InputStatusRusak from "./InputStatusRusak";
 import InputSolusiRusak from "./InputSolusiRusak";
 
-const EditInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
+const EditInventoryItem = ({
+  isUpdateModalOpen,
+  closeUpdateModal,
+  handleSave,
+  editData,
+  setEditData,
+}) => {
   const modalRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  const [editData, setEditData] = useState({
-    nama_barang: "",
-    tipe_barang: "",
-    kualitas: "Pilih Kualitas Barang",
-    tanggal: null,
-    sn: "",
-    jumlah: "",
-    satuan: "",
-    tujuan_keluar: "",
-    picture: null,
-    bukti: null,
-    keterangan: "",
-    work_unit: "",
-    lokasi: "",
-    tanggal_awal_pinjam: "",
-    tanggal_akhir_pinjam: "",
-    divisi_peminjam: "",
-    nama_peminjam: "",
-    status_barang: "",
-    solusi_barang: "",
-  });
 
   useEffect(() => {
     if (isUpdateModalOpen) {
       setLoading(false);
-      if (editData?.picture) {
-        setImageURL(editData.picture);
-      }
     }
   }, [isUpdateModalOpen, editData?.picture]);
 
@@ -60,6 +42,11 @@ const EditInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
       closeUpdateModal();
     }
   };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const [selectedCategory, setSelectedCategory] = useState(
     editData?.kategori_input || ""
@@ -72,34 +59,49 @@ const EditInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
     });
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  //   const handleImageChange = (file) => {
-  //     const url = URL.createObjectURL(file); // Create object URL
-  //     setImageURL(url);
-  //     setImageFile(file); // Save file for upload
-  //     setEditData({
-  //       ...editData,
-  //       picture: file,
-  //     });
-  //   };
-
   //Untuk Upload Foto
-  const handlePhotoChange = (file) => {
-    setEditData((prevData) => ({
-      ...prevData,
-      picture: file,
-    }));
+  // const handlePhotoChange = (e) => {
+  //   // if (e.target && e.target.files && e.target.files.length > 0) {
+  //   //   const file = e.target.files[0];
+  //   //   setEditData({
+  //   //     ...editData,
+  //   //     picture: file,
+  //   //   });
+  //   // }
+  //   const file = e.target.files[0];
+  //   setEditData({
+  //     ...editData,
+  //     picture: file,
+  //   });
+  // };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Membuat URL lokal untuk file yang diunggah
+      const fileURL = URL.createObjectURL(file);
+
+      setEditData({
+        ...editData,
+        picture: file, // Mengupdate file yang diunggah
+        picturePreview: fileURL, // Menyimpan URL untuk preview gambar
+      });
+    }
   };
 
-  const handleFileChange = (file) => {
-    setEditData((prevData) => ({
-      ...prevData,
+  const handleBuktiChange = (e) => {
+    // if (e.target && e.target.files && e.target.files.length > 0) {
+    //   const file = e.target.files[0];
+    //   setEditData({
+    //     ...editData,
+    //     bukti: file,
+    //   });
+    // }
+    const file = e.target.files[0];
+    setEditData({
+      ...editData,
       bukti: file,
-    }));
+    });
   };
 
   //Untuk Form Keterangan
@@ -111,63 +113,63 @@ const EditInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
     }));
   };
 
-  const handleSave = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("nama_barang", editData.nama_barang || "");
-      formData.append("nama_peminjam", editData.nama_peminjam || "");
-      formData.append("divisi_peminjam", editData.divisi_peminjam || "");
-      formData.append("tujuan_keluar", editData.tujuan_keluar || "");
-      formData.append("status_barang", editData.status_barang || "");
-      formData.append("solusi_barang", editData.solusi_barang || "");
-      formData.append("sn", editData.sn || "");
-      formData.append("tipe_barang", editData.tipe_barang || "");
-      formData.append("jumlah", editData.jumlah || "");
-      formData.append("kualitas", editData.kualitas || "");
-      formData.append("satuan", editData.satuan || "");
-      formData.append("keterangan", editData.keterangan || "");
-      formData.append("work_unit", editData.work_unit || "");
-      formData.append("lokasi", editData.lokasi || "");
-      formData.append("kategori_input", editData.kategori_input || "");
-      formData.append(
-        "tanggal_awal_pinjam",
-        editData.tanggal_awal_pinjam || ""
-      );
-      formData.append(
-        "tanggal_akhir_pinjam",
-        editData.tanggal_akhir_pinjam || ""
-      );
-      formData.append("picture", editData.picture);
-      formData.append("bukti", editData.bukti);
+  // const handleSave = async () => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("nama_barang", editData.nama_barang || "");
+  //     formData.append("nama_peminjam", editData.nama_peminjam || "");
+  //     formData.append("divisi_peminjam", editData.divisi_peminjam || "");
+  //     formData.append("tujuan_keluar", editData.tujuan_keluar || "");
+  //     formData.append("status_barang", editData.status_barang || "");
+  //     formData.append("solusi_barang", editData.solusi_barang || "");
+  //     formData.append("sn", editData.sn || "");
+  //     formData.append("tipe_barang", editData.tipe_barang || "");
+  //     formData.append("jumlah", editData.jumlah || "");
+  //     formData.append("kualitas", editData.kualitas || "");
+  //     formData.append("satuan", editData.satuan || "");
+  //     formData.append("keterangan", editData.keterangan || "");
+  //     formData.append("work_unit", editData.work_unit || "");
+  //     formData.append("lokasi", editData.lokasi || "");
+  //     formData.append("kategori_input", editData.kategori_input || "");
+  //     formData.append(
+  //       "tanggal_awal_pinjam",
+  //       editData.tanggal_awal_pinjam || ""
+  //     );
+  //     formData.append(
+  //       "tanggal_akhir_pinjam",
+  //       editData.tanggal_akhir_pinjam || ""
+  //     );
+  //     // formData.append("picture", editData.picture);
+  //     // formData.append("bukti", editData.bukti);
 
-      //   if (editData.picture) {
-      //     formData.append("picture", editData.picture);
-      //   }
-      //   if (editData.bukti) {
-      //     formData.append("bukti", editData.bukti);
-      //   }
+  //     if (editData.picture) {
+  //       formData.append("picture", editData.picture);
+  //     }
+  //     if (editData.bukti) {
+  //       formData.append("bukti", editData.bukti);
+  //     }
 
-      const response = await fetch("http://localhost:8000/api/input-barang", {
-        method: "PUT",
-        body: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+  //     const response = await fetch("http://localhost:8000/api/input-barang", {
+  //       method: "PUT",
+  //       body: formData,
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     });
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Data saved:", result);
-        toast.success("Data berhasil disimpan!");
-      } else {
-        console.error("Error saving data:", await response.text());
-        toast.error("Terjadi kesalahan saat menyimpan data!");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      toast.error("Terjadi kesalahan pada server!");
-    }
-  };
+  //     if (response.ok) {
+  //       const result = await response.json();
+  //       console.log("Data saved:", result);
+  //       toast.success("Data berhasil disimpan!");
+  //     } else {
+  //       console.error("Error saving data:", await response.text());
+  //       toast.error("Terjadi kesalahan saat menyimpan data!");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     toast.error("Terjadi kesalahan pada server!");
+  //   }
+  // };
 
   return (
     <div className="modal fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -187,6 +189,29 @@ const EditInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
             </Modal.Header>
             <Modal.Body ref={modalRef}>
               <div className="text-center mb-4">
+                {editData?.picturePreview ? (
+                  <img
+                    src={editData.picturePreview}
+                    alt={editData.nama_barang}
+                    style={{ maxWidth: "100%", height: "auto" }}
+                  />
+                ) : (
+                  editData?.picture && (
+                    <img
+                      src={`http://localhost:8000/storage/pictures/${editData.picture}`}
+                      alt={editData.nama_barang}
+                      style={{ maxWidth: "100%", height: "auto" }}
+                    />
+                  )
+                )}
+                <InputPicture
+                  value={editData?.picture}
+                  onChange={handlePhotoChange}
+                  type="file"
+                  accept="image/*"
+                />
+              </div>
+              {/* <div className="text-center mb-4">
                 {editData?.picture && (
                   <img
                     src={`http://localhost:8000/storage/pictures/${editData.picture}`}
@@ -194,8 +219,14 @@ const EditInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
                     style={{ maxWidth: "100%", height: "auto" }}
                   />
                 )}
-                <InputPicture onChange={handlePhotoChange} />
-              </div>
+                <InputPicture
+                  value={editData?.picture}
+                  onChange={handlePhotoChange}
+                  type="file"
+                  accept="image/*"
+                />
+              </div> */}
+
               <div className="mb-4">
                 <InputCategory
                   label="Kategori Barang"
@@ -207,8 +238,10 @@ const EditInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
                 <>
                   <div className="text-center mb-4">
                     <InputBuktiKeluar
-                      selectedDate={editData?.bukti}
-                      onChange={handleFileChange}
+                      value={editData?.bukti}
+                      onChange={handleBuktiChange}
+                      type="file"
+                      accept="application/pdf"
                     />
                   </div>
                   <div className="mb-4">
@@ -263,8 +296,10 @@ const EditInventoryItem = ({ isUpdateModalOpen, closeUpdateModal }) => {
                 <>
                   <div className="text-center mb-4">
                     <InputBuktiKeluar
-                      selectedDate={editData?.bukti}
-                      onChange={handleFileChange}
+                      value={editData?.bukti}
+                      onChange={handleBuktiChange}
+                      type="file"
+                      accept="application/pdf"
                     />
                   </div>
                   <div className="mb-4">

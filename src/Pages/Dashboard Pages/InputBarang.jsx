@@ -107,14 +107,16 @@ const InputBarang = () => {
   };
 
   //Untuk Upload Foto
-  const handlePhotoChange = (file) => {
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
     setData((prevData) => ({
       ...prevData,
       picture: file,
     }));
   };
 
-  const handleFileChange = (file) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
     setData((prevData) => ({
       ...prevData,
       bukti: file,

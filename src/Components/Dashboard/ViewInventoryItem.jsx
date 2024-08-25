@@ -103,6 +103,31 @@ function ViewInventoryItem({
                 />
               </div>
               <div className="mb-3">
+                <label htmlFor="unitKerja" className="form-label">
+                  Bukti
+                </label>
+                {detailData?.bukti && (
+                  <div className="mb-2">
+                    <a
+                      href={`http://localhost:8000/storage/bukti/${detailData.bukti}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-decoration-none"
+                      style={{
+                        display: "inline-block",
+                        padding: "8px 12px",
+                        border: "1px solid #d1d5db",
+                        borderRadius: "4px",
+                        color: "#3498DB",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {detailData.bukti}
+                    </a>
+                  </div>
+                )}
+              </div>
+              <div className="mb-3">
                 <label htmlFor="namaBarang" className="form-label">
                   Nama Barang
                 </label>
@@ -350,6 +375,31 @@ function ViewInventoryItem({
                   readOnly
                   style={{ resize: "none" }}
                 />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="unitKerja" className="form-label">
+                  Bukti
+                </label>
+                {detailData?.bukti && (
+                  <div className="mb-2">
+                    <a
+                      href={`http://localhost:8000/storage/bukti/${detailData.bukti}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-decoration-none"
+                      style={{
+                        display: "inline-block",
+                        padding: "8px 12px",
+                        border: "1px solid #d1d5db",
+                        borderRadius: "4px",
+                        color: "#3498DB",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {detailData.bukti}
+                    </a>
+                  </div>
+                )}
               </div>
               <div className="mb-3">
                 <label htmlFor="unitKerja" className="form-label">

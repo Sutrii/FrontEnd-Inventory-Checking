@@ -24,7 +24,8 @@ const InputBuktiKeluar = ({ value, onChange }) => {
           <input
             type="file"
             accept="application/pdf"
-            onChange={handleFileChange} // Use internal handler
+            // onChange={handleFileChange} // Use internal handler
+            onChange={onChange}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           />
           <div className="flex items-center poppins-regular text-sm text-gray-400 w-full h-full border border-gray-300 rounded-md px-2 py-1 bg-white cursor-pointer">
