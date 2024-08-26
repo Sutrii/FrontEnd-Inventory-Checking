@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavigationBar from "../Components/Navbar";
 import backgroundImage from "../assets/img/peti kemas.jpg";
 import logo from "../assets/img/logo-pelindo.png";
@@ -6,8 +6,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Login = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Durasi animasi dalam milidetik
+    });
+  }, []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -39,6 +47,7 @@ const Login = () => {
   return (
     <div
       className="relative h-[100vh] w-[100vw] overflow-hidden text-white"
+      data-aos="fade-up"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
@@ -47,10 +56,13 @@ const Login = () => {
       }}
     >
       <div className="absolute inset-0 bg-black opacity-50"></div>
-      <div className="relative z-10">
+      <div className="relative z-10" data-aos="fade-up">
         <NavigationBar />
       </div>
-      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center h-full px-4">
+      <div
+        className="relative z-10 flex flex-col md:flex-row items-center justify-center h-full px-4"
+        data-aos="fade-right"
+      >
         <div className="text-center mb-6 md:mb-0 md:w-1/2 md:ml-12 md:mt-[-5%]">
           <h1 className="poppins-semibold text-2xl md:text-3xl uppercase font-bold mb-1 tracking-widest">
             Inventory Dashboard

@@ -3,14 +3,19 @@ import axios from "axios";
 import NavbarDashboard from "../../Components/NavbarDashboard";
 import SidebarDashboard from "../../Components/SidebarDashboard";
 import logoPelindo from "../../assets/img/logo-pelindo.png";
-import TblInventory from "../../Components/Dashboard/TblInventory";
-import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { FiBell } from "react-icons/fi"; // Import ikon notifikasi
 import { NavLink } from "react-router-dom";
 import InventoryTable from "../../Components/Dashboard/InventoryTable";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const TabelInventory = ({ inventoryData }) => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Durasi animasi dalam milidetik
+    });
+  }, []);
   const [search, setSearch] = useState("");
   const [totalBarangPinjaman, setTotalBarangPinjaman] = useState(0);
 
@@ -50,7 +55,7 @@ const TabelInventory = ({ inventoryData }) => {
   };
 
   return (
-    <div className="w-screen flex flex-col bg-white">
+    <div className="w-screen flex flex-col bg-white" data-aos="fade-up">
       <div className="fixed top-0 right-0 z-10 w-[85%]">
         <NavbarDashboard />
       </div>

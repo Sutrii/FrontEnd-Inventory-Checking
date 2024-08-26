@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavbarDashboard from "../../Components/NavbarDashboard";
 import SidebarDashboard from "../../Components/SidebarDashboard";
 import InputType from "../../Components/Dashboard/InputType";
@@ -21,8 +21,15 @@ import InputBuktiKeluar from "../../Components/Dashboard/InputBuktiKeluar";
 import InputDivisiPeminjam from "../../Components/Dashboard/InputDivisiPeminjam";
 import InputNamaPeminjam from "../../Components/Dashboard/InputNamaPeminjam";
 import "react-toastify/dist/ReactToastify.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const InputBarang = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Durasi animasi dalam milidetik
+    });
+  }, []);
   const [data, setData] = useState({
     nama_barang: "",
     tipe_barang: "",
@@ -210,7 +217,7 @@ const InputBarang = () => {
   };
 
   return (
-    <div className="w-screen flex flex-col bg-white">
+    <div className="w-screen flex flex-col bg-white" data-aos="fade-up">
       <ToastContainer />
       <div className="fixed top-0 right-0 z-10 w-[85%]">
         <NavbarDashboard />
@@ -243,7 +250,10 @@ const InputBarang = () => {
                 </div>
                 {selectedCategory === "Barang Masuk" && data.tanggal && (
                   <>
-                    <div className="flex flex-row w-full h-full space-x-6 pt-4">
+                    <div
+                      className="flex flex-row w-full h-full space-x-6 pt-4"
+                      data-aos="fade-up"
+                    >
                       <div id="LeftBoxParent" className="w-[60%] space-y-6">
                         <div id="FirstData">
                           <div className="flex w-full space-x-6 h-[12%]">
@@ -330,7 +340,10 @@ const InputBarang = () => {
                 )}
                 {selectedCategory === "Barang Keluar" && data.tanggal && (
                   <>
-                    <div className="flex flex-row w-full h-full space-x-6 pt-4">
+                    <div
+                      className="flex flex-row w-full h-full space-x-6 pt-4"
+                      data-aos="fade-up"
+                    >
                       <div id="LeftBoxParent" className="w-[60%] space-y-6">
                         <div id="FirstData">
                           <div className="flex w-full space-x-6 h-[12%]">
@@ -430,7 +443,10 @@ const InputBarang = () => {
                 )}
                 {selectedCategory === "Barang Pinjaman" && data.tanggal && (
                   <>
-                    <div className="flex flex-row w-full h-full space-x-6 pt-4">
+                    <div
+                      className="flex flex-row w-full h-full space-x-6 pt-4"
+                      data-aos="fade-up"
+                    >
                       <div id="LeftBoxParent" className="w-[60%] space-y-6">
                         <div id="FirstData">
                           <div className="flex w-full space-x-6 h-[12%]">
@@ -554,7 +570,10 @@ const InputBarang = () => {
                 )}
                 {selectedCategory === "Barang Rusak" && data.tanggal && (
                   <>
-                    <div className="flex flex-row w-full h-full space-x-6 pt-4">
+                    <div
+                      className="flex flex-row w-full h-full space-x-6 pt-4"
+                      data-aos="fade-up"
+                    >
                       <div id="LeftBoxParent" className="w-[60%] space-y-6">
                         <div id="FirstData">
                           <div className="flex w-full space-x-6 h-[12%]">

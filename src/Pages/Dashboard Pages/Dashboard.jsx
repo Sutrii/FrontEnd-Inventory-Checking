@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import NavbarDashboard from "../../Components/NavbarDashboard";
 import SidebarDashboard from "../../Components/SidebarDashboard";
 import BoxBarangKeluar from "../../Components/Dashboard/BoxBarangKeluar";
@@ -7,10 +8,17 @@ import BoxBarangPinjaman from "../../Components/Dashboard/BoxBarangPinjaman";
 import BoxBarangRusak from "../../Components/Dashboard/BoxBarangRusak";
 import BoxTotalBarang from "../../Components/Dashboard/BoxTotalBarang";
 import BoxChart from "../../Components/Dashboard/BoxChart";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Dashboard = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Durasi animasi dalam milidetik
+    });
+  }, []);
   return (
-    <div className="w-screen flex flex-col bg-white">
+    <div className="w-screen flex flex-col bg-white" data-aos="fade-up">
       <div className="fixed top-0 right-0 z-10 w-[85%]">
         <NavbarDashboard />
       </div>
