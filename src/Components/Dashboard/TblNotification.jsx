@@ -657,11 +657,10 @@ function TblNotification() {
                         style={{ height: "75px" }}
                       >
                         <td className="text-xs text-center">
-                          <span className="p-tag p-tag-info ml-2">
+                          <span className="ml-2 bg-[#F0134D] text-white p-2 rounded-md">
                             {calculateRemainingBorrowTime(
                               record.tanggal_akhir_pinjam
-                            )}{" "}
-                            {/* Menampilkan hasil logika */}
+                            )}
                           </span>
                         </td>
                       </tr>
