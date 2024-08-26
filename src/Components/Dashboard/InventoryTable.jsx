@@ -17,6 +17,7 @@ import SeeDetail from "./ViewInventoryItem";
 import EditInventoryItem from "./EditInventoryItem";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ClipLoader } from "react-spinners";
 
 function InventoryTable() {
   const [records, setRecords] = useState([]);
@@ -37,6 +38,14 @@ function InventoryTable() {
   const currentRecords = records.slice(indexOfFirstRecord, indexOfLastRecord);
   const totalPages = Math.ceil(records.length / entries);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false); // Set loading ke false setelah data selesai di-load
+    }, 2000);
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -274,441 +283,447 @@ function InventoryTable() {
 
         <div className="w-full">
           <div>
-            <div className="flex">
-              {/* Tabel Kiri */}
-              <div className="min-w-max bg-white w-[15%]">
-                <table className="min-w-full border-collapse">
-                  <thead>
-                    <tr className="bg-gray-100" style={{ height: "50px" }}>
-                      <th
-                        className="text-xs text-center px-2 py-2 cursor-pointer relative"
-                        style={{ width: "5%" }}
-                        onClick={() => handleSort("nomor")}
-                      >
-                        No
-                        <span
-                          className={`absolute right-0 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "nomor"
-                          )}`}
-                        >
-                          {sortConfig.key === "nomor" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center py-2 cursor-pointer relative"
-                        style={{ width: "15%" }}
-                        onClick={() => handleSort("kategori_input")}
-                      >
-                        Kategori
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "kategori_input"
-                          )}`}
-                        >
-                          {sortConfig.key === "kategori_input" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentRecords.map((record, index) => (
-                      <tr
-                        key={record.id}
-                        className={`border-b ${
-                          index % 2 === 0 ? "bg-white" : "bg-gray-100"
-                        }`}
-                        style={{ height: "75px" }}
-                      >
-                        <td className="text-xs text-center">{index + 1}</td>
-                        <td className="text-xs text-center">
-                          {record.kategori_input}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            {loading ? (
+              <div className="flex justify-center items-center h-full">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
               </div>
+            ) : (
+              <div className="flex">
+                {/* Tabel Kiri */}
+                <div className="min-w-max bg-white w-[15%]">
+                  <table className="min-w-full border-collapse">
+                    <thead>
+                      <tr className="bg-gray-100" style={{ height: "50px" }}>
+                        <th
+                          className="text-xs text-center px-2 py-2 cursor-pointer relative"
+                          style={{ width: "5%" }}
+                          onClick={() => handleSort("nomor")}
+                        >
+                          No
+                          <span
+                            className={`absolute right-0 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "nomor"
+                            )}`}
+                          >
+                            {sortConfig.key === "nomor" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center py-2 cursor-pointer relative"
+                          style={{ width: "15%" }}
+                          onClick={() => handleSort("kategori_input")}
+                        >
+                          Kategori
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "kategori_input"
+                            )}`}
+                          >
+                            {sortConfig.key === "kategori_input" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentRecords.map((record, index) => (
+                        <tr
+                          key={record.id}
+                          className={`border-b ${
+                            index % 2 === 0 ? "bg-white" : "bg-gray-100"
+                          }`}
+                          style={{ height: "75px" }}
+                        >
+                          <td className="text-xs text-center">{index + 1}</td>
+                          <td className="text-xs text-center">
+                            {record.kategori_input}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
 
-              {/* Tabel Tengah */}
-              <div className="flex-1 bg-white overflow-x-auto">
-                <table className="min-w-full border-collapse">
-                  <thead>
-                    <tr
-                      className="bg-gray-100"
-                      style={{ height: "50px", width: "80px" }}
-                    >
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("nama_barang")}
-                      >
-                        Nama Barang
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "nama_barang"
-                          )}`}
-                        >
-                          {sortConfig.key === "nama_barang" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("tipe_barang")}
-                      >
-                        Tipe
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "tipe_barang"
-                          )}`}
-                        >
-                          {sortConfig.key === "tipe_barang" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("kualitas")}
-                      >
-                        Kualitas
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "kualitas"
-                          )}`}
-                        >
-                          {sortConfig.key === "kualitas" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("tanggal")}
-                      >
-                        Tanggal
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "tanggal"
-                          )}`}
-                        >
-                          {sortConfig.key === "tanggal" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("tanggal_awal_pinjam")}
-                      >
-                        Awal Peminjaman
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "tanggal_awal_pinjam"
-                          )}`}
-                        >
-                          {sortConfig.key === "tanggal_awal_pinjam" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("tanggal_akhir_pinjam")}
-                      >
-                        Akhir Peminjaman
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "tanggal_akhir_pinjam"
-                          )}`}
-                        >
-                          {sortConfig.key === "tanggal_akhir_pinjam" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("divisi_peminjam")}
-                      >
-                        Divisi Peminjam
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "divisi_peminjam"
-                          )}`}
-                        >
-                          {sortConfig.key === "divisi_peminjam" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("nama_peminjam")}
-                      >
-                        Nama Peminjam
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "nama_peminjam"
-                          )}`}
-                        >
-                          {sortConfig.key === "nama_peminjam" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("sn")}
-                      >
-                        S/N
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "sn"
-                          )}`}
-                        >
-                          {sortConfig.key === "sn" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("jumlah")}
-                      >
-                        Jumlah
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "jumlah"
-                          )}`}
-                        >
-                          {sortConfig.key === "jumlah" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("satuan")}
-                      >
-                        Satuan
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "satuan"
-                          )}`}
-                        >
-                          {sortConfig.key === "satuan" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("keterangan")}
-                      >
-                        Keterangan
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "keterangan"
-                          )}`}
-                        >
-                          {sortConfig.key === "keterangan" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("work_unit")}
-                      >
-                        Unit Kerja
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "work_unit"
-                          )}`}
-                        >
-                          {sortConfig.key === "work_unit" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                      <th
-                        className="text-xs text-center px-4 py-2 cursor-pointer relative"
-                        onClick={() => handleSort("lokasi")}
-                      >
-                        Lokasi
-                        <span
-                          className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
-                            "lokasi"
-                          )}`}
-                        >
-                          {sortConfig.key === "lokasi" &&
-                            (sortConfig.direction === "ascending" ? (
-                              <FaArrowUp />
-                            ) : (
-                              <FaArrowDown />
-                            ))}
-                        </span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentRecords.map((record, index) => (
+                {/* Tabel Tengah */}
+                <div className="flex-1 bg-white overflow-x-auto">
+                  <table className="min-w-full border-collapse">
+                    <thead>
                       <tr
-                        key={record.id}
-                        className={`border-b ${
-                          index % 2 === 0 ? "bg-white" : "bg-gray-100"
-                        }`}
-                        style={{ height: "75px", width: "80px" }}
+                        className="bg-gray-100"
+                        style={{ height: "50px", width: "80px" }}
                       >
-                        <td className="text-xs text-center">
-                          {record.nama_barang}
-                        </td>
-                        <td className="text-xs text-center">
-                          {record.tipe_barang}
-                        </td>
-                        <td className="text-xs text-center ">
-                          {record.kualitas}
-                        </td>
-                        <td className="text-xs text-center ">
-                          {record.tanggal}
-                        </td>
-                        <td className="text-xs text-center ">
-                          {record.tanggal_awal_pinjam}
-                        </td>
-                        <td className="text-xs text-center ">
-                          {record.tanggal_akhir_pinjam}
-                        </td>
-                        <td className="text-xs text-center ">
-                          {record.divisi_peminjam}
-                        </td>
-                        <td className="text-xs text-center ">
-                          {record.nama_peminjam}
-                        </td>
-                        <td className="text-xs text-center ">{record.sn}</td>
-                        <td className="text-xs text-center ">
-                          {record.jumlah}
-                        </td>
-                        <td className="text-xs text-center ">
-                          {record.satuan}
-                        </td>
-                        <td className="text-xs text-center ">
-                          {record.keterangan}
-                        </td>
-                        <td className="text-xs text-center ">
-                          {record.work_unit}
-                        </td>
-                        <td className="text-xs text-center ">
-                          {record.lokasi}
-                        </td>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("nama_barang")}
+                        >
+                          Nama Barang
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "nama_barang"
+                            )}`}
+                          >
+                            {sortConfig.key === "nama_barang" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("tipe_barang")}
+                        >
+                          Tipe
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "tipe_barang"
+                            )}`}
+                          >
+                            {sortConfig.key === "tipe_barang" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("kualitas")}
+                        >
+                          Kualitas
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "kualitas"
+                            )}`}
+                          >
+                            {sortConfig.key === "kualitas" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("tanggal")}
+                        >
+                          Tanggal
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "tanggal"
+                            )}`}
+                          >
+                            {sortConfig.key === "tanggal" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("tanggal_awal_pinjam")}
+                        >
+                          Awal Peminjaman
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "tanggal_awal_pinjam"
+                            )}`}
+                          >
+                            {sortConfig.key === "tanggal_awal_pinjam" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("tanggal_akhir_pinjam")}
+                        >
+                          Akhir Peminjaman
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "tanggal_akhir_pinjam"
+                            )}`}
+                          >
+                            {sortConfig.key === "tanggal_akhir_pinjam" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("divisi_peminjam")}
+                        >
+                          Divisi Peminjam
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "divisi_peminjam"
+                            )}`}
+                          >
+                            {sortConfig.key === "divisi_peminjam" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("nama_peminjam")}
+                        >
+                          Nama Peminjam
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "nama_peminjam"
+                            )}`}
+                          >
+                            {sortConfig.key === "nama_peminjam" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("sn")}
+                        >
+                          S/N
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "sn"
+                            )}`}
+                          >
+                            {sortConfig.key === "sn" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("jumlah")}
+                        >
+                          Jumlah
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "jumlah"
+                            )}`}
+                          >
+                            {sortConfig.key === "jumlah" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("satuan")}
+                        >
+                          Satuan
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "satuan"
+                            )}`}
+                          >
+                            {sortConfig.key === "satuan" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("keterangan")}
+                        >
+                          Keterangan
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "keterangan"
+                            )}`}
+                          >
+                            {sortConfig.key === "keterangan" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("work_unit")}
+                        >
+                          Unit Kerja
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "work_unit"
+                            )}`}
+                          >
+                            {sortConfig.key === "work_unit" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
+                        <th
+                          className="text-xs text-center px-4 py-2 cursor-pointer relative"
+                          onClick={() => handleSort("lokasi")}
+                        >
+                          Lokasi
+                          <span
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${getClassNamesFor(
+                              "lokasi"
+                            )}`}
+                          >
+                            {sortConfig.key === "lokasi" &&
+                              (sortConfig.direction === "ascending" ? (
+                                <FaArrowUp />
+                              ) : (
+                                <FaArrowDown />
+                              ))}
+                          </span>
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {currentRecords.map((record, index) => (
+                        <tr
+                          key={record.id}
+                          className={`border-b ${
+                            index % 2 === 0 ? "bg-white" : "bg-gray-100"
+                          }`}
+                          style={{ height: "75px", width: "80px" }}
+                        >
+                          <td className="text-xs text-center">
+                            {record.nama_barang}
+                          </td>
+                          <td className="text-xs text-center">
+                            {record.tipe_barang}
+                          </td>
+                          <td className="text-xs text-center ">
+                            {record.kualitas}
+                          </td>
+                          <td className="text-xs text-center ">
+                            {record.tanggal}
+                          </td>
+                          <td className="text-xs text-center ">
+                            {record.tanggal_awal_pinjam}
+                          </td>
+                          <td className="text-xs text-center ">
+                            {record.tanggal_akhir_pinjam}
+                          </td>
+                          <td className="text-xs text-center ">
+                            {record.divisi_peminjam}
+                          </td>
+                          <td className="text-xs text-center ">
+                            {record.nama_peminjam}
+                          </td>
+                          <td className="text-xs text-center ">{record.sn}</td>
+                          <td className="text-xs text-center ">
+                            {record.jumlah}
+                          </td>
+                          <td className="text-xs text-center ">
+                            {record.satuan}
+                          </td>
+                          <td className="text-xs text-center ">
+                            {record.keterangan}
+                          </td>
+                          <td className="text-xs text-center ">
+                            {record.work_unit}
+                          </td>
+                          <td className="text-xs text-center ">
+                            {record.lokasi}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
 
-              {/* Tabel Kanan */}
-              <div className="min-w-max bg-white">
-                <table className="min-w-full border-collapse">
-                  <thead>
-                    <tr className="bg-gray-100">
-                      <th
-                        className="text-xs text-center px-4 "
-                        style={{ width: "10%", height: "50px" }}
-                      >
-                        Aksi Admin
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentRecords.map((record, index) => (
-                      <tr
-                        key={record.id}
-                        className={`border-b ${
-                          index % 2 === 0 ? "bg-white" : "bg-gray-100"
-                        }`}
-                        style={{ height: "75px" }}
-                      >
-                        <td className="text-xs text-center px-4">
-                          <div className="flex justify-center gap-2">
-                            <div
-                              className="bg-[#3498DB] p-2 rounded-xl hover:bg-blue-200"
-                              title="Detail"
-                              onClick={() => openDetailModal(record)}
-                            >
-                              <FaEye className="text-white cursor-pointer text-lg" />
-                            </div>
-                            <div
-                              className="bg-[#387F39] p-2 rounded-xl hover:bg-green-200"
-                              title="Edit"
-                              onClick={() => openUpdateModal(record)}
-                            >
-                              <FaEdit className="text-white cursor-pointer text-lg" />
-                            </div>
-                            <div
-                              className="bg-[#C53929] p-2 rounded-xl hover:bg-red-200"
-                              title="Delete"
-                              onClick={() => handleDelete(record.id)}
-                            >
-                              <FaTrash className="text-white cursor-pointer text-lg" />
-                            </div>
-                          </div>
-                        </td>
+                {/* Tabel Kanan */}
+                <div className="min-w-max bg-white">
+                  <table className="min-w-full border-collapse">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th
+                          className="text-xs text-center px-4 "
+                          style={{ width: "10%", height: "50px" }}
+                        >
+                          Aksi Admin
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {currentRecords.map((record, index) => (
+                        <tr
+                          key={record.id}
+                          className={`border-b ${
+                            index % 2 === 0 ? "bg-white" : "bg-gray-100"
+                          }`}
+                          style={{ height: "75px" }}
+                        >
+                          <td className="text-xs text-center px-4">
+                            <div className="flex justify-center gap-2">
+                              <div
+                                className="bg-[#3498DB] p-2 rounded-xl hover:bg-blue-200"
+                                title="Detail"
+                                onClick={() => openDetailModal(record)}
+                              >
+                                <FaEye className="text-white cursor-pointer text-lg" />
+                              </div>
+                              <div
+                                className="bg-[#387F39] p-2 rounded-xl hover:bg-green-200"
+                                title="Edit"
+                                onClick={() => openUpdateModal(record)}
+                              >
+                                <FaEdit className="text-white cursor-pointer text-lg" />
+                              </div>
+                              <div
+                                className="bg-[#C53929] p-2 rounded-xl hover:bg-red-200"
+                                title="Delete"
+                                onClick={() => handleDelete(record.id)}
+                              >
+                                <FaTrash className="text-white cursor-pointer text-lg" />
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="flex justify-between items-center mt-4">
