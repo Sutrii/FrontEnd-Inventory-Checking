@@ -59,21 +59,21 @@ const InputQuality = ({ value, onChange }) => {
           >
             <div className="py-1 w-full" role="none">
               <button
-                onClick={() => handleSelect("Like New")}
+                onClick={() => handleSelect("Baru")}
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left"
                 role="menuitem"
               >
                 Baru
               </button>
               <button
-                onClick={() => handleSelect("Good")}
+                onClick={() => handleSelect("Bagus")}
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left"
                 role="menuitem"
               >
                 Bagus
               </button>
               <button
-                onClick={() => handleSelect("Bad")}
+                onClick={() => handleSelect("Rusak")}
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left"
                 role="menuitem"
               >

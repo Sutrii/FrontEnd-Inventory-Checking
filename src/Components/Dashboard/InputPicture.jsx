@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { AiFillPicture } from "react-icons/ai";
 
-const InputPicture = ({ value, onChange }) => {
-  const [fileName, setFileName] = useState(value || "Masukkan Gambar");
+const InputPicture = ({ value, onChange, fileName }) => {
+  // const [fileName, setFileName] = useState(value || "Masukkan Gambar");
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFileName(file.name);
-      onChange(file); // Pass the selected file to the parent component
-    }
-  };
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setFileName(file.name);
+  //     onChange(file); // Pass the selected file to the parent component
+  //   }
+  // };
 
   return (
     <div className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3">
       <div className="flex justify-between items-center">
-        <h2 className="text-sm poppins-semibold">Gambar</h2>
+        <h2 className="text-sm poppins-semibold">Gambar (Maks 2MB)</h2>
       </div>
       <div className="flex flex-col items-center space-y-4">
         <div className="relative w-full">

@@ -33,7 +33,7 @@ const InputBarang = () => {
   const [data, setData] = useState({
     nama_barang: "",
     tipe_barang: "",
-    kualitas: "Choose Item Condition",
+    kualitas: "Masukkan Kondisi Barang",
     tanggal: null,
     sn: "",
     jumlah: "",
@@ -109,9 +109,11 @@ const InputBarang = () => {
     }));
   };
 
+  const [fileName, setFileName] = useState("Masukkan Gambar");
   //Untuk Upload Foto
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
+    setFileName(file.name);
     setData((prevData) => ({
       ...prevData,
       picture: file,
@@ -331,7 +333,10 @@ const InputBarang = () => {
                         </div>
                         <div id="SecondData" className="w-full flex flex-col">
                           <div className="w-[100%] h-[12%]">
-                            <InputPicture onChange={handlePhotoChange} />
+                            <InputPicture
+                              onChange={handlePhotoChange}
+                              fileName={fileName}
+                            />
                           </div>
                         </div>
                       </div>
@@ -434,7 +439,10 @@ const InputBarang = () => {
                         </div>
                         <div id="SecondData" className="w-full flex flex-col">
                           <div className="w-[100%] h-[12%]">
-                            <InputPicture onChange={handlePhotoChange} />
+                            <InputPicture
+                              onChange={handlePhotoChange}
+                              fileName={fileName}
+                            />
                           </div>
                         </div>
                       </div>
@@ -531,7 +539,10 @@ const InputBarang = () => {
                         <div id="SixthData">
                           <div className="flex w-full space-x-6 h-[12%]">
                             <div className="w-[50%]">
-                              <InputPicture onChange={handlePhotoChange} />
+                              <InputPicture
+                                onChange={handlePhotoChange}
+                                fileName={fileName}
+                              />
                             </div>
                             <div className="w-[50%]">
                               <InputBuktiKeluar onChange={handleFileChange} />
@@ -651,7 +662,10 @@ const InputBarang = () => {
                         </div>
                         <div id="SecondData" className="w-full flex flex-col">
                           <div className="w-[100%] h-[12%]">
-                            <InputPicture onChange={handlePhotoChange} />
+                            <InputPicture
+                              onChange={handlePhotoChange}
+                              fileName={fileName}
+                            />
                           </div>
                         </div>
                       </div>

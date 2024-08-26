@@ -4,8 +4,16 @@ import NavbarDashboard from "../../Components/NavbarDashboard";
 import SidebarDashboard from "../../Components/SidebarDashboard";
 import logoPelindo from "../../assets/img/logo-pelindo.png";
 import TblNotification from "../../Components/Dashboard/TblNotification";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 const Notification = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Durasi animasi dalam milidetik
+    });
+  }, []);
   const navigate = useNavigate(); // Hook untuk navigasi
 
   const handleGoBack = () => {
@@ -13,7 +21,7 @@ const Notification = () => {
   };
 
   return (
-    <div className="w-screen flex flex-col bg-white">
+    <div className="w-screen flex flex-col bg-white" data-aos="fade-up">
       <div className="fixed top-0 right-0 z-10 w-[85%]">
         <NavbarDashboard />
       </div>

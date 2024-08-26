@@ -41,11 +41,11 @@ function InventoryTable() {
 
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false); // Set loading ke false setelah data selesai di-load
-    }, 2000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoading(false); // Set loading ke false setelah data selesai di-load
+  //   }, 2000);
+  // }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -59,8 +59,10 @@ function InventoryTable() {
         }));
         setRecords(recordsWithNumbers);
         setAllRecords(recordsWithNumbers);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
       }
     }
     fetchData();

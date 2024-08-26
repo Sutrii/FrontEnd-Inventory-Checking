@@ -75,18 +75,28 @@ const EditInventoryItem = ({
   //   });
   // };
 
+  // const handlePhotoChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const fileURL = URL.createObjectURL(file);
+
+  //     setEditData({
+  //       ...editData,
+  //       picture: file,
+  //       picturePreview: fileURL,
+  //     });
+  //   }
+  // };
+  const [fileName, setFileName] = useState("Masukkan Gambar");
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      // Membuat URL lokal untuk file yang diunggah
-      const fileURL = URL.createObjectURL(file);
-
-      setEditData({
-        ...editData,
-        picture: file, // Mengupdate file yang diunggah
-        picturePreview: fileURL, // Menyimpan URL untuk preview gambar
-      });
-    }
+    const fileURL = URL.createObjectURL(file);
+    setFileName(file.name);
+    setEditData({
+      ...editData,
+      picture: file,
+      picturePreview: fileURL,
+    });
   };
 
   const handleBuktiChange = (e) => {
@@ -209,6 +219,7 @@ const EditInventoryItem = ({
                   onChange={handlePhotoChange}
                   type="file"
                   accept="image/*"
+                  fileName={fileName}
                 />
               </div>
               {/* <div className="text-center mb-4">
