@@ -96,11 +96,20 @@ function ItemInfo() {
                       </p>
                       <hr className="border-[#b2babb] border-t-2 my-2" />
                     </div>
+                    <div>
+                      <p className="text-[#b2babb] text-sm font-semibold">
+                        Keterangan Barang
+                      </p>
+                      <p className="text-black text-lg font-regular">
+                        {data.keterangan}
+                      </p>
+                      <hr className="border-[#b2babb] border-t-2 my-2" />
+                    </div>
                   </div>
                 </div>
               )}
               {data.kategori_input === "Barang Keluar" && (
-                <div className="flex flex-row w-full text-xs">
+                <div className="flex flex-row w-full text-xs space-x-4">
                   <div className="flex flex-col space-y-2 w-[50%]" id="Left">
                     {/* Kategori Barang */}
                     <div>
@@ -186,11 +195,20 @@ function ItemInfo() {
                       </p>
                       <hr className="border-[#b2babb] border-t-2 my-2" />
                     </div>
+                    <div>
+                      <p className="text-[#b2babb] text-sm font-semibold">
+                        Keterangan Barang
+                      </p>
+                      <p className="text-black text-lg font-regular">
+                        {data.keterangan}
+                      </p>
+                      <hr className="border-[#b2babb] border-t-2 my-2" />
+                    </div>
                   </div>
                 </div>
               )}
               {data.kategori_input === "Barang Pinjaman" && (
-                <div className="flex flex-row w-full text-xs">
+                <div className="flex flex-row w-full text-xs space-x-4">
                   <div className="flex flex-col space-y-2 w-[50%]" id="Left">
                     {/* Kategori Barang */}
                     <div>
@@ -294,11 +312,20 @@ function ItemInfo() {
                       </p>
                       <hr className="border-[#b2babb] border-t-2 my-2" />
                     </div>
+                    <div>
+                      <p className="text-[#b2babb] text-sm font-semibold">
+                        Keterangan Barang
+                      </p>
+                      <p className="text-black text-lg font-regular">
+                        {data.keterangan}
+                      </p>
+                      <hr className="border-[#b2babb] border-t-2 my-2" />
+                    </div>
                   </div>
                 </div>
               )}
               {data.kategori_input === "Barang Rusak" && (
-                <div className="flex flex-row w-full text-xs">
+                <div className="flex flex-row w-full text-xs space-x-4">
                   <div className="flex flex-col space-y-2 w-[50%]" id="Left">
                     {/* Kategori Barang */}
                     <div>
@@ -381,6 +408,15 @@ function ItemInfo() {
                       </p>
                       <p className="text-black text-lg font-regular">
                         {data.solusi_barang}
+                      </p>
+                      <hr className="border-[#b2babb] border-t-2 my-2" />
+                    </div>
+                    <div>
+                      <p className="text-[#b2babb] text-sm font-semibold">
+                        Keterangan Barang
+                      </p>
+                      <p className="text-black text-lg font-regular">
+                        {data.keterangan}
                       </p>
                       <hr className="border-[#b2babb] border-t-2 my-2" />
                     </div>

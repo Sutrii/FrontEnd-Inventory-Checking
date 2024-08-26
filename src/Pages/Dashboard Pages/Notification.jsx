@@ -26,7 +26,7 @@ const Notification = () => {
                   <div className="flex w-full justify-between items-center bg-white rounded-xl shadow-md p-4">
                     <img src={logoPelindo} alt="Logo Pelindo" className="h-6" />
                     <h1 className="text-xl poppins-semibold uppercase text-center lg:text-left tracking-widest">
-                      Tabel Barang
+                      Tabel Notifikasi Pemminjaman
                     </h1>
                     <div className="flex items-center space-x-2">
                       <button

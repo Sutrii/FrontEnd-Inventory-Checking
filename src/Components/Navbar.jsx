@@ -42,11 +42,7 @@ const NavigationBar = () => {
                 zIndex: 1,
               }}
             >
-              {path === "/home"
-                ? "Home"
-                : // : path === "/aboutus"
-                  // ? "About Us"
-                  "Sign In"}
+              {path === "/home" ? "Home" : "Sign In"}
               {isActive(path) && (
                 <span
                   className="flex absolute h-8 w-full top-0"
