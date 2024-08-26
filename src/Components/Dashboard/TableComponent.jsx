@@ -57,10 +57,10 @@ const TableComponent = ({
               <CiSearch className="absolute left-3 text-gray-400" />
               <input
                 type="text"
-                placeholder="Cari Nama Barang atau Nama Peminjam"
+                placeholder="Cari Nama Barang, Nama Peminjam, Tipe Barang, atau SN"
                 onChange={handleFilter}
                 className="form-control rounded-2xl pl-10 poppins-regular text-xs h-10"
-                style={{ width: "320px" }}
+                style={{ width: "410px" }}
               />
             </div>
           </div>

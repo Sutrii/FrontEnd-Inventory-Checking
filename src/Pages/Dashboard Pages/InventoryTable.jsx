@@ -14,19 +14,22 @@ const InventoryTable = ({ inventoryData }) => {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [detailData, setDetailData] = useState(null);
 
-  const handleFilter = (e) => {
-    const searchTerm = e.target.value.toLowerCase();
+  function handleFilter(event) {
+    const searchTerm = event.target.value.toLowerCase();
     if (searchTerm === "") {
+      // Jika input kosong, kembalikan semua data
       setRecords(allRecords);
     } else {
       const filteredData = allRecords.filter(
         (row) =>
           row.nama_barang.toLowerCase().includes(searchTerm) ||
-          row.nama_peminjam?.toLowerCase().includes(searchTerm) // Memastikan nama_peminjam ada sebelum mencarinya
+          row.nama_peminjam?.toLowerCase().includes(searchTerm) ||
+          row.sn?.toString().toLowerCase().includes(searchTerm) ||
+          row.tipe_barang?.toLowerCase().includes(searchTerm)
       );
       setRecords(filteredData);
     }
-  };
+  }
 
   const fetchData = () => {
     axios

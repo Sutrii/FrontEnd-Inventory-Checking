@@ -98,7 +98,9 @@ function TblInventory() {
       const filteredData = allRecords.filter(
         (row) =>
           row.nama_barang.toLowerCase().includes(searchTerm) ||
-          row.nama_peminjam?.toLowerCase().includes(searchTerm) // Memastikan nama_peminjam ada sebelum mencarinya
+          row.nama_peminjam?.toLowerCase().includes(searchTerm) ||
+          row.sn?.toString().toLowerCase().includes(searchTerm) ||
+          row.tipe_barang?.toLowerCase().includes(searchTerm)
       );
       setRecords(filteredData);
     }
@@ -195,10 +197,10 @@ function TblInventory() {
               <CiSearch className="absolute left-3 text-gray-400" />
               <input
                 type="text"
-                placeholder="Cari Nama Barang atau Nama Peminjam"
+                placeholder="Cari Nama Barang, Nama Peminjam, Tipe Barang, atau SN"
                 onChange={handleFilter}
                 className="form-control rounded-2xl pl-10 poppins-regular text-xs h-10"
-                style={{ width: "320px" }}
+                style={{ width: "410px" }}
               />
             </div>
           </div>

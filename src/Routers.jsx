@@ -11,7 +11,6 @@ import BarangMasuk from "./Pages/Dashboard Pages/BarangMasuk";
 import BarangKeluar from "./Pages/Dashboard Pages/BarangKeluar";
 import BarangPinjaman from "./Pages/Dashboard Pages/BarangPinjaman";
 import BarangRusak from "./Pages/Dashboard Pages/BarangRusak";
-import AboutUs from "./Pages/AboutUs";
 import QrCodePage from "./Pages/Dashboard Pages/QRCode";
 import InputBarang from "./Pages/Dashboard Pages/InputBarang";
 import ItemInfo from "./Pages/Dashboard Pages/ItemInfo";
@@ -24,7 +23,6 @@ function Routers() {
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/login" element={<Login />} />
 
       {/* Bungkus rute yang membutuhkan autentikasi dengan ProtectedRoute */}

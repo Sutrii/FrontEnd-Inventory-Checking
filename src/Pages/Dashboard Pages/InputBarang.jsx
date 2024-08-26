@@ -21,14 +21,12 @@ import InputBuktiKeluar from "../../Components/Dashboard/InputBuktiKeluar";
 import InputDivisiPeminjam from "../../Components/Dashboard/InputDivisiPeminjam";
 import InputNamaPeminjam from "../../Components/Dashboard/InputNamaPeminjam";
 import "react-toastify/dist/ReactToastify.css";
-import InputStatusRusak from "../../Components/Dashboard/InputStatusRusak";
-import InputSolusiRusak from "../../Components/Dashboard/InputSolusiRusak";
 
 const InputBarang = () => {
   const [data, setData] = useState({
     nama_barang: "",
     tipe_barang: "",
-    kualitas: "Pilih Kualitas Barang",
+    kualitas: "Choose Item Condition",
     tanggal: null,
     sn: "",
     jumlah: "",
@@ -43,8 +41,6 @@ const InputBarang = () => {
     tanggal_akhir_pinjam: "",
     divisi_peminjam: "",
     nama_peminjam: "",
-    status_barang: "",
-    solusi_barang: "",
   });
 
   //Untuk Form Nama, Jumlah, Serial Number, Tipe, Satuan, dan Lokasi
@@ -128,7 +124,7 @@ const InputBarang = () => {
     const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: value, // Memperbarui state sesuai dengan nama input
     }));
   };
 
@@ -137,8 +133,6 @@ const InputBarang = () => {
       const formData = new FormData();
       formData.append("kategori_input", data.kategori_input);
       formData.append("nama_barang", data.nama_barang);
-      formData.append("status_barang", data.status_barang);
-      formData.append("solusi_barang", data.solusi_barang);
       formData.append("nama_peminjam", data.nama_peminjam);
       formData.append("divisi_peminjam", data.divisi_peminjam);
       formData.append("tipe_barang", data.tipe_barang);
@@ -171,33 +165,6 @@ const InputBarang = () => {
         body: formData, // Jangan set header Content-Type
       });
 
-      const resetForm = () => {
-        setSelectedCategory("Pilih Kategori Barang");
-        setData({
-          ...data,
-          kategori_input: "",
-          tanggal: null,
-          nama_barang: "",
-          tipe_barang: "",
-          kualitas: "Pilih Kualitas Barang",
-          sn: "",
-          jumlah: "",
-          satuan: "",
-          tujuan_keluar: "",
-          picture: null,
-          bukti: null,
-          keterangan: "",
-          work_unit: "",
-          lokasi: "",
-          tanggal_awal_pinjam: "",
-          tanggal_akhir_pinjam: "",
-          divisi_peminjam: "",
-          nama_peminjam: "",
-          status_barang: "",
-          solusi_barang: "",
-        });
-      };
-
       if (response.ok) {
         const result = await response.json();
         console.log("Data saved:", result);
@@ -222,10 +189,7 @@ const InputBarang = () => {
           keterangan: "",
           work_unit: "",
           lokasi: "",
-          status_barang: "",
-          solusi_barang: "",
         });
-        resetForm();
       } else {
         console.error("Error saving data:", await response.text());
         toast.error("Terjadi kesalahan saat menyimpan data!");
@@ -651,22 +615,6 @@ const InputBarang = () => {
                             <div className="w-[50%]">
                               <InputLocation
                                 value={data.lokasi}
-                                onChange={handleChange}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div id="FifthData">
-                          <div className="flex w-full space-x-6 h-[12%]">
-                            <div className="w-[50%]">
-                              <InputStatusRusak
-                                value={data.status_barang}
-                                onChange={handleChange}
-                              />
-                            </div>
-                            <div className="w-[50%]">
-                              <InputSolusiRusak
-                                value={data.solusi_barang}
                                 onChange={handleChange}
                               />
                             </div>
