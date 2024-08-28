@@ -4,25 +4,32 @@ import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 
 const InputDate = ({ onDateChange, selectedDate }) => {
-  const [localDate, setLocalDate] = useState(selectedDate || null);
+  const [localDate, setLocalDate] = useState(selectedDate || new Date());
 
   useEffect(() => {
-    setLocalDate(selectedDate);
-  }, [selectedDate]);
+    // Set tanggal saat ini jika belum diset
+    if (!selectedDate) {
+      const today = new Date();
+      setLocalDate(today);
+      if (onDateChange) {
+        const formattedDate = format(today, "yyyy-MM-dd");
+        onDateChange(formattedDate);
+      }
+    } else {
+      setLocalDate(selectedDate);
+    }
+  }, [selectedDate, onDateChange]);
 
   const handleChange = (date) => {
     setLocalDate(date);
-    console.log("Date before formatting:", date);
     if (onDateChange) {
       const formattedDate = date ? format(date, "yyyy-MM-dd") : "";
-      console.log("Formatted Date:", formattedDate);
       onDateChange(formattedDate);
     }
   };
 
-  // Format placeholder sesuai dengan format yang diinginkan
   const placeholderText = localDate
-    ? format(localDate, "MM/dd/yyyy") // Format tanggal sesuai kebutuhan
+    ? format(localDate, "MM/dd/yyyy")
     : "Pilih Tanggal";
 
   return (
@@ -36,7 +43,8 @@ const InputDate = ({ onDateChange, selectedDate }) => {
           onChange={handleChange}
           className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 poppins-regular text-sm text-center"
           placeholderText={placeholderText}
-          style={{ width: "100%", height: "2.5rem" }} // Adjust width and height of the DatePicker input
+          readOnly
+          style={{ width: "100%", height: "2.5rem" }}
         />
       </div>
     </div>

@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 const InputCategory = ({ value, onCategoryChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(
-    value || "Pilih Kategori Barang"
+    value || "Pilih Jenis Kegiatan"
   );
 
   useEffect(() => {
-    setSelectedCategory(value || "Pilih Kategori Barang");
+    setSelectedCategory(value || "Pilih Jenis Kegiatan");
   }, [value]);
 
   const toggleDropdown = () => {
@@ -25,7 +25,7 @@ const InputCategory = ({ value, onCategoryChange }) => {
   return (
     <div className="w-full h-auto p-3 bg-white shadow-md rounded-2xl space-y-3">
       <div className="flex justify-between items-center">
-        <h2 className="text-sm poppins-semibold">Kategori</h2>
+        <h2 className="text-sm poppins-semibold">Jenis Kegiatan</h2>
       </div>
       <div className="flex justify-center poppins-regular relative inline-block text-left w-full">
         <div className="w-full">
