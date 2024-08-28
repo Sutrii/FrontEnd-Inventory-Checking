@@ -28,9 +28,13 @@ function TblNotification() {
           "http://localhost:8000/api/input-barang" // Update endpoint
         );
 
-        // Memfilter data untuk hanya menampilkan "Barang Pinjaman"
+        // Memfilter data untuk hanya menampilkan "Barang Pinjaman" dan yang masa pinjamannya kurang atau sama dengan 3 hari
         const filteredRecords = response.data
           .filter((record) => record.kategori_input === "Barang Pinjaman")
+          .filter(
+            (record) =>
+              calculateRemainingBorrowTime(record.tanggal_akhir_pinjam) !== null
+          )
           .map((record, index) => ({
             ...record,
             nomor: index + 1,
@@ -69,6 +73,10 @@ function TblNotification() {
     const end = new Date(endDate);
     const diff = end - now;
     const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+    if (daysLeft > 3) {
+      return null; // Atau bisa juga dikembalikan nilai lain, seperti kosong
+    }
 
     return daysLeft > 0 ? `${daysLeft} Hari` : "Habis";
   };
@@ -657,11 +665,15 @@ function TblNotification() {
                         style={{ height: "75px" }}
                       >
                         <td className="text-xs text-center">
-                          <span className="ml-2 bg-[#F0134D] text-white p-2 rounded-md">
-                            {calculateRemainingBorrowTime(
-                              record.tanggal_akhir_pinjam
-                            )}
-                          </span>
+                          {calculateRemainingBorrowTime(
+                            record.tanggal_akhir_pinjam
+                          ) && (
+                            <span className="ml-2 bg-[#F0134D] text-white p-2 rounded-md">
+                              {calculateRemainingBorrowTime(
+                                record.tanggal_akhir_pinjam
+                              )}
+                            </span>
+                          )}
                         </td>
                       </tr>
                     ))}

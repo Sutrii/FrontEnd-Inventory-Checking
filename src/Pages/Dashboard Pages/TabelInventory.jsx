@@ -19,19 +19,38 @@ const TabelInventory = ({ inventoryData }) => {
   const [search, setSearch] = useState("");
   const [totalBarangPinjaman, setTotalBarangPinjaman] = useState(0);
 
+  const calculateRemainingBorrowTime = (endDate) => {
+    const now = new Date();
+    const end = new Date(endDate);
+    const diff = end - now;
+    const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+    if (daysLeft > 3) {
+      return null; // Atau bisa juga dikembalikan nilai lain, seperti kosong
+    }
+
+    return daysLeft > 0 ? `${daysLeft} Hari` : "Habis";
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:8000/api/input-barang");
         const data = await response.json();
 
-        // Filter data untuk kategori 'Barang Masuk'
+        // Filter data untuk kategori 'Barang Pinjaman'
         const barangPinjaman = data.filter(
           (item) => item.kategori_input === "Barang Pinjaman"
         );
 
-        // Set jumlah barang masuk
-        setTotalBarangPinjaman(barangPinjaman.length);
+        // Filter lebih lanjut untuk hanya barang dengan sisa waktu 3 hari atau kurang
+        const barangPinjamanMendekatiHabis = barangPinjaman.filter(
+          (item) =>
+            calculateRemainingBorrowTime(item.tanggal_akhir_pinjam) !== null
+        );
+
+        // Set jumlah barang pinjaman mendekati habis
+        setTotalBarangPinjaman(barangPinjamanMendekatiHabis.length);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -83,7 +102,7 @@ const TabelInventory = ({ inventoryData }) => {
 
                       <button
                         onClick={handleExportExcel}
-                        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-xl"
+                        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold w-full py-2 px-4 rounded-xl"
                       >
                         Export Excel
                       </button>
