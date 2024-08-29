@@ -17,6 +17,8 @@ import ItemInfo from "./Pages/Dashboard Pages/ItemInfo";
 import TabelInventory from "./Pages/Dashboard Pages/TabelInventory";
 import ProtectedRoute from "./ProtectedRoute";
 import Notification from "./Pages/Dashboard Pages/Notification";
+import InputInventaris from "./Pages/Dashboard Pages/InputInventaris";
+import TabelPengadaan from "./Pages/Dashboard Pages/TabelPengadaan";
 
 function Routers() {
   return (
@@ -90,6 +92,15 @@ function Routers() {
       />
 
       <Route
+        path="/tabel-pengadaan"
+        element={
+          <ProtectedRoute>
+            <TabelPengadaan />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
         path="/input-barang-masuk"
         element={
           <ProtectedRoute>
@@ -130,6 +141,15 @@ function Routers() {
         element={
           <ProtectedRoute>
             <InputBarang />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/input-inventaris"
+        element={
+          <ProtectedRoute>
+            <InputInventaris />
           </ProtectedRoute>
         }
       />

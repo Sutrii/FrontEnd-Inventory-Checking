@@ -24,6 +24,8 @@ const NavbarDashboard = () => {
         return "Input Inventaris";
       case "/notification":
         return "Tabel Sisa Masa Barang Pinjaman";
+      case "/tabel-pengadaan":
+        return "Tabel Pengadaan";
       default:
         return "Dashboard";
     }

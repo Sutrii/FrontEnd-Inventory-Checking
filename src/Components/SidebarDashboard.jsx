@@ -30,6 +30,7 @@ const SidebarDashboard = () => {
     else if (path.includes("input-barang-rusak"))
       setActiveTab("barangRusakInv");
     else if (path.includes("tabel-inventory")) setActiveTab("inputInventory");
+    else if (path.includes("tabel-pengadaan")) setActiveTab("pengadaan");
     else if (path.includes("input-barang")) setActiveTab("inputBarangInv");
     else if (path.includes("social-media")) setActiveTab("socialMedia");
     else if (path.includes("logout")) setActiveTab("logout");
@@ -57,7 +58,12 @@ const SidebarDashboard = () => {
             Menu
           </span>
         </div>
-        {["/dashboard", "/tabel-inventory", "/input-barang"].map((path) => (
+        {[
+          "/dashboard",
+          "/tabel-pengadaan",
+          "/tabel-inventory",
+          "/input-inventaris",
+        ].map((path) => (
           <NavLink
             key={path}
             to={path}
@@ -86,12 +92,15 @@ const SidebarDashboard = () => {
           >
             {path === "/dashboard" && <GiSettingsKnobs className="mr-2" />}
             {path === "/tabel-inventory" && <BsTruck className="mr-2" />}
-            {path === "/input-barang" && <VscListFlat className="mr-2" />}
+            {path === "/tabel-pengadaan" && <BsTruck className="mr-2" />}
+            {path === "/input-inventaris" && <VscListFlat className="mr-2" />}
             {/* Menambahkan ikon */}
             {path === "/dashboard"
               ? "Dashboard"
               : path === "/tabel-inventory"
               ? "Tabel Inventaris"
+              : path === "/tabel-pengadaan"
+              ? "Tabel Pengadaan"
               : "Input Inventaris"}
             {isActive(path) && (
               <span
